@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import Masthead from '../components/portfolio/Masthead.astro';
+import Toc from '../components/portfolio/Toc.astro';
+import WorkSection from '../components/portfolio/WorkSection.astro';
+import TrackSection from '../components/portfolio/TrackSection.astro';
+import AboutSection from '../components/portfolio/AboutSection.astro';
+import ContactSection from '../components/portfolio/ContactSection.astro';
+import Colophon from '../components/portfolio/Colophon.astro';
+---
+
+<Base
+  title="Eduardo Genes — Desenvolvedor Web"
+  description="Eduardo Genes, desenvolvedor web em Fortaleza. Front-end em primeiro lugar: React, Next.js, TypeScript."
+  canonical="https://edugenes.com.br/"
+  ogTitle="Eduardo Genes — Desenvolvedor Web"
+  ogDescription="Full stack com inclinação por front-end e UX. React, Next.js, TypeScript — Fortaleza, BR."
+  ogImage="https://edugenes.com.br/assets/og-portfolio.png"
+  bodyClass="intro"
+  bootCmd=""
+  bodyStyle='background-color: rgb(238, 238, 230); font-family: "Archivo"'
+>
+  <Masthead />
+  <Toc />
+  <WorkSection />
+  <TrackSection />
+  <AboutSection />
+  <ContactSection />
+  <Colophon />
+
+  {/* motores: scripts clássicos, código final — ordem importa (ver README) */}
+  <script is:inline src="/js/portfolio.data.js?v=2"></script>
+  <script is:inline src="/js/portfolio-v2.js"></script>
+  <script is:inline src="/js/portfolio-v2-motion.js"></script>
+  <script is:inline src="/js/portfolio-v2-scrollmotion.js"></script>
+  <script is:inline src="/js/portfolio-v2-devmode.js"></script>
+</Base>

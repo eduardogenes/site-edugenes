@@ -1,0 +1,25 @@
+{
+  "name": "edugenes-site",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portfólio de Eduardo Genes — identidade «Documento» (Astro + TypeScript)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eduardogenes/portfolio-t.git"
+  },
+  "homepage": "https://edugenes.com.br",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^6.4.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^6.0.3"
+  }
+}

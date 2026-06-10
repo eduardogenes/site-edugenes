@@ -1,5 +1,4 @@
-# fora do deploy
-README.md
-screenshots/
+# fora do upload de deploy (o build remoto só precisa de src/, public/ e configs)
 v1/
-dev-server.js
+screenshots/
+README.md

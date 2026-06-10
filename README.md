@@ -2,50 +2,58 @@
 
 Site pessoal do Eduardo Genes na identidade visual **«Documento»**: diagramado como uma proposta impressa, com tipografia industrial (Archivo + Newsreader) e uma camada pesada de motion design (boot de terminal, tipos móveis que caem, carimbo, coreografia de scroll).
 
-**100% estático** — HTML/CSS/JS vanilla, sem build, sem framework. A física das animações é JS puro com `requestAnimationFrame`.
+**Stack:** [Astro 6](https://astro.build) + TypeScript estrito, saída 100% estática — zero JS de framework no navegador. A física das animações é JS vanilla com `requestAnimationFrame`, carregada como scripts clássicos.
 
 ## Páginas / rotas
 
-| Rota | Arquivo | O quê |
+| Rota | Fonte | O quê |
 |---|---|---|
-| `/` | `index.html` | Portfólio (PT/EN) |
-| `/freela` | `freela.html` | Proposta comercial (B2B local) |
-| `/cv` | `cv.html` | Currículo imprimível (`noindex`) |
-| — | `404.html` | Página de erro temática (`noindex`) |
+| `/` | `src/pages/index.astro` | Portfólio (PT/EN) |
+| `/freela` | `src/pages/freela.astro` | Proposta comercial (B2B local) |
+| `/cv` | `src/pages/cv.astro` | Currículo imprimível (`noindex`) |
+| — | `src/pages/404.astro` | Página de erro temática (`noindex`) |
 
-Rotas limpas (`/freela`, `/cv`) e fallback de 404 são resolvidos pela Vercel via [`vercel.json`](vercel.json) (`cleanUrls`, deploy estático sem build).
+Rotas limpas e fallback de 404 são resolvidos pela Vercel ([`vercel.json`](vercel.json): preset Astro + `cleanUrls`; `build.format: 'file'` no [`astro.config.mjs`](astro.config.mjs) gera `freela.html`/`cv.html`).
 
 ## Estrutura
 
 ```
-index.html  freela.html  cv.html  404.html
-portfolio-v2.css                      sistema visual compartilhado
-portfolio-v2.js                       i18n PT/EN, render, relógio (tweaks congelados)
-portfolio-v2-motion.js                boot + abertura física do masthead
-portfolio-v2-scrollmotion.js          coreografia de scroll + botões magnéticos
-portfolio-v2-devmode.js               statusline vim + modo inspect (só no portfólio)
-portfolio.data.js                     dados dos projetos/experiência (PT/EN)
-retrato.png                           foto da seção "Sobre"
-assets/                               favicon, apple-touch-icon, OG, placeholder dos prints
-v1/                                   versão anterior (React + Vite + TS), arquivada
+src/
+├── layouts/Base.astro         head comum (SEO/OG, fontes, CSS) das páginas «Documento»
+├── components/portfolio/      Masthead · Toc · WorkSection · TrackSection ·
+│                              AboutSection · ContactSection · Colophon
+├── pages/                     index · freela · cv · 404
+└── types/global.d.ts          tipagem dos dados globais (window.FEATURED etc.)
+public/
+├── js/                        ⚠ motores de animação + dados — código final, intacto
+│   ├── portfolio.data.js      dados dos projetos/experiência (PT/EN)
+│   ├── portfolio-v2.js        i18n, render das fichas/ledger, relógio
+│   ├── portfolio-v2-motion.js boot + abertura física do masthead
+│   ├── portfolio-v2-scrollmotion.js  coreografia de scroll + botões magnéticos
+│   └── portfolio-v2-devmode.js       statusline vim + modo inspect (só no portfólio)
+├── portfolio-v2.css           sistema visual compartilhado (intacto)
+├── assets/                    favicon, OG cards, placeholder dos prints
+└── retrato.png
+v1/                            versão anterior (React + Vite + TS), arquivada
 ```
 
-Os arquivos `portfolio-v2*.{js,css}` e `portfolio.data.js` são código final — a física de mola foi calibrada à mão; não reescrever.
+### ⚠ Regra de ouro dos motores
 
-## Desenvolvimento local
+Os arquivos de `public/js/` e o `portfolio-v2.css` são **código final**: a física de mola (letras, carimbo, botões magnéticos) foi calibrada à mão, iterativamente. Eles funcionam lendo o DOM que os componentes Astro renderizam — **não reescrever como módulos/hooks/keyframes**, e não renomear as classes que eles esperam (`.masthead`, `.name .l1/.l2`, `.stamp`, `.sec-head`, `.lrow`, `.windex .wrow`, `.wa-cta`, `.bigmail`, `[data-screen-label]`…).
 
-Como é estático, basta servir a pasta. O repo traz um servidor de dev zero-dependências que reproduz o roteamento da Vercel (clean URLs + 404):
+## Desenvolvimento
 
 ```bash
-node dev-server.js          # http://localhost:3000
-node dev-server.js 8080     # porta alternativa
+npm install
+npm run dev        # dev server com HMR (http://localhost:4321)
+npm run build      # gera dist/
+npm run preview    # serve o dist/ localmente
+npm run check      # validação TypeScript/Astro
 ```
-
-(`npx serve .` também funciona; já `python3 -m http.server` serve os arquivos mas não resolve `/freela` → `freela.html`.)
 
 ## Prints dos projetos (pendente)
 
-As fichas de trabalho usam um placeholder em `assets/projetos/_placeholder.svg`. Para publicar os prints reais, basta soltar os arquivos em `assets/projetos/` com estes nomes — substituem o placeholder sem mexer no código:
+As fichas usam um placeholder (`public/assets/projetos/_placeholder.svg`). Para publicar os prints reais, basta soltar os arquivos em `public/assets/projetos/` com estes nomes — substituem o placeholder sem mexer no código:
 
 `shot-wviana.png` · `shot-llm.png` · `shot-garimpeiro.png` · `shot-mulheres.png` · `shot-hat.png` · `shot-orc.png`
 
