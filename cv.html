@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV — Eduardo Genes</title>
+<meta name="description" content="Currículo de Eduardo Genes, desenvolvedor full stack — React, Angular, TypeScript, Node. Fortaleza, BR.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#eeeee6; --ink:#181611; --ink-2:#5b564a; --red:#c92f12;
+    --f-disp:'Archivo',sans-serif; --f-serif:'Newsreader',serif;
+    --f-mono:ui-monospace,'SF Mono','Cascadia Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ink);font-family:var(--f-disp);color:var(--ink);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+  .page{max-width:880px;margin:34px auto;background:var(--paper);padding:54px 58px 44px;box-shadow:0 30px 80px -30px rgba(0,0,0,.55);}
+  a{color:inherit;text-decoration:none;}
+  a:hover{color:var(--red);}
+  :focus-visible{outline:2.5px solid var(--red);outline-offset:3px;}
+
+  .meta{display:flex;justify-content:space-between;gap:14px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);padding-bottom:12px;border-bottom:3.5px solid var(--ink);flex-wrap:wrap;}
+  h1{font-family:var(--f-disp);font-weight:900;font-stretch:118%;text-transform:uppercase;letter-spacing:-.015em;line-height:.92;font-size:clamp(44px,8vw,72px);margin:26px 0 6px;}
+  .role{font-family:var(--f-serif);font-style:italic;font-size:20px;color:var(--ink-2);margin:0 0 18px;}
+  .role b{color:var(--red);font-weight:500;}
+  .contacts{display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--f-mono);font-size:12px;letter-spacing:.03em;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:12px 0;margin-bottom:30px;}
+  .contacts span b{color:var(--red);font-weight:500;margin-right:6px;}
+
+  h2{font-family:var(--f-disp);font-weight:800;font-stretch:115%;text-transform:uppercase;font-size:14px;letter-spacing:.16em;margin:30px 0 4px;display:flex;align-items:center;gap:12px;}
+  h2::before{content:"";width:22px;height:3.5px;background:var(--red);}
+  h2 + *{margin-top:12px;}
+  .lead{font-family:var(--f-serif);font-size:16.5px;line-height:1.55;max-width:68ch;margin:12px 0 0;}
+
+  .job{display:grid;grid-template-columns:128px 1fr;gap:18px;padding:14px 0;border-top:1px dotted var(--ink-2);}
+  .job:first-of-type{border-top:0;}
+  .when{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.05em;color:var(--ink-2);padding-top:3px;}
+  .job h3{font-size:16.5px;font-weight:700;margin:0;}
+  .job .org{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;color:var(--red);margin:2px 0 7px;}
+  .job p{margin:0;font-size:14px;color:#33302a;max-width:64ch;}
+  .job ul{margin:7px 0 0;padding-left:17px;font-size:14px;color:#33302a;}
+  .job li{margin:3px 0;}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:0 44px;}
+  .ci{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-top:1px dotted var(--ink-2);font-size:14px;align-items:baseline;}
+  .ci:first-of-type{border-top:0;}
+  .ci b{font-weight:700;}
+  .ci small{display:block;color:var(--ink-2);font-size:12.5px;}
+  .ci .yr{font-family:var(--f-mono);font-size:11px;color:var(--ink-2);white-space:nowrap;}
+  .stack{font-size:14px;max-width:70ch;margin:0;}
+  .stack b{font-weight:700;}
+
+  .foot{margin-top:34px;border-top:3.5px solid var(--ink);padding-top:12px;display:flex;justify-content:space-between;gap:14px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);flex-wrap:wrap;}
+
+  .printbar{position:fixed;right:22px;bottom:22px;display:flex;gap:10px;}
+  .printbar a,.printbar button{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;background:var(--red);color:#fff;border:0;padding:12px 18px;cursor:pointer;}
+  .printbar a{background:transparent;color:var(--paper);border:1.5px solid var(--paper);}
+  .printbar button:hover{background:#a82408;}
+
+  @media (max-width:640px){
+    .page{padding:34px 22px;margin:0;}
+    .job{grid-template-columns:1fr;gap:4px;}
+    .cols{grid-template-columns:1fr;}
+  }
+  @page{size:A4;margin:11mm 12mm;}
+  @media print{
+    body{background:#fff;}
+    .page{margin:0;max-width:none;box-shadow:none;padding:8mm 4mm 0;}
+    .printbar{display:none;}
+    .job,.ci{break-inside:avoid;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+<main class="page" data-screen-label="CV">
+  <div class="meta">
+    <span>Currículo — rev. 06/2026</span>
+    <span>Fortaleza, CE — Brasil</span>
+  </div>
+
+  <h1>Eduardo Genes</h1>
+  <p class="role">Desenvolvedor full stack — <b>front-end e experiência do usuário em primeiro lugar.</b></p>
+
+  <div class="contacts">
+    <span><b>@</b><a href="mailto:eduardogenes95@gmail.com">eduardogenes95@gmail.com</a></span>
+    <span><b>tel</b><a href="tel:+5585981097155">+55 85 98109-7155</a></span>
+    <span><b>in</b><a href="https://linkedin.com/in/eduardogenes" target="_blank" rel="noopener">/in/eduardogenes</a></span>
+    <span><b>gh</b><a href="https://github.com/eduardogenes" target="_blank" rel="noopener">@eduardogenes</a></span>
+  </div>
+
+  <h2>Resumo</h2>
+  <p class="lead">Desenvolvedor full stack na IMTS Group, com inclinação assumida por front-end e UX. React, Angular, TypeScript e Node no dia a dia — da interface à API. Antes do código, quatro anos entre auditorias, hotelaria e dados, que viraram vantagem: penso no produto e em quem usa, não só no código. Inglês C1.</p>
+
+  <h2>Experiência</h2>
+  <div class="job">
+    <div class="when">08/2025 — atual</div>
+    <div>
+      <h3>Desenvolvedor Full Stack Trainee</h3>
+      <div class="org">IMTS Group — Fortaleza, CE</div>
+      <p>Plataforma educacional Método TRON — edtech multitenant vendida a colégios pelo Brasil, com correção de avaliações e geração de jogos por IA, gamificação e perfis por papel (aluno, professor, gestão).</p>
+      <ul>
+        <li>Encabeço a frente de UX/UI da plataforma: fluxos, padrões de interface e design das telas do aluno ao admin.</li>
+        <li>Desenvolvimento front (React, Angular, TypeScript, Tailwind, SCSS) e desafios full stack: APIs REST, regras de negócio, autenticação Google e permissões por nível.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="job">
+    <div class="when">2025 — atual</div>
+    <div>
+      <h3>Desenvolvedor Web — Freelance</h3>
+      <div class="org">clientes e projetos próprios</div>
+      <ul>
+        <li>W.VIANA Arquitetura: site institucional em produção — Next.js, domínio próprio, DNS, performance, SEO técnico (<a href="https://wvianaarquitetura.com.br" target="_blank" rel="noopener">wvianaarquitetura.com.br</a>).</li>
+        <li>Aplicações web de produto: dashboards, filtros avançados, protótipos com design system próprio.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="job">
+    <div class="when">03/2023 — 11/2024</div>
+    <div>
+      <h3>Analista de Gestão de Receitas</h3>
+      <div class="org">Nano Hotéis</div>
+      <p>Análise de dados entre operação e presença digital; criei uma ferramenta interna que automatizou cálculos de reservas, reduzindo erros e retrabalho, e mantive o site da rede.</p>
+    </div>
+  </div>
+  <div class="job">
+    <div class="when">02/2020 — 01/2023</div>
+    <div>
+      <h3>Articulador Fiscal</h3>
+      <div class="org">Casa Civil / COPOL — Governo do Ceará</div>
+      <p>Auditorias, organização documental e relatórios técnicos — base de atenção a detalhe e responsabilidade com prazos.</p>
+    </div>
+  </div>
+
+  <h2>Caixa de ferramentas</h2>
+  <p class="stack"><b>Linguagens &amp; front:</b> JavaScript · TypeScript · React · Next.js · Angular · Tailwind · SCSS · Vite&ensp;<b>Back &amp; dados:</b> Node.js · APIs REST · SQL / MySQL · Supabase&ensp;<b>Ferramentas:</b> Git · Figma · Vercel · Cloudflare · AWS</p>
+
+  <div class="cols">
+    <div>
+      <h2>Formação</h2>
+      <div class="ci"><span><b>Análise e Desenvolvimento de Sistemas</b><small>Universidade Estácio de Sá</small></span><span class="yr">jul/2026</span></div>
+      <div class="ci"><span><b>Inglês C1</b><small>leitura, escrita e conversação</small></span><span class="yr">—</span></div>
+    </div>
+    <div>
+      <h2>Certificações</h2>
+      <div class="ci"><span><b>AWS Cloud Practitioner</b><small>Escola da Nuvem · Amazon re/Start</small></span><span class="yr">2025</span></div>
+      <div class="ci"><span><b>Curso.dev</b><small>Filipe Deschamps</small></span><span class="yr">2025</span></div>
+      <div class="ci"><span><b>DevOps</b><small>Atlântico Avanti</small></span><span class="yr">2023</span></div>
+      <div class="ci"><span><b>Full-Stack Web</b><small>Infinity School</small></span><span class="yr">2022</span></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>portfólio completo: edugenes.com.br</span>
+    <span>rev. 06/2026 — feito à mão, como o resto</span>
+  </div>
+</main>
+
+<div class="printbar">
+  <a href="/">← portfólio</a>
+  <button onclick="window.print()">imprimir / salvar PDF</button>
+</div>
+</body>
+</html>

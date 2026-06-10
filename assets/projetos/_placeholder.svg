@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="264" viewBox="0 0 420 264" role="img" aria-label="Print do projeto — em breve">
+  <rect width="420" height="264" fill="#eeeee6"/>
+  <!-- moldura de documento -->
+  <rect x="10.5" y="10.5" width="399" height="243" fill="none" stroke="#181611" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- régua superior -->
+  <rect x="22" y="30" width="120" height="3" fill="#c92f12"/>
+  <!-- glifo de imagem -->
+  <g stroke="#181611" stroke-width="2" fill="none">
+    <rect x="160" y="92" width="100" height="72"/>
+    <circle cx="183" cy="114" r="9" fill="#c92f12" stroke="none"/>
+    <path d="M160 152 L196 122 L222 142 L244 124 L260 140"/>
+  </g>
+  <!-- legenda -->
+  <text x="210" y="196" text-anchor="middle" fill="#181611" font-family="ui-monospace,'SF Mono','Cascadia Mono',Menlo,monospace" font-size="13" letter-spacing="2" font-weight="600">PRINT DO PROJETO</text>
+  <text x="210" y="216" text-anchor="middle" fill="#5b564a" font-family="ui-monospace,'SF Mono','Cascadia Mono',Menlo,monospace" font-size="10.5" letter-spacing="3">— EM BREVE —</text>
+  <!-- carimbo de canto -->
+  <text x="398" y="244" text-anchor="end" fill="#c92f12" font-family="Newsreader,Georgia,serif" font-style="italic" font-size="12">aguardando arte</text>
+</svg>
