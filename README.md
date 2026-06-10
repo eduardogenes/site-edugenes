@@ -41,6 +41,8 @@ v1/                            versão anterior (React + Vite + TS), arquivada
 
 Os arquivos de `public/js/` e o `portfolio-v2.css` são **código final**: a física de mola (letras, carimbo, botões magnéticos) foi calibrada à mão, iterativamente. Eles funcionam lendo o DOM que os componentes Astro renderizam — **não reescrever como módulos/hooks/keyframes**, e não renomear as classes que eles esperam (`.masthead`, `.name .l1/.l2`, `.stamp`, `.sec-head`, `.lrow`, `.windex .wrow`, `.wa-cta`, `.bigmail`, `[data-screen-label]`…).
 
+Divergência deliberada do bundle de design (jun/2026, calibrada com o Eduardo): os ímãs (letras do título, `.bigmail`, `.wa-cta`) ganharam **massa** (`m`) e a **tremida de reacomodação** — ruído zero-média em X/Y/rotação injetado nas molas enquanto o cursor se move, proporcional à velocidade × proximidade. Botões de calibração nos motores: ganhos `1300`/`850`, sensibilidade `/900`, decaimento ~110 ms, massa `m = 1.5`.
+
 ## Desenvolvimento
 
 ```bash

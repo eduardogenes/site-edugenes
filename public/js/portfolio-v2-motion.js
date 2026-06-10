@@ -141,10 +141,20 @@
     /* ---- magnetic idle state ---- */
     var magnetOn = false;
     var mag = chs.map(function (ch) {
-      return { w: ch.parentNode, ty: 0, vy: 0, tr: 0, vr: 0, gy: 0, gr: 0 };
+      return { w: ch.parentNode, tx: 0, vx: 0, ty: 0, vy: 0, tr: 0, vr: 0, gy: 0, gr: 0 };
     });
-    var mouse = { x: -9999, y: -9999 };
-    window.addEventListener('mousemove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+    /* spd: velocidade do cursor (px/s) — alimenta a tremida do ímã */
+    var mouse = { x: -9999, y: -9999, spd: 0, lt: 0 };
+    window.addEventListener('mousemove', function (e) {
+      var now = performance.now();
+      if (mouse.x > -9000) {
+        var mdt = Math.max(8, now - mouse.lt);
+        var ddx = e.clientX - mouse.x, ddy = e.clientY - mouse.y;
+        mouse.spd = Math.min(1400, Math.sqrt(ddx * ddx + ddy * ddy) / mdt * 1000);
+      }
+      mouse.lt = now;
+      mouse.x = e.clientX; mouse.y = e.clientY;
+    }, { passive: true });
 
     function spawnInk() {
       var r = stamp.getBoundingClientRect();
@@ -325,6 +335,8 @@
       if (t >= T_MAGNET) {
         if (!magnetOn) { magnetOn = true; body.classList.remove('intro'); }
         var anyMag = false;
+        /* a velocidade do cursor decai sozinha — tremida morre quando o mouse para */
+        mouse.spd *= Math.exp(-9 * dt);
         mag.forEach(function (M) {
           var r = M.w.getBoundingClientRect();
           var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
@@ -333,12 +345,24 @@
           var R = 170, on = !window.__v2NoMagnet;
           M.gy = (on && d < R) ? -9 * (1 - d / R) : 0;
           M.gr = (on && d < R) ? (dx / R) * 5 * (1 - d / R) : 0;
-          var k = 160, c = 18;
-          M.vy += (k * (M.gy - M.ty) - c * M.vy) * dt; M.ty += M.vy * dt;
-          M.vr += (k * (M.gr - M.tr) - c * M.vr) * dt; M.tr += M.vr * dt;
-          if (Math.abs(M.ty) > 0.05 || Math.abs(M.tr) > 0.05 || M.gy !== 0) {
+          /* tremida do ímã se reacomodando: mouse em movimento injeta ruído
+             (X, Y e rotação) nas letras dentro do raio; quanto mais perto e
+             mais rápido, mais agitação. Zero-média: não desloca a pose. */
+          var agit = (on && d < R) ? Math.min(1, mouse.spd / 900) * (1 - d / R) : 0;
+          if (agit > 0.02) {
+            M.vx += (Math.random() * 2 - 1) * 1300 * agit * dt;
+            M.vy += (Math.random() * 2 - 1) * 1300 * agit * dt;
+            M.vr += (Math.random() * 2 - 1) * 850 * agit * dt;
+          }
+          /* m: massa da letra — tipo móvel de chumbo. >1 = acelera com atraso,
+             escorrega atrás do cursor e assenta balançando (subamortecido). */
+          var k = 160, c = 18, m = 1.2;
+          M.vx += ((k * (0 - M.tx) - c * M.vx) / m) * dt; M.tx += M.vx * dt;
+          M.vy += ((k * (M.gy - M.ty) - c * M.vy) / m) * dt; M.ty += M.vy * dt;
+          M.vr += ((k * (M.gr - M.tr) - c * M.vr) / m) * dt; M.tr += M.vr * dt;
+          if (Math.abs(M.tx) > 0.05 || Math.abs(M.ty) > 0.05 || Math.abs(M.tr) > 0.05 || M.gy !== 0) {
             anyMag = true;
-            M.w.style.transform = 'translateY(' + M.ty.toFixed(2) + 'px) rotate(' + M.tr.toFixed(2) + 'deg)';
+            M.w.style.transform = 'translate(' + M.tx.toFixed(2) + 'px,' + M.ty.toFixed(2) + 'px) rotate(' + M.tr.toFixed(2) + 'deg)';
           } else if (M.w.style.transform) { M.w.style.transform = ''; }
         });
         if (anyMag) busy = true;

@@ -75,8 +75,18 @@
   }).observe(document.body, { childList: true, subtree: true });
 
   /* ---------- 3 · botões magnéticos (mola amortecida) ---------- */
-  var mouse = { x: -9999, y: -9999 };
-  window.addEventListener('mousemove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+  /* spd: velocidade do cursor (px/s) — alimenta a tremida do ímã */
+  var mouse = { x: -9999, y: -9999, spd: 0, lt: 0 };
+  window.addEventListener('mousemove', function (e) {
+    var now = performance.now();
+    if (mouse.x > -9000) {
+      var mdt = Math.max(8, now - mouse.lt);
+      var ddx = e.clientX - mouse.x, ddy = e.clientY - mouse.y;
+      mouse.spd = Math.min(1400, Math.sqrt(ddx * ddx + ddy * ddy) / mdt * 1000);
+    }
+    mouse.lt = now;
+    mouse.x = e.clientX; mouse.y = e.clientY;
+  }, { passive: true });
 
   function magnetize(el, strength, radius) {
     var x = 0, y = 0, vx = 0, vy = 0, rot = 0, vr = 0, running = false, last = 0;
@@ -97,6 +107,15 @@
       var near = d < R && !document.body.classList.contains('no-scrollfx');
       var tx = near ? Math.max(-16, Math.min(16, dx * strength)) : 0;
       var ty = near ? Math.max(-10, Math.min(10, dy * strength)) : 0;
+      /* tremida do ímã se reacomodando (mesma física das letras do título):
+         mouse em movimento injeta ruído zero-média; morre quando ele para */
+      var spdNow = mouse.spd * Math.exp(-(now - mouse.lt) / 110);
+      var agit = near ? Math.min(1, spdNow / 900) * (1 - d / R) : 0;
+      if (agit > 0.02) {
+        vx += (Math.random() * 2 - 1) * 1300 * agit * dt;
+        vy += (Math.random() * 2 - 1) * 1300 * agit * dt;
+        vr += (Math.random() * 2 - 1) * 850 * agit * dt;
+      }
       var k = 170, c = 16;
       vx += (k * (tx - x) - c * vx) * dt; x += vx * dt;
       vy += (k * (ty - y) - c * vy) * dt; y += vy * dt;
