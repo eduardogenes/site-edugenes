@@ -34,11 +34,14 @@ Os arquivos `portfolio-v2*.{js,css}` e `portfolio.data.js` são código final �
 
 ## Desenvolvimento local
 
-Como é estático, basta servir a pasta. Para reproduzir o roteamento da Vercel (clean URLs + 404):
+Como é estático, basta servir a pasta. O repo traz um servidor de dev zero-dependências que reproduz o roteamento da Vercel (clean URLs + 404):
 
 ```bash
-npx serve .        # ou: python3 -m http.server
+node dev-server.js          # http://localhost:3000
+node dev-server.js 8080     # porta alternativa
 ```
+
+(`npx serve .` também funciona; já `python3 -m http.server` serve os arquivos mas não resolve `/freela` → `freela.html`.)
 
 ## Prints dos projetos (pendente)
 
