@@ -36,6 +36,13 @@
       return;
     }
 
+    /* troca de idioma (botões reais desde a revisão de a11y) */
+    var lb = t.closest('#lang-pt, #lang-en');
+    if (lb) {
+      track('lang_switch', { to: lb.id === 'lang-pt' ? 'pt' : 'en' });
+      return;
+    }
+
     var a = t.closest('a');
     if (!a) return;
 
@@ -56,9 +63,6 @@
       return;
     }
 
-    /* troca de idioma */
-    if (a.id === 'lang-pt') track('lang_switch', { to: 'pt' });
-    else if (a.id === 'lang-en') track('lang_switch', { to: 'en' });
   }, { passive: true });
 
   /* ---------- scroll depth — marcos 50/90, uma vez por pageview ----------

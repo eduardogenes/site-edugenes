@@ -17,7 +17,7 @@
     '<span class="file">~/eduardo-genes/portfolio.html</span>' +
     '<span class="sect">§ masthead</span>' +
     '<span class="sp"></span>' +
-    '<button class="hint" type="button">[i] inspecionar</button>' +
+    '<button class="hint" type="button" tabindex="-1">[i] inspecionar</button>' +
     '<span class="dim pct">0%</span>' +
     '<span class="dim dims"></span>' +
     '<span class="dim">utf-8</span>' +

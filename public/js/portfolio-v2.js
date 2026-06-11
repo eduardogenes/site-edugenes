@@ -248,6 +248,8 @@
     });
     document.getElementById('lang-pt').classList.toggle('on', lang === 'pt');
     document.getElementById('lang-en').classList.toggle('on', lang === 'en');
+    document.getElementById('lang-pt').setAttribute('aria-pressed', String(lang === 'pt'));
+    document.getElementById('lang-en').setAttribute('aria-pressed', String(lang === 'en'));
     renderWork(); renderLedger(); renderCreds(); renderAbout(); tick();
   }
 
