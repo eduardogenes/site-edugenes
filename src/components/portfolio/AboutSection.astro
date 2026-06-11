@@ -1,14 +1,19 @@
 ---
-/* 03 Sobre. #about-txt é renderizado no cliente (i18n); a foto é tratada
-   por filtro CSS conforme o tweak congelado (photo-pb no body). */
+/* 03 Sobre. Texto pré-renderizado (PT) de src/data/portfolio.ts; marcação
+   espelha renderAbout() de portfolio-v2.js (re-render só na troca de idioma).
+   A foto é tratada por filtro CSS conforme o tweak congelado (photo-pb). */
+import { ABOUT, STACKLINE, t } from '../../data/portfolio';
 ---
 
 <section class="sec sheet" id="sobre" data-screen-label="03 Sobre">
   <div class="sec-head">
-    <h2><span class="no">03</span><span data-i18n="toc.3">Sobre</span></h2>
+    <h2><span class="no">03</span><span data-i18n="toc.3">{t('toc.3')}</span></h2>
   </div>
   <div class="about2">
-    <div class="txt" id="about-txt"></div>
+    <div class="txt" id="about-txt">
+      {ABOUT.pt.map((p) => <p set:html={p} />)}
+      <p class="stackline" set:html={STACKLINE.pt} />
+    </div>
     <figure class="fig">
       <picture>
         <source srcset="/retrato.avif" type="image/avif" />

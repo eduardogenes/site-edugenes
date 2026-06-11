@@ -1,12 +1,79 @@
 ---
-/* 01 Trabalhos. O conteúdo de #windex é renderizado no cliente por
-   portfolio-v2.js a partir de portfolio.data.js (i18n PT/EN). */
+/* 01 Trabalhos. As fichas saem pré-renderizadas (PT) de src/data/portfolio.ts;
+   a marcação espelha exatamente o renderWork() de portfolio-v2.js, que só
+   re-renderiza #windex na troca de idioma. */
+import { FEATURED, SECONDARY, WMETA, t, pt } from '../../data/portfolio';
+
+const entries = [
+  ...FEATURED.map((p) => ({
+    id: p.id,
+    title: pt(p.title),
+    desc: pt(p.desc),
+    tags: p.tags,
+    links: p.links,
+    slot: p.slot,
+    nda: p.id === 'llm',
+  })),
+  ...SECONDARY.map((p, i) => ({
+    id: i === 0 ? 'hat' : 'orc',
+    title: pt(p.title),
+    desc: pt(p.desc),
+    tags: p.tags,
+    links: [{ kind: 'code' as const, href: p.href }],
+    slot: i === 0 ? 'shot-hat' : 'shot-orc',
+    nda: false,
+  })),
+];
+const linkLabel = { live: t('w.live'), code: t('w.code') };
 ---
 
 <section class="sec sheet" id="trabalhos" data-screen-label="01 Trabalhos">
   <div class="sec-head">
-    <h2><span class="no">01</span><span data-i18n="toc.1">Trabalhos</span></h2>
-    <p class="note" data-i18n="w.note">Clique numa linha para abrir a ficha do projeto.</p>
+    <h2><span class="no">01</span><span data-i18n="toc.1">{t('toc.1')}</span></h2>
+    <p class="note" data-i18n="w.note">{t('w.note')}</p>
   </div>
-  <div class="windex" id="windex"></div>
+  <div class="windex" id="windex">
+    {
+      entries.map((p, i) => (
+        <div class="wrow">
+          <button class="wrow-btn" aria-expanded="false">
+            <span class="no">{String(i + 1).padStart(2, '0')}</span>
+            <span class="ti">{p.title}</span>
+            <span class="ty">{pt(WMETA[p.id]?.ty) ?? ''}</span>
+            <span class="yr">{WMETA[p.id]?.yr ?? ''}</span>
+            <span class="pm">+</span>
+          </button>
+          <div class="wbody">
+            <div class="wbody-in">
+              <img
+                class="wshot"
+                id={p.slot}
+                src={`/assets/projetos/${p.slot}.png`}
+                alt={`Print do projeto: ${p.title}`}
+                loading="lazy"
+                decoding="async"
+                {...{ onerror: "this.onerror=null;this.src='/assets/projetos/_placeholder.svg'" }}
+              />
+              <div>
+                <p class="wdesc">{p.desc}</p>
+                <p class="wstack">{p.tags.join(' · ')}</p>
+                {p.links.some((l) => l.kind === 'live' || l.kind === 'code') && (
+                  <div class="wlinks">
+                    {p.links
+                      .filter((l) => l.kind === 'live' || l.kind === 'code')
+                      .map((l) => (
+                        <a href={l.href} target="_blank" rel="noopener">
+                          {linkLabel[l.kind as 'live' | 'code']}
+                        </a>
+                      ))}
+                  </div>
+                )}
+                {p.nda && <p class="wnote">{t('w.nda')}</p>}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
 </section>

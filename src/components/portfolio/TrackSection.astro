@@ -1,17 +1,63 @@
 ---
-/* 02 Trajetória. #ledger, #edu2 e #cert2 são renderizados no cliente
-   por portfolio-v2.js a partir de portfolio.data.js. */
+/* 02 Trajetória. Ledger e credenciais pré-renderizados (PT) de
+   src/data/portfolio.ts; marcação espelha renderLedger()/renderCreds()
+   de portfolio-v2.js, que só re-renderiza na troca de idioma. */
+import { EXPERIENCE, EDUCATION, CERTS, t, pt } from '../../data/portfolio';
 ---
 
 <section class="sec sheet" id="trajetoria" data-screen-label="02 Trajetória">
   <div class="sec-head">
-    <h2><span class="no">02</span><span data-i18n="toc.2">Trajetória</span></h2>
-    <p class="note" data-i18n="x.note">Operação, dados e processos antes do código — virou vantagem.</p>
+    <h2><span class="no">02</span><span data-i18n="toc.2">{t('toc.2')}</span></h2>
+    <p class="note" data-i18n="x.note">{t('x.note')}</p>
   </div>
-  <div class="ledger" id="ledger"></div>
+  <div class="ledger" id="ledger">
+    {
+      EXPERIENCE.map((x) => (
+        <div class="lrow">
+          <div class="lw">{pt(x.whenL)}</div>
+          <div>
+            <h3>{pt(x.role)}</h3>
+            <div class="org">{pt(x.org)}</div>
+            <p>{pt(x.desc)}</p>
+          </div>
+          <div class="lm">{x.tag ? `→ ${pt(x.tag)}` : ''}</div>
+        </div>
+      ))
+    }
+  </div>
 
   <div class="creds2">
-    <div><h4 data-i18n="x.edu">Formação</h4><div id="edu2"></div></div>
-    <div><h4 data-i18n="x.cert">Certificações &amp; cursos</h4><div id="cert2"></div></div>
+    <div>
+      <h4 data-i18n="x.edu">{t('x.edu')}</h4>
+      <div id="edu2">
+        {
+          EDUCATION.map((it) => (
+            <div class="citem">
+              <div>
+                <div class="cm">{pt(it.main)}</div>
+                <div class="cs">{pt(it.sub)}</div>
+              </div>
+              <div class="cy">{pt(it.year)}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div>
+      <h4 data-i18n="x.cert">{t('x.cert')}</h4>
+      <div id="cert2">
+        {
+          CERTS.map((it) => (
+            <div class="citem">
+              <div>
+                <div class="cm">{pt(it.main)}</div>
+                <div class="cs">{pt(it.sub)}</div>
+              </div>
+              <div class="cy">{pt(it.year)}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </section>

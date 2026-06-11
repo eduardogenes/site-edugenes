@@ -1,21 +1,19 @@
 ---
-/* Colofão. #to-top é ligado por portfolio-v2.js. */
+/* Colofão. Texto vem do dicionário único (src/data/portfolio.ts).
+   #to-top é ligado por portfolio-v2.js. */
+import { t } from '../../data/portfolio';
 ---
 
 <footer class="colophon sheet" data-screen-label="Colofão">
   <div class="in">
-    <p data-i18n="f.colo">
-      Tipografia: Archivo &amp; Newsreader · HTML, CSS e JS escritos à mão — sem framework de UI, sem template ·
-      Rev. 02, junho de 2026 · Fortaleza, Brasil
-    </p>
+    <p data-i18n="f.colo">{t('f.colo')}</p>
     <p>
       <a href="/freela" data-umami-event="freela_nav" data-umami-event-from="home"
         >tem um negócio? proposta pra empresas →</a
       >
     </p>
-    <p class="metrics-note" data-i18n="f.metrics">
-      métricas anônimas e sem cookies (Umami) — nenhum dado pessoal é coletado
-    </p>
-    <p><button type="button" id="to-top" data-i18n="f.top">↑ voltar ao topo</button></p>
+    <p class="metrics-note" data-i18n="f.metrics">{t('f.metrics')}</p>
   </div>
+  {/* aba flutuante (position:fixed) — fora do fluxo do colofão */}
+  <button type="button" id="to-top" data-i18n="f.top">{t('f.top')}</button>
 </footer>

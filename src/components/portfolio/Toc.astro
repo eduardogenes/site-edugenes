@@ -1,38 +1,40 @@
 ---
-/* Índice. Contrato: .toc li (cascata da abertura), .leader/.pg (hover do scrollmotion). */
+/* Índice. Texto vem do dicionário único (src/data/portfolio.ts).
+   Contrato: .toc li (cascata da abertura), .leader/.pg (hover do scrollmotion). */
+import { t } from '../../data/portfolio';
 ---
 
 <nav class="toc sheet" data-screen-label="Índice">
   <ol>
     <li>
       <a href="#trabalhos"
-        ><span class="no">01</span><span data-i18n="toc.1">Trabalhos</span><span class="leader"></span><span
+        ><span class="no">01</span><span data-i18n="toc.1">{t('toc.1')}</span><span class="leader"></span><span
           class="pg"
-          data-i18n="toc.1n">6 fichas</span
+          data-i18n="toc.1n">{t('toc.1n')}</span
         ></a
       >
     </li>
     <li>
       <a href="#trajetoria"
-        ><span class="no">02</span><span data-i18n="toc.2">Trajetória</span><span class="leader"></span><span
+        ><span class="no">02</span><span data-i18n="toc.2">{t('toc.2')}</span><span class="leader"></span><span
           class="pg"
-          data-i18n="toc.2n">4 períodos</span
+          data-i18n="toc.2n">{t('toc.2n')}</span
         ></a
       >
     </li>
     <li>
       <a href="#sobre"
-        ><span class="no">03</span><span data-i18n="toc.3">Sobre</span><span class="leader"></span><span
+        ><span class="no">03</span><span data-i18n="toc.3">{t('toc.3')}</span><span class="leader"></span><span
           class="pg"
-          data-i18n="toc.3n">1 pessoa</span
+          data-i18n="toc.3n">{t('toc.3n')}</span
         ></a
       >
     </li>
     <li>
       <a href="#contato"
-        ><span class="no">04</span><span data-i18n="toc.4">Contato</span><span class="leader"></span><span
+        ><span class="no">04</span><span data-i18n="toc.4">{t('toc.4')}</span><span class="leader"></span><span
           class="pg"
-          data-i18n="toc.4n">4 canais</span
+          data-i18n="toc.4n">{t('toc.4n')}</span
         ></a
       >
     </li>
