@@ -260,7 +260,16 @@
 
   /* ---------- init ---------- */
   function init() {
-    try { var sl = localStorage.getItem('eg2_lang'); if (sl === 'pt' || sl === 'en') lang = sl; } catch (e) {}
+    try {
+      var sl = localStorage.getItem('eg2_lang');
+      if (sl === 'pt' || sl === 'en') {
+        lang = sl; // preferência manual prevalece sempre
+      } else {
+        // primeira visita: detecta pelo idioma do navegador
+        var bl = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+        if (bl.toLowerCase().startsWith('en')) lang = 'en';
+      }
+    } catch (e) {}
     splitName();
     if (lang === 'pt') {
       /* PT já vem pré-renderizado no build (HTML idêntico ao que o applyLang
