@@ -1,4 +1,4 @@
-# edugenes.com.br — portfólio «Documento» (v2)
+# edugenes.dev — portfólio «Documento» (v2)
 
 Site pessoal do Eduardo Genes na identidade visual **«Documento»**: diagramado como uma proposta impressa, com tipografia industrial (Archivo + Newsreader) e uma camada pesada de motion design (boot de terminal, tipos móveis que caem, carimbo, coreografia de scroll).
 
@@ -80,7 +80,7 @@ Regras: nomes `objeto_acao` em snake_case, ≤ 2 props por evento, **nunca PII e
 
 SEO: `robots.txt` + sitemap (`@astrojs/sitemap`, sem `/cv`) + JSON-LD (`Person` na home,
 `ProfessionalService` na /freela). Falta (manual): verificar o domínio no Google Search Console
-e submeter `https://edugenes.com.br/sitemap-index.xml`.
+e submeter `https://edugenes.dev/sitemap-index.xml`.
 
 Fontes: self-hosted em `public/fonts/` (latin + latin-ext baixados da URL css2 original do
 Google Fonts, eixos variáveis preservados — `font-stretch` do Archivo incluso). Para alterar
@@ -98,7 +98,7 @@ Links divulgados fora do site devem carregar UTM — sem isso tudo vira "tráfeg
 | Assinatura de e-mail  | `email`      | `assinatura` |
 | Perfil LinkedIn       | `linkedin`   | `bio`        |
 
-Ex.: `https://edugenes.com.br/freela?utm_source=instagram&utm_medium=bio`
+Ex.: `https://edugenes.dev/freela?utm_source=instagram&utm_medium=bio`
 
 ## Prints dos projetos (pendente)
 

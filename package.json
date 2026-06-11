@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/eduardogenes/portfolio-t.git"
   },
-  "homepage": "https://edugenes.com.br",
+  "homepage": "https://edugenes.dev",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

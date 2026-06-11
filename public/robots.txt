@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://edugenes.com.br/sitemap-index.xml
+Sitemap: https://edugenes.dev/sitemap-index.xml
