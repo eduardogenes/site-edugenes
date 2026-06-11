@@ -7,6 +7,22 @@ import TrackSection from '../components/portfolio/TrackSection.astro';
 import AboutSection from '../components/portfolio/AboutSection.astro';
 import ContactSection from '../components/portfolio/ContactSection.astro';
 import Colophon from '../components/portfolio/Colophon.astro';
+import { FEATURED, SECONDARY, EXPERIENCE, EDUCATION, CERTS, WMETA, S, ABOUT, STACKLINE } from '../data/portfolio';
+
+/* serializa a fonte única pro motor (re-render na troca de idioma);
+   < evita fechar o <script> com conteúdo que contenha "</" */
+const json = (v: unknown) => JSON.stringify(v).replace(/</g, '\\u003c');
+const dataScript = [
+  `window.FEATURED=${json(FEATURED)}`,
+  `window.SECONDARY=${json(SECONDARY)}`,
+  `window.EXPERIENCE=${json(EXPERIENCE)}`,
+  `window.EDUCATION=${json(EDUCATION)}`,
+  `window.CERTS=${json(CERTS)}`,
+  `window.EG_WMETA=${json(WMETA)}`,
+  `window.EG_I18N=${json(S)}`,
+  `window.EG_ABOUT=${json(ABOUT)}`,
+  `window.EG_STACKLINE=${json(STACKLINE)}`,
+].join(';');
 
 const personSchema = {
   '@context': 'https://schema.org',
@@ -27,13 +43,16 @@ const personSchema = {
   ogTitle="Eduardo Genes — Desenvolvedor Web"
   ogDescription="Full stack com inclinação por front-end e UX. React, Next.js, TypeScript — Fortaleza, BR."
   ogImage="https://edugenes.dev/assets/og-portfolio.png"
-  bodyClass="intro"
   bootCmd=""
   bodyStyle='background-color: rgb(238, 238, 230); font-family: "Archivo"'
 >
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)} />
   </Fragment>
+
+  {/* .intro (esconde tudo até a abertura) só entra com JS ligado — sem JS,
+      o conteúdo pré-renderizado fica visível em vez de uma página em branco */}
+  <script is:inline>document.body.classList.add('intro');</script>
 
   <Masthead />
   <Toc />
@@ -43,8 +62,9 @@ const personSchema = {
   <ContactSection />
   <Colophon />
 
-  {/* motores: scripts clássicos, código final — ordem importa (ver README) */}
-  <script is:inline src="/js/portfolio.data.js?v=2"></script>
+  {/* motores: scripts clássicos, código final — ordem importa (ver README).
+      Os dados (fonte única em src/data/portfolio.ts) vão serializados inline. */}
+  <script is:inline set:html={dataScript} />
   <script is:inline src="/js/portfolio-v2.js"></script>
   <script is:inline src="/js/portfolio-v2-motion.js"></script>
   <script is:inline src="/js/portfolio-v2-scrollmotion.js"></script>

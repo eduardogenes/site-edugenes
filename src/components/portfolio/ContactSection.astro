@@ -1,14 +1,14 @@
 ---
-/* 04 Contato. .bigmail é o botão magnético do scrollmotion. */
+/* 04 Contato. Texto vem do dicionário único (src/data/portfolio.ts).
+   .bigmail é o botão magnético do scrollmotion. */
+import { t } from '../../data/portfolio';
 ---
 
 <section class="sec sheet" id="contato" data-screen-label="04 Contato">
   <div class="sec-head">
-    <h2><span class="no">04</span><span data-i18n="toc.4">Contato</span></h2>
+    <h2><span class="no">04</span><span data-i18n="toc.4">{t('toc.4')}</span></h2>
   </div>
-  <p class="contact2-lead" data-i18n="c.lead">
-    Sem formulário — mensagem boa não merece morrer num inbox de formulário. Me escreve direto:
-  </p>
+  <p class="contact2-lead" data-i18n="c.lead">{t('c.lead')}</p>
   <div class="contact2">
     <a
       class="bigmail"
@@ -39,11 +39,11 @@
       </li>
       <li>
         <a href="tel:+5585981097155" data-umami-event="phone_click"
-          ><span class="k" data-i18n="c.phone">Telefone</span><span>+55 85 98109-7155</span></a
+          ><span class="k" data-i18n="c.phone">{t('c.phone')}</span><span>+55 85 98109-7155</span></a
         >
       </li>
       <li>
-        <a href="/cv"><span class="k">CV</span><span data-i18n="c.cv">versão pra imprimir →</span></a>
+        <a href="/cv"><span class="k">CV</span><span data-i18n="c.cv">{t('c.cv')}</span></a>
       </li>
     </ul>
   </div>

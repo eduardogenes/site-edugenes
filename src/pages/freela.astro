@@ -1,6 +1,89 @@
 ---
 import Base from '../layouts/Base.astro';
 
+/* link único do WhatsApp (mensagem pré-preenchida) — masthead, CTA e FAQ */
+const WA_LINK =
+  'https://wa.me/5585981097155?text=Oi%2C%20Eduardo!%20Tenho%20um%20neg%C3%B3cio%20e%20quero%20uma%20proposta.%20Ele%20%C3%A9%20assim%3A%20';
+
+/* Anexo A — FAQ. Mesma fonte alimenta a marcação e o schema FAQPage. */
+const faq = [
+  {
+    q: 'Quanto custa?',
+    a: 'Depende do tamanho do projeto — uma landing page simples custa bem menos que uma loja completa. Por isso todo projeto começa com uma proposta fechada: você me conta o que precisa e recebe escopo, prazo e valor por escrito, sem compromisso. Nada muda no meio do caminho e não existe mensalidade escondida.',
+  },
+  {
+    q: 'Como funciona o pagamento?',
+    a: 'Fica definido na proposta, antes de qualquer cobrança. O formato mais comum é uma parte no início, pra reservar a agenda, e o restante na entrega, com o site já no ar. Projetos maiores podem ser divididos por etapa.',
+  },
+  {
+    q: 'Quanto tempo demora?',
+    a: 'Uma landing page sai a partir de 3 dias. Site completo, de 1 a 3 semanas. Loja ou catálogo, de 2 a 4. Sistemas sob medida ganham cronograma próprio na proposta — e você acompanha tudo crescendo por um link de prévia.',
+  },
+  {
+    q: 'E depois que o site está no ar?',
+    a: 'Você não fica na mão: a entrega inclui treinamento pra você mexer no que precisa e suporte pós-entrega pra ajustes. E se quiser alguém cuidando sempre — conteúdo, melhorias, velocidade — existe o formato de manutenção, por demanda ou combo mensal.',
+  },
+  {
+    q: 'O site fica meu?',
+    a: 'Fica. O domínio é registrado no seu nome e o site e o conteúdo são seus. Se um dia quiser seguir com outra pessoa, leva tudo — sem aluguel de plataforma e sem ficar refém de ninguém.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+/* 01 Serviços — pré-renderizados no build (meta/proof carregam HTML).
+   A marcação espelha o padrão .wrow do portfólio; o script da página
+   só liga o abre/fecha. */
+interface Servico {
+  ti: string;
+  ty: string;
+  yr: string;
+  desc: string;
+  deliv: string[];
+  meta: string;
+  proof?: string;
+}
+const SVC: Servico[] = [
+  {
+    ti: 'Site pro seu negócio', ty: 'ser encontrado e passar confiança', yr: 'carro-chefe',
+    desc: 'O cartão de visita que trabalha 24h: quem te procura no Google encontra um site bonito, rápido no celular e com suas informações certas.',
+    deliv: ['Design feito pra sua marca — nada de template', 'Perfeito no celular, onde seu cliente está', 'Google encontrando seu negócio (SEO básico)', 'Domínio, hospedagem e publicação incluídos', 'Botão de WhatsApp direto pro seu atendimento'],
+    meta: 'Prazo típico: <b>1 a 3 semanas</b>, conforme o tamanho', proof: '<a href="https://wvianaarquitetura.com.br" target="_blank" rel="noopener">veja um no ar: wvianaarquitetura.com.br ↗</a>'
+  },
+  {
+    ti: 'Landing page', ty: 'campanha, lançamento, captação', yr: 'mais rápido',
+    desc: 'Uma página, um objetivo: transformar visitante em contato. Pra anúncio, promoção, evento ou captação de clientes.',
+    deliv: ['Texto e design focados em conversão', 'Formulário ou WhatsApp como destino', 'Métricas: você sabe quantos clicaram', 'Publicada e rodando — pronta pra receber tráfego'],
+    meta: 'Prazo típico: <b>a partir de 3 dias</b>'
+  },
+  {
+    ti: 'Loja & catálogo', ty: 'vitrine com pedidos', yr: 'vendas',
+    desc: 'Seu catálogo organizado, com fotos e preços, e o pedido caindo direto no seu WhatsApp — ou com pagamento online, se fizer sentido.',
+    deliv: ['Catálogo que você mesmo atualiza', 'Pedidos via WhatsApp ou checkout com pagamento', 'Frete, variações e promoções conforme o caso'],
+    meta: 'Prazo típico: <b>2 a 4 semanas</b>'
+  },
+  {
+    ti: 'Sistema sob medida', ty: 'a planilha vira sistema', yr: 'sob escopo',
+    desc: 'Orçamentos, agendamentos, controle de pedidos, dashboards: aquele processo que hoje vive em planilha e papel vira um sistema com login, feito pro seu fluxo.',
+    deliv: ['Levantamento do seu processo antes de codar', 'Sistema web com login e níveis de acesso', 'Treinamento da equipe incluído', 'Evolui por etapas — começa pequeno, cresce com o uso'],
+    meta: 'Prazo e investimento: <b>definidos na proposta</b>, por escopo'
+  },
+  {
+    ti: 'Manutenção & melhorias', ty: 'seu site já existe, mas parou no tempo', yr: 'contínuo',
+    desc: 'Site lento, desatualizado ou que ninguém sabe mexer? Eu assumo: atualizo, acelero e deixo redondo — sem você precisar refazer tudo.',
+    deliv: ['Diagnóstico honesto: conserto ou refaço, te digo qual', 'Performance e Google (velocidade + SEO)', 'Atualizações de conteúdo e pequenas evoluções'],
+    meta: 'Formato: <b>por demanda ou combo mensal</b>'
+  }
+];
+
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
@@ -22,11 +105,11 @@ const serviceSchema = {
   ogTitle="Eduardo Genes — Sites & sistemas pra seu negócio"
   ogDescription="Seu negócio, no ar. Proposta fechada em até 48h — Fortaleza e todo o Brasil."
   ogImage="https://edugenes.dev/assets/og-freela.png"
-  bodyClass="intro"
   bootCmd="./print proposta --rev 01 --ink red"
 >
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
     <style is:inline>
       /* extras da página freela */
       /* título mais longo que o do portfólio — escala própria pra caber numa linha */
@@ -39,11 +122,11 @@ const serviceSchema = {
         transition:background .15s,color .15s;
       }
       .wa-cta small{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;font-weight:400;opacity:.75;}
-      .wa-cta:hover{background:var(--red);border-color:var(--red);}
+      @media (hover:hover){.wa-cta:hover{background:var(--red);border-color:var(--red);}}
       .wa-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:36px;}
       .wa-alt{font-family:var(--f-serif);font-style:italic;font-size:16.5px;color:var(--ink-2);}
       .wa-alt a{color:var(--ink);}
-      .wa-alt a:hover{color:var(--red);}
+      @media (hover:hover){.wa-alt a:hover{color:var(--red);}}
       .pkg{display:grid;grid-template-columns:1fr 1fr;gap:0 64px;}
       .pkg-note{font-family:var(--f-serif);font-style:italic;font-size:17.5px;color:var(--ink-2);margin:34px 0 0;max-width:64ch;}
       .pkg-note b{color:var(--red);font-style:normal;font-family:var(--f-disp);font-weight:700;}
@@ -55,10 +138,39 @@ const serviceSchema = {
       .svc-meta b{color:var(--red);font-weight:500;}
       .proof-line{font-family:var(--f-serif);font-style:italic;font-size:15.5px;margin-top:14px;}
       .proof-line a{font-style:normal;font-weight:600;text-decoration:underline;text-underline-offset:3px;}
-      .proof-line a:hover{color:var(--red);}
+      @media (hover:hover){.proof-line a:hover{color:var(--red);}}
+      /* Anexo A — FAQ (details nativo: teclado e leitor de tela de graça) */
+      .faq{border-bottom:1px solid var(--rule);}
+      .faq details{border-top:1px solid var(--rule);}
+      .faq summary{
+        display:grid;grid-template-columns:64px 1fr 28px;gap:18px;align-items:baseline;
+        padding:18px 10px;cursor:pointer;list-style:none;
+        font-weight:700;font-size:clamp(18px,2.4vw,28px);letter-spacing:-.015em;line-height:1.05;
+        transition:background .12s,color .12s;
+      }
+      .faq summary::-webkit-details-marker{display:none;}
+      .faq summary .no{font-family:var(--f-mono);font-size:13px;letter-spacing:.07em;font-weight:400;}
+      .faq summary .pm{font-size:22px;font-weight:400;text-align:right;line-height:1;transition:transform .25s;}
+      .faq details[open] summary{background:var(--ink);color:var(--paper);}
+      @media (hover:hover){.faq summary:hover{background:var(--ink);color:var(--paper);}}
+      .faq details[open] summary .pm{transform:rotate(45deg);}
+      .faq .fbody{padding:6px 10px 30px;}
+      .faq .fbody p{font-family:var(--f-serif);font-size:18px;line-height:1.55;margin:0;max-width:62ch;}
+      @media (max-width:760px){.faq summary{grid-template-columns:40px 1fr 22px;}}
       @media (max-width:760px){.pkg{grid-template-columns:1fr;gap:30px;}}
+      /* ≤430px: o CTA media 320px e sangrava o padding (Lote 0 mobile) —
+         vira barra full-width contida, confortável pro polegar */
+      @media (max-width:430px){
+        .wa-cta{display:flex;width:100%;max-width:100%;justify-content:space-between;
+          flex-wrap:wrap;gap:6px 14px;padding:18px 20px;font-size:18px;}
+        .wa-cta small{white-space:nowrap;}
+      }
     </style>
   </Fragment>
+
+  {/* .intro (esconde tudo até a abertura) só entra com JS ligado — sem JS,
+      o conteúdo pré-renderizado fica visível em vez de uma página em branco */}
+  <script is:inline>document.body.classList.add('intro');</script>
 
   <!-- ================= MASTHEAD ================= -->
   <header class="masthead sheet" data-screen-label="Masthead Freela">
@@ -70,7 +182,15 @@ const serviceSchema = {
       <div class="meta-row">
         <span>Proposta comercial — 2026</span>
         <span>Fortaleza, CE &amp; remoto</span>
-        <span>WhatsApp +55 85 98109-7155</span>
+        <span
+          >WhatsApp <a
+            href={WA_LINK}
+            target="_blank"
+            rel="noopener"
+            data-umami-event="whatsapp_click"
+            data-umami-event-placement="masthead">+55 85 98109-7155</a
+          ></span
+        >
         <span class="lang"><a href="/">ver portfólio →</a></span>
       </div>
     </div>
@@ -120,6 +240,13 @@ const serviceSchema = {
           ></a
         >
       </li>
+      <li>
+        <a href="#anexo-faq"
+          ><span class="no">A</span><span>Perguntas frequentes</span><span class="leader"></span><span class="pg"
+            >5 perguntas</span
+          ></a
+        >
+      </li>
     </ol>
   </nav>
 
@@ -129,7 +256,35 @@ const serviceSchema = {
       <h2><span class="no">01</span>O que eu faço</h2>
       <p class="note">Clique numa linha pra ver o que entra em cada serviço.</p>
     </div>
-    <div class="windex" id="svc-index"></div>
+    <div class="windex" id="svc-index">
+      {
+        SVC.map((s, i) => (
+          <div class="wrow">
+            <button class="wrow-btn" aria-expanded="false">
+              <span class="no">{String(i + 1).padStart(2, '0')}</span>
+              <span class="ti">{s.ti}</span>
+              <span class="ty">{s.ty}</span>
+              <span class="yr">{s.yr}</span>
+              <span class="pm">+</span>
+            </button>
+            <div class="wbody">
+              <div class="wbody-in" style="grid-template-columns:1fr;">
+                <div>
+                  <p class="wdesc">{s.desc}</p>
+                  <ul class="svc-deliv" style="margin-top:20px;">
+                    {s.deliv.map((d) => (
+                      <li>{d}</li>
+                    ))}
+                  </ul>
+                  <p class="svc-meta" set:html={s.meta} />
+                  {s.proof && <p class="proof-line" set:html={s.proof} />}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
 
     <div class="creds2 pkg">
       <div>
@@ -280,10 +435,11 @@ const serviceSchema = {
     <div class="wa-row">
       <a
         class="wa-cta"
-        href="https://wa.me/5585981097155?text=Oi%2C%20Eduardo!%20Tenho%20um%20neg%C3%B3cio%20e%20quero%20uma%20proposta.%20Ele%20%C3%A9%20assim%3A%20"
+        href={WA_LINK}
         target="_blank"
         rel="noopener"
-        data-umami-event="whatsapp_click">Chamar no WhatsApp <small>85 98109-7155</small></a
+        data-umami-event="whatsapp_click"
+        data-umami-event-placement="cta">Chamar no WhatsApp <small>85 98109-7155</small></a
       >
       <span class="wa-alt"
         >ou por e-mail: <a
@@ -296,6 +452,40 @@ const serviceSchema = {
     </div>
   </section>
 
+  <!-- ================= ANEXO A — FAQ ================= -->
+  <section class="sec sheet" id="anexo-faq" data-screen-label="Anexo A — FAQ">
+    <div class="sec-head">
+      <h2><span class="no">A</span>Perguntas frequentes</h2>
+      <p class="note">Anexo A — o que todo mundo pergunta antes de fechar.</p>
+    </div>
+    <div class="faq">
+      {
+        faq.map((f, i) => (
+          <details name="faq">
+            <summary>
+              <span class="no">A.{i + 1}</span>
+              <span class="ti">{f.q}</span>
+              <span class="pm">+</span>
+            </summary>
+            <div class="fbody">
+              <p>{f.a}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+    <p class="pkg-note">
+      Ficou com outra dúvida? <a
+        href={WA_LINK}
+        target="_blank"
+        rel="noopener"
+        data-umami-event="whatsapp_click"
+        data-umami-event-placement="faq"
+        style="font-weight:600;">me pergunta no WhatsApp →</a
+      > — respondo hoje.
+    </p>
+  </section>
+
   <!-- ================= COLOFÃO ================= -->
   <footer class="colophon sheet" data-screen-label="Colofão Freela">
     <div class="in">
@@ -304,74 +494,37 @@ const serviceSchema = {
         sem template
       </p>
       <p class="metrics-note">métricas anônimas e sem cookies (Umami) — nenhum dado pessoal é coletado</p>
-      <p><a id="to-top">↑ voltar ao topo</a></p>
     </div>
+    <!-- aba flutuante (position:fixed) — fora do fluxo do colofão -->
+    <button type="button" id="to-top">↑ voltar ao topo</button>
   </footer>
 
   <script is:inline>
     (function () {
       'use strict';
-      var SVC = [
-        {
-          ti: 'Site pro seu negócio', ty: 'ser encontrado e passar confiança', yr: 'carro-chefe',
-          desc: 'O cartão de visita que trabalha 24h: quem te procura no Google encontra um site bonito, rápido no celular e com suas informações certas.',
-          deliv: ['Design feito pra sua marca — nada de template', 'Perfeito no celular, onde seu cliente está', 'Google encontrando seu negócio (SEO básico)', 'Domínio, hospedagem e publicação incluídos', 'Botão de WhatsApp direto pro seu atendimento'],
-          meta: 'Prazo típico: <b>1 a 3 semanas</b>, conforme o tamanho', proof: '<a href="https://wvianaarquitetura.com.br" target="_blank" rel="noopener">veja um no ar: wvianaarquitetura.com.br ↗</a>'
-        },
-        {
-          ti: 'Landing page', ty: 'campanha, lançamento, captação', yr: 'mais rápido',
-          desc: 'Uma página, um objetivo: transformar visitante em contato. Pra anúncio, promoção, evento ou captação de clientes.',
-          deliv: ['Texto e design focados em conversão', 'Formulário ou WhatsApp como destino', 'Métricas: você sabe quantos clicaram', 'Publicada e rodando — pronta pra receber tráfego'],
-          meta: 'Prazo típico: <b>a partir de 3 dias</b>'
-        },
-        {
-          ti: 'Loja & catálogo', ty: 'vitrine com pedidos', yr: 'vendas',
-          desc: 'Seu catálogo organizado, com fotos e preços, e o pedido caindo direto no seu WhatsApp — ou com pagamento online, se fizer sentido.',
-          deliv: ['Catálogo que você mesmo atualiza', 'Pedidos via WhatsApp ou checkout com pagamento', 'Frete, variações e promoções conforme o caso'],
-          meta: 'Prazo típico: <b>2 a 4 semanas</b>'
-        },
-        {
-          ti: 'Sistema sob medida', ty: 'a planilha vira sistema', yr: 'sob escopo',
-          desc: 'Orçamentos, agendamentos, controle de pedidos, dashboards: aquele processo que hoje vive em planilha e papel vira um sistema com login, feito pro seu fluxo.',
-          deliv: ['Levantamento do seu processo antes de codar', 'Sistema web com login e níveis de acesso', 'Treinamento da equipe incluído', 'Evolui por etapas — começa pequeno, cresce com o uso'],
-          meta: 'Prazo e investimento: <b>definidos na proposta</b>, por escopo'
-        },
-        {
-          ti: 'Manutenção & melhorias', ty: 'seu site já existe, mas parou no tempo', yr: 'contínuo',
-          desc: 'Site lento, desatualizado ou que ninguém sabe mexer? Eu assumo: atualizo, acelero e deixo redondo — sem você precisar refazer tudo.',
-          deliv: ['Diagnóstico honesto: conserto ou refaço, te digo qual', 'Performance e Google (velocidade + SEO)', 'Atualizações de conteúdo e pequenas evoluções'],
-          meta: 'Formato: <b>por demanda ou combo mensal</b>'
-        }
-      ];
-
-      var box = document.getElementById('svc-index');
-      SVC.forEach(function (s, i) {
-        var row = document.createElement('div');
-        row.className = 'wrow';
-        row.innerHTML =
-          '<button class="wrow-btn" aria-expanded="false">' +
-            '<span class="no">' + String(i + 1).padStart(2, '0') + '</span>' +
-            '<span class="ti">' + s.ti + '</span>' +
-            '<span class="ty">' + s.ty + '</span>' +
-            '<span class="yr">' + s.yr + '</span>' +
-            '<span class="pm">+</span>' +
-          '</button>' +
-          '<div class="wbody"><div class="wbody-in" style="grid-template-columns:1fr;">' +
-            '<div>' +
-              '<p class="wdesc">' + s.desc + '</p>' +
-              '<ul class="svc-deliv" style="margin-top:20px;">' + s.deliv.map(function (d) { return '<li>' + d + '</li>'; }).join('') + '</ul>' +
-              '<p class="svc-meta">' + s.meta + '</p>' +
-              (s.proof ? '<p class="proof-line">' + s.proof + '</p>' : '') +
-            '</div>' +
-          '</div></div>';
+      /* serviços pré-renderizados no build — aqui só liga o abre/fecha */
+      document.querySelectorAll('#svc-index .wrow').forEach(function (row) {
         row.querySelector('.wrow-btn').addEventListener('click', function () {
           var open = row.classList.toggle('open');
           this.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
-        box.appendChild(row);
       });
 
-      document.getElementById('to-top').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      var toTop = document.getElementById('to-top');
+      toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      /* aba flutuante: aparece depois de ~meia tela de rolagem */
+      function toTopVis() { toTop.classList.toggle('show', window.scrollY > window.innerHeight * 0.6); }
+      window.addEventListener('scroll', toTopVis, { passive: true });
+      toTopVis();
+
+      /* FAQ (Anexo A) — conta só a abertura; 'toggle' não borbulha, então é direto */
+      document.querySelectorAll('.faq details').forEach(function (d) {
+        d.addEventListener('toggle', function () {
+          if (!d.open) return;
+          var q = d.querySelector('.ti');
+          try { if (window.umami) window.umami.track('faq_open', { q: q ? q.textContent : '' }); } catch (e) {}
+        });
+      });
     })();
   </script>
   <script is:inline src="/js/portfolio-v2-motion.js"></script>

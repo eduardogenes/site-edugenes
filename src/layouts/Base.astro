@@ -43,6 +43,10 @@ const { title, description, canonical, ogTitle, ogDescription, ogImage, bodyClas
     <meta property="og:locale" content="pt_BR" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
+    {/* preload das 2 faces above-the-fold: Archivo (nome gigante = LCP) e
+        Newsreader itálico (tail/carimbo) — o resto chega via fonts.css */}
+    <link rel="preload" href="/fonts/archivo-normal-400-900-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/newsreader-italic-400-600-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/fonts.css" />
     <link rel="stylesheet" href="/portfolio-v2.css" />
     <Analytics />

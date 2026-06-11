@@ -25,11 +25,11 @@ import Analytics from '../components/Analytics.astro';
         --f-disp:'Archivo',sans-serif; --f-serif:'Newsreader',serif;
         --f-mono:ui-monospace,'SF Mono','Cascadia Mono',Menlo,monospace;
       }
-      *{box-sizing:border-box;}
-      body{margin:0;min-height:100vh;background:var(--paper);color:var(--ink);font-family:var(--f-disp);
-        display:flex;flex-direction:column;justify-content:center;padding:6vmin 7vmin;-webkit-font-smoothing:antialiased;}
+      *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+      body{margin:0;min-height:100vh;min-height:100svh;background:var(--paper);color:var(--ink);font-family:var(--f-disp);
+        display:flex;flex-direction:column;justify-content:center;padding:6vmin 7vmin;-webkit-font-smoothing:antialiased;overflow-x:clip;}
       a{color:inherit;}
-      a:hover{color:var(--red);}
+      @media (hover:hover){a:hover{color:var(--red);}}
       :focus-visible{outline:2.5px solid var(--red);outline-offset:3px;}
 
       .meta{display:flex;justify-content:space-between;gap:14px;font-family:var(--f-mono);font-size:11px;
@@ -46,10 +46,14 @@ import Analytics from '../components/Analytics.astro';
       .links{margin-top:4.5vmin;border-top:1.5px solid var(--ink);padding-top:18px;display:flex;gap:30px;flex-wrap:wrap;
         font-family:var(--f-mono);font-size:13px;letter-spacing:.05em;}
       .links a{text-decoration:none;border-bottom:1.5px solid var(--ink);padding-bottom:2px;}
-      .links a:hover{border-color:var(--red);}
+      @media (hover:hover){.links a:hover{border-color:var(--red);}}
       @media (prefers-reduced-motion: no-preference){
         @keyframes stamp-pop{0%{opacity:0;transform:scale(2.4) rotate(6deg);}70%{opacity:1;transform:scale(.94) rotate(-4deg);}100%{opacity:1;transform:scale(1) rotate(-3deg);}}
         .stamp{animation:stamp-pop .5s cubic-bezier(.3,.7,.3,1) both .35s;}
+      }
+      @media (pointer:coarse){
+        .links a{position:relative;}
+        .links a::after{content:"";position:absolute;inset:-12px -8px;}
       }
     </style>
   </head>

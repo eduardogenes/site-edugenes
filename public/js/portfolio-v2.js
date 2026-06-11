@@ -1,7 +1,7 @@
 /* ============================================================
    v2 «Documento» — clock, i18n, índice expansível, tweaks
-   Reusa window.FEATURED / SECONDARY / EXPERIENCE / EDUCATION /
-   CERTS de portfolio.data.js
+   Reusa window.FEATURED / SECONDARY / EXPERIENCE / EDUCATION / CERTS
+   serializados inline pelo index.astro (fonte: src/data/portfolio.ts)
    ============================================================ */
 (function () {
   'use strict';
@@ -50,85 +50,14 @@
   };
   var tw = Object.assign({}, TWEAK_DEFAULTS);
 
-  /* ---------- strings ---------- */
-  var S = {
-    pt: {
-      'm.doc': 'Portfólio — rev. 02 / 2026',
-      'm.now': 'agora, hora local',
-      'm.stamp': 'em produção',
-      'm.tail': 'Desenvolvedor full stack — construo o produto inteiro, com queda assumida por front-end e experiência do usuário. Hoje na IMTS Group.',
-      'm.since': 'escrevendo interfaces desde 2022',
-      'toc.1': 'Trabalhos', 'toc.1n': '6 fichas',
-      'toc.2': 'Trajetória', 'toc.2n': '4 períodos',
-      'toc.3': 'Sobre', 'toc.3n': '1 pessoa',
-      'toc.4': 'Contato', 'toc.4n': '3 canais',
-      'w.note': 'Clique numa linha para abrir a ficha do projeto.',
-      'x.note': 'Operação, dados e processos antes do código — virou vantagem.',
-      'x.edu': 'Formação', 'x.cert': 'Certificações & cursos',
-      'a.cap': 'Fortaleza, 2026',
-      'c.lead': 'Sem formulário — mensagem boa não merece morrer num inbox de formulário. Me escreve direto:',
-      'c.phone': 'Telefone',
-      'c.cv': 'versão pra imprimir →',
-      'f.colo': '// Tipografia: Archivo & Newsreader · Nada gerado, nada clonado — cada detalhe foi uma escolha · Rev. 02, junho de 2026 · Fortaleza',
-      'f.metrics': 'métricas anônimas e sem cookies (Umami) — nenhum dado pessoal é coletado',
-      'f.top': '↑ voltar ao topo',
-      'w.live': 'ver no ar ↗', 'w.code': 'código ↗',
-      'w.nda': 'Produto comercial — demonstro com prazer numa conversa.',
-      'w.shot': 'Print do projeto — arraste aqui'
-    },
-    en: {
-      'm.doc': 'Portfolio — rev. 02 / 2026',
-      'm.now': 'now, local time',
-      'm.stamp': 'in production',
-      'm.tail': 'Full stack developer — I build the whole product, with an admitted soft spot for front-end and user experience. Currently at IMTS Group.',
-      'm.since': 'writing interfaces since 2022',
-      'toc.1': 'Work', 'toc.1n': '6 entries',
-      'toc.2': 'Track record', 'toc.2n': '4 chapters',
-      'toc.3': 'About', 'toc.3n': '1 person',
-      'toc.4': 'Contact', 'toc.4n': '3 channels',
-      'w.note': 'Click a row to open the project file.',
-      'x.note': 'Operations, data and process before code — it became an edge.',
-      'x.edu': 'Education', 'x.cert': 'Certifications & courses',
-      'a.cap': 'Fortaleza, 2026',
-      'c.lead': "No contact form — good messages shouldn't die in a form inbox. Write me directly:",
-      'c.phone': 'Phone',
-      'c.cv': 'print-ready version →',
-      'f.colo': '// Type: Archivo & Newsreader · Nothing generated, nothing cloned — every detail was a choice · Rev. 02, June 2026 · Fortaleza',
-      'f.metrics': 'anonymous, cookie-free metrics (Umami) — no personal data is collected',
-      'f.top': '↑ back to top',
-      'w.live': 'see it live ↗', 'w.code': 'source ↗',
-      'w.nda': 'Commercial product — happy to demo it in a call.',
-      'w.shot': 'Project screenshot — drop it here'
-    }
-  };
-
-  /* about paragraphs (kept here: voice differs from v1) */
-  var ABOUT = {
-    pt: [
-      'Passei quatro anos entre auditorias, hotéis e planilhas antes de escrever código profissionalmente. Foi lá que aprendi o que bootcamp nenhum ensina: a pessoa do outro lado da tela está com pressa — e interface boa é a que respeita isso.',
-      'Hoje sou full stack na IMTS Group, uma software house onde cada projeto traz uma stack diferente — React, Angular e TypeScript no front; Node, Python e APIs REST no back. Termino a graduação em ADS em julho de 2026. <span class="red">Desenvolvi a experiência do aluno do zero e melhorei fluxos no painel admin</span> de uma plataforma educacional usada por colégios pelo Brasil.',
-      'Inglês C1: leio documentação, escrevo, converso. Presencial, híbrido ou remoto, a partir de Fortaleza.'
-    ],
-    en: [
-      "I spent four years in audits, hotels and spreadsheets before writing code for a living. That's where I learned what no bootcamp teaches: the person on the other side of the screen is in a hurry — and a good interface respects that.",
-      "Today I'm a full stack developer at IMTS Group, a software house where each project brings a different stack — React, Angular and TypeScript on the front; Node, Python and REST APIs on the back. Finishing my degree in July 2026. <span class=\"red\">I built the student experience from scratch and improved admin panel flows</span> for an education platform used by schools across Brazil.",
-      'English at C1: I read docs, write and hold a conversation. On-site, hybrid or remote, based in Fortaleza.'
-    ]
-  };
-  var STACKLINE = {
-    pt: '<b>Caixa de ferramentas:</b> React · Next.js · TypeScript · Angular · Tailwind · SCSS · Vite · Node · SQL · Supabase · Git · Figma · Vercel · AWS — o resto se aprende.',
-    en: '<b>Toolbox:</b> React · Next.js · TypeScript · Angular · Tailwind · SCSS · Vite · Node · SQL · Supabase · Git · Figma · Vercel · AWS — the rest can be learned.'
-  };
-
-  /* per-project meta for the index (type label + year) */
-  var WMETA = {
-    'wviana':     { ty: { pt: 'cliente real — no ar', en: 'real client — live' }, yr: '2025' },
-    'llm':        { ty: { pt: 'edtech · em produção', en: 'edtech · in production' }, yr: '2025–26' },
-    'garimpeiro': { ty: { pt: 'open source',          en: 'open source' },        yr: '2025' },
-    'mulheres':   { ty: { pt: 'produto próprio',      en: 'own product' },        yr: '2026' },
-    'hat':        { ty: { pt: 'open source',          en: 'open source' },        yr: '2025' },
-    'orc':        { ty: { pt: 'ferramenta interna',   en: 'internal tool' },      yr: '2023' }
-  };
+  /* ---------- conteúdo ---------- */
+  /* dicionário i18n, parágrafos do Sobre e meta dos projetos chegam
+     serializados pelo index.astro a partir de src/data/portfolio.ts
+     (fonte única — o build já pré-renderiza o PT destes mesmos objetos) */
+  var S = window.EG_I18N;
+  var ABOUT = window.EG_ABOUT;
+  var STACKLINE = window.EG_STACKLINE;
+  var WMETA = window.EG_WMETA;
 
   function loc(v) {
     if (v && typeof v === 'object' && !Array.isArray(v) && ('pt' in v || 'en' in v)) return v[lang] != null ? v[lang] : v.pt;
@@ -173,6 +102,15 @@
     return feat.concat(sec);
   }
 
+  /* liga o abre/fecha de uma ficha — usado no DOM pré-renderizado (build)
+     e nas linhas recriadas pelo renderWork (troca de idioma) */
+  function bindRow(row) {
+    row.querySelector('.wrow-btn').addEventListener('click', function () {
+      var open = row.classList.toggle('open');
+      this.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
   function renderWork() {
     var box = document.getElementById('windex');
     box.innerHTML = '';
@@ -202,10 +140,7 @@
             (p.nda ? '<p class="wnote">' + t('w.nda') + '</p>' : '') +
           '</div>' +
         '</div></div>';
-      row.querySelector('.wrow-btn').addEventListener('click', function () {
-        var open = row.classList.toggle('open');
-        this.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
+      bindRow(row);
       box.appendChild(row);
     });
   }
@@ -248,6 +183,8 @@
     });
     document.getElementById('lang-pt').classList.toggle('on', lang === 'pt');
     document.getElementById('lang-en').classList.toggle('on', lang === 'en');
+    document.getElementById('lang-pt').setAttribute('aria-pressed', String(lang === 'pt'));
+    document.getElementById('lang-en').setAttribute('aria-pressed', String(lang === 'en'));
     renderWork(); renderLedger(); renderCreds(); renderAbout(); tick();
   }
 
@@ -325,7 +262,14 @@
   function init() {
     try { var sl = localStorage.getItem('eg2_lang'); if (sl === 'pt' || sl === 'en') lang = sl; } catch (e) {}
     splitName();
-    applyLang();
+    if (lang === 'pt') {
+      /* PT já vem pré-renderizado no build (HTML idêntico ao que o applyLang
+         produziria) — só liga os comportamentos das fichas e o relógio */
+      document.querySelectorAll('#windex .wrow').forEach(bindRow);
+      tick();
+    } else {
+      applyLang();
+    }
     applyTweaks();
     setInterval(tick, 1000);
 
@@ -333,7 +277,12 @@
     document.getElementById('lang-en').addEventListener('click', function () { lang = 'en'; save(); applyLang(); });
     function save() { try { localStorage.setItem('eg2_lang', lang); } catch (e) {} }
 
-    document.getElementById('to-top').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    var toTop = document.getElementById('to-top');
+    toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    /* aba flutuante: aparece depois de ~meia tela de rolagem */
+    function toTopVis() { toTop.classList.toggle('show', window.scrollY > window.innerHeight * 0.6); }
+    window.addEventListener('scroll', toTopVis, { passive: true });
+    toTopVis();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -1,6 +1,9 @@
 ---
-/* Masthead do portfólio. Contrato com portfolio-v2-motion.js:
+/* Masthead do portfólio. Texto vem do dicionário único (src/data/portfolio.ts) —
+   o HTML do build é idêntico ao que o motor aplicaria (sem flash de troca).
+   Contrato com portfolio-v2-motion.js:
    .masthead, .brand, .meta-row, .name .l1/.l2, .stamp, .mast-foot, .tail, .mono. */
+import { t } from '../../data/portfolio';
 ---
 
 <header class="masthead sheet" data-screen-label="Masthead">
@@ -10,24 +13,28 @@
       <span class="brand-word">edugenes<span class="brand-cursor">_</span></span>
     </a>
     <div class="meta-row">
-      <span data-i18n="m.doc">Portfólio — rev. 02 / 2026</span>
+      <span data-i18n="m.doc">{t('m.doc')}</span>
       <span>Fortaleza, CE — 3°43′S 38°32′W</span>
       <span class="now" data-comment-anchor="clock"
-        ><span data-i18n="m.now">agora, hora local</span> — <b id="clock">--:--:--</b></span
+        ><span data-i18n="m.now">{t('m.now')}</span> — <b id="clock">--:--:--</b></span
       >
-      <span class="lang"><a id="lang-pt" class="on">PT</a> / <a id="lang-en">EN</a></span>
+      <span class="lang"
+        ><button type="button" id="lang-pt" class="on" aria-pressed="true">PT</button> / <button
+          type="button"
+          id="lang-en"
+          aria-pressed="false">EN</button
+        ></span
+      >
     </div>
   </div>
 
   <h1 class="name">
     <span class="l1">Eduardo</span>
-    <span class="l2">Genes <span class="stamp" data-i18n="m.stamp">em produção</span></span>
+    <span class="l2">Genes <span class="stamp" data-i18n="m.stamp">{t('m.stamp')}</span></span>
   </h1>
 
   <div class="mast-foot">
-    <p class="tail" data-i18n="m.tail">
-      Desenvolvedor web — front-end em primeiro lugar, full stack quando o problema pede. Hoje na IMTS Group.
-    </p>
-    <span class="mono" data-i18n="m.since">escrevendo interfaces desde 2022</span>
+    <p class="tail" data-i18n="m.tail">{t('m.tail')}</p>
+    <span class="mono" data-i18n="m.since">{t('m.since')}</span>
   </div>
 </header>

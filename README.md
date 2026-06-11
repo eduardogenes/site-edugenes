@@ -23,12 +23,13 @@ src/
 ├── components/Analytics.astro loader do Umami + eg-analytics.js (todas as páginas)
 ├── components/portfolio/      Masthead · Toc · WorkSection · TrackSection ·
 │                              AboutSection · ContactSection · Colophon
+├── data/portfolio.ts          fonte ÚNICA de conteúdo + i18n (PT/EN) — o build
+│                              pré-renderiza o PT e o index.astro serializa em window.*
 ├── pages/                     index · freela · cv · 404
 └── types/global.d.ts          tipagem dos dados globais (window.FEATURED etc.)
 public/
-├── js/                        ⚠ motores de animação + dados — código final, intacto
-│   ├── portfolio.data.js      dados dos projetos/experiência (PT/EN)
-│   ├── portfolio-v2.js        i18n, render das fichas/ledger, relógio
+├── js/                        ⚠ motores de animação — código final, intacto
+│   ├── portfolio-v2.js        i18n (re-render só na troca de idioma), relógio
 │   ├── portfolio-v2-motion.js boot + abertura física do masthead
 │   ├── portfolio-v2-scrollmotion.js  coreografia de scroll + botões magnéticos
 │   ├── portfolio-v2-devmode.js       statusline vim + modo inspect (só no portfólio)
@@ -38,7 +39,7 @@ public/
 ├── robots.txt                 aponta o sitemap; sem Disallow (noindex faz o papel)
 ├── portfolio-v2.css           sistema visual compartilhado (intacto)
 ├── assets/                    favicon, OG cards, placeholder dos prints
-└── retrato.png
+└── retrato.avif / retrato.webp  retrato 640px (AVIF + fallback WebP)
 v1/                            versão anterior (React + Vite + TS), arquivada
 ```
 

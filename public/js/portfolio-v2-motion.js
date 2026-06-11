@@ -15,10 +15,19 @@
     document.querySelectorAll('.name .ch').forEach(function (n) { n.style.opacity = ''; n.style.transform = ''; });
   }
 
+  /* boot 1× por sessão: charme na chegada, sem atrito nos retornos
+     (no mesmo tab, home → freela → home não re-roda o terminal) */
+  function bootSeen() {
+    try { return sessionStorage.getItem('eg2_boot') === '1'; } catch (e) { return false; }
+  }
+
   function run() {
     if (reduce) { revealAll(); return; }
     try {
-      if (document.body.hasAttribute('data-boot')) boot(function () { try { start(); } catch (e) { revealAll(); } });
+      if (document.body.hasAttribute('data-boot') && !bootSeen()) {
+        try { sessionStorage.setItem('eg2_boot', '1'); } catch (e) {}
+        boot(function () { try { start(); } catch (e) { revealAll(); } });
+      }
       else start();
     } catch (e) { revealAll(); }
   }
