@@ -6,7 +6,7 @@
   "description": "Portfólio de Eduardo Genes — identidade «Documento» (Astro + TypeScript)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eduardogenes/portfolio-t.git"
+    "url": "git+https://github.com/eduardogenes/site-edugenes.git"
   },
   "homepage": "https://edugenes.dev",
   "scripts": {
