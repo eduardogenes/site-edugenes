@@ -55,7 +55,7 @@
     pt: {
       'm.doc': 'Portfólio — rev. 02 / 2026',
       'm.now': 'agora, hora local',
-      'm.stamp': 'aceitando propostas',
+      'm.stamp': 'em produção',
       'm.tail': 'Desenvolvedor full stack — construo o produto inteiro, com queda assumida por front-end e experiência do usuário. Hoje na IMTS Group.',
       'm.since': 'escrevendo interfaces desde 2022',
       'toc.1': 'Trabalhos', 'toc.1n': '6 fichas',
@@ -69,7 +69,7 @@
       'c.lead': 'Sem formulário — mensagem boa não merece morrer num inbox de formulário. Me escreve direto:',
       'c.phone': 'Telefone',
       'c.cv': 'versão pra imprimir →',
-      'f.colo': '// Tipografia: Archivo & Newsreader · HTML, CSS e JS escritos à mão — sem framework de UI, sem template · Rev. 02, junho de 2026 · Fortaleza, Brasil',
+      'f.colo': '// Tipografia: Archivo & Newsreader · Nada gerado, nada clonado — cada detalhe foi uma escolha · Rev. 02, junho de 2026 · Fortaleza',
       'f.top': '↑ voltar ao topo',
       'w.live': 'ver no ar ↗', 'w.code': 'código ↗',
       'w.nda': 'Produto comercial — demonstro com prazer numa conversa.',
@@ -78,7 +78,7 @@
     en: {
       'm.doc': 'Portfolio — rev. 02 / 2026',
       'm.now': 'now, local time',
-      'm.stamp': 'open to offers',
+      'm.stamp': 'in production',
       'm.tail': 'Full stack developer — I build the whole product, with an admitted soft spot for front-end and user experience. Currently at IMTS Group.',
       'm.since': 'writing interfaces since 2022',
       'toc.1': 'Work', 'toc.1n': '6 entries',
@@ -92,7 +92,7 @@
       'c.lead': "No contact form — good messages shouldn't die in a form inbox. Write me directly:",
       'c.phone': 'Phone',
       'c.cv': 'print-ready version →',
-      'f.colo': '// Type: Archivo & Newsreader · Hand-written HTML, CSS and JS — no UI framework, no template · Rev. 02, June 2026 · Fortaleza, Brazil',
+      'f.colo': '// Type: Archivo & Newsreader · Nothing generated, nothing cloned — every detail was a choice · Rev. 02, June 2026 · Fortaleza',
       'f.top': '↑ back to top',
       'w.live': 'see it live ↗', 'w.code': 'source ↗',
       'w.nda': 'Commercial product — happy to demo it in a call.',
@@ -104,12 +104,12 @@
   var ABOUT = {
     pt: [
       'Passei quatro anos entre auditorias, hotéis e planilhas antes de escrever código profissionalmente. Foi lá que aprendi o que bootcamp nenhum ensina: a pessoa do outro lado da tela está com pressa — e interface boa é a que respeita isso.',
-      'Hoje sou full stack na IMTS Group — React, Angular e TypeScript na interface; APIs, regras de negócio e banco do outro lado — e termino a graduação em ADS em julho de 2026. <span class="red">Encabecei o UX/UI de uma plataforma educacional usada por colégios pelo Brasil</span> — do painel administrativo à experiência do aluno.',
+      'Hoje sou full stack na IMTS Group, uma software house onde cada projeto traz uma stack diferente — React, Angular e TypeScript no front; Node, Python e APIs REST no back. Termino a graduação em ADS em julho de 2026. <span class="red">Desenvolvi a experiência do aluno do zero e melhorei fluxos no painel admin</span> de uma plataforma educacional usada por colégios pelo Brasil.',
       'Inglês C1: leio documentação, escrevo, converso. Presencial, híbrido ou remoto, a partir de Fortaleza.'
     ],
     en: [
       "I spent four years in audits, hotels and spreadsheets before writing code for a living. That's where I learned what no bootcamp teaches: the person on the other side of the screen is in a hurry — and a good interface respects that.",
-      "Today I'm a full stack developer at IMTS Group — React, Angular and TypeScript on the interface; APIs, business logic and the database on the other side — finishing my degree in July 2026. <span class=\"red\">I spearheaded the UX/UI of an education platform used by schools across Brazil</span> — from the admin panel to the student experience.",
+      "Today I'm a full stack developer at IMTS Group, a software house where each project brings a different stack — React, Angular and TypeScript on the front; Node, Python and REST APIs on the back. Finishing my degree in July 2026. <span class=\"red\">I built the student experience from scratch and improved admin panel flows</span> for an education platform used by schools across Brazil.",
       'English at C1: I read docs, write and hold a conversation. On-site, hybrid or remote, based in Fortaleza.'
     ]
   };

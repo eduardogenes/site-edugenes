@@ -21,10 +21,10 @@ window.FEATURED = [
   {
     id: 'llm',
     badge: { pt: 'EdTech · Em produção', en: 'EdTech · In production' },
-    title: { pt: 'Plataforma Método TRON', en: 'Método TRON Platform' },
+    title: { pt: 'Plataforma de Ensino', en: 'EdTech Platform' },
     desc: {
-      pt: 'LMS multitenant que funciona quase como uma rede social escolar: interação entre alunos, login com Google e permissões por papel — aluno, professor, direção, admin. IA corrige avaliações e gera jogos a partir do conteúdo que o professor insere; gamificação com pontos, badges e desafios. Atuo no desenvolvimento de ponta a ponta e encabecei a frente de UX/UI do produto, do painel administrativo à experiência do aluno.',
-      en: "A multi-tenant LMS that works almost like a school social network: student interaction, Google sign-in and role-based permissions — student, teacher, principal, admin. AI grades assessments and generates games from the teacher's content; gamification with points, badges and challenges. I work across the product end to end and spearheaded its UX/UI, from the admin panel to the student experience."
+      pt: 'LMS multitenant que funciona quase como uma rede social escolar: interação entre alunos, login com Google e permissões por papel — aluno, professor, direção, admin. IA corrige avaliações e gera jogos a partir do conteúdo que o professor insere; gamificação com pontos, badges e desafios. Atuei no desenvolvimento de ponta a ponta — desenvolvi a experiência do aluno do zero e melhorei fluxos no painel admin.',
+      en: "A multi-tenant LMS that works almost like a school social network: student interaction, Google sign-in and role-based permissions — student, teacher, principal, admin. AI grades assessments and generates games from the teacher's content; gamification with points, badges and challenges. I worked across the product end to end — built the student experience from scratch and improved admin panel flows."
     },
     metric: { pt: '↗ Vendida a colégios pelo Brasil · via IMTS Group', en: '↗ Sold to schools across Brazil · via IMTS Group' },
     tags: ['React', 'TypeScript', 'Angular', 'Multitenant', 'RBAC', 'IA aplicada', 'Gamificação'],
@@ -94,8 +94,8 @@ window.EXPERIENCE = [
     role: { pt: 'Desenvolvedor Full Stack Trainee', en: 'Full Stack Trainee Developer' },
     org: 'IMTS Group',
     desc: {
-      pt: 'Desenvolvimento full stack de plataforma educacional multitenant usada por colégios pelo Brasil — da interface às APIs e regras de negócio. Encabecei a frente de UX/UI do produto: fluxos, telas e padrões de interface dos painéis de aluno, professor e gestão, em React, Angular e TypeScript, com integração a recursos de IA.',
-      en: "Full stack development of a multi-tenant education platform used by schools across Brazil — from the interface to APIs and business logic. I spearheaded the product's UX/UI: flows, screens and interface patterns for the student, teacher and admin panels, in React, Angular and TypeScript, with AI-powered features."
+      pt: 'Software house com projetos para diferentes clientes e setores — a stack varia conforme o projeto (React, Angular, TypeScript, Node, Python). Maior entrega: plataforma educacional multitenant usada por colégios pelo Brasil, onde desenvolvi a experiência do aluno do zero e melhorei fluxos no painel admin.',
+      en: "Software house delivering projects across different clients and industries — stack varies per project (React, Angular, TypeScript, Node, Python). Biggest delivery: a multi-tenant education platform used by schools across Brazil, where I built the student experience from scratch and improved admin panel flows."
     },
     tag: { pt: 'Atual', en: 'Current' }
   },
@@ -135,7 +135,7 @@ window.EDUCATION = [
   {
     main: { pt: 'Análise e Desenvolvimento de Sistemas', en: 'Systems Analysis & Development' },
     sub: { pt: 'Universidade Estácio de Sá · Fortaleza', en: 'Estácio de Sá University · Fortaleza' },
-    year: { pt: 'Conclusão jul/2026', en: 'Graduating Jul 2026' }
+    year: { pt: 'jul/2026', en: 'Jul 2026' }
   }
 ];
 
@@ -155,7 +155,7 @@ window.STACK = {
 window.STRINGS = {
   pt: {
     'nav.work': 'Trabalhos', 'nav.about': 'Sobre', 'nav.xp': 'Trajetória', 'nav.contact': 'Contato',
-    'hero.status': 'Disponível para oportunidades',
+    'hero.status': 'freelas & parcerias pontuais',
     'hero.sub': 'Desenvolvedor full stack na IMTS Group. Construo produtos inteiros — da API à interface — com atenção obsessiva à experiência de quem usa. React, Next.js, TypeScript, Node.',
     'hero.cta1': 'Ver trabalhos', 'hero.cta2': 'Falar comigo',
     'hero.m1k': 'Função', 'hero.m1v': 'Full stack · forte em front',
@@ -167,7 +167,7 @@ window.STRINGS = {
     'about.eyebrow': 'Sobre',
     'about.statement1': 'Front-end bem feito é ', 'about.statementEm': 'invisível', 'about.statement2': ' — a pessoa só sente que funcionou.',
     'about.p1': 'Vim de áreas de operação, análise de dados e processos antes de migrar pra tecnologia — e isso virou vantagem: penso no produto, no usuário e no impacto, não só no código.',
-    'about.p2': 'Hoje sou full stack na IMTS Group — interface de um lado, APIs e regras de negócio do outro —, finalizo a graduação em ADS (jul/2026) e tenho inglês C1. Sou obcecado por detalhe, performance e acessibilidade.',
+    'about.p2': 'Hoje sou full stack na IMTS Group, uma software house onde cada projeto traz um desafio diferente — React, Angular, TypeScript, Node, Python. Finalizei a graduação em ADS (jul/2026) e tenho inglês C1. Sou obcecado por detalhe, performance e acessibilidade.',
     'about.photoCap': 'arraste sua foto profissional aqui',
     'stack.front': 'Front-end', 'stack.int': 'Integração & dados', 'stack.tool': 'Ferramentas',
     'xp.eyebrow': 'Trajetória',
@@ -175,13 +175,13 @@ window.STRINGS = {
     'cred.edu': 'Formação', 'cred.cert': 'Certificações & cursos',
     'contact.eyebrow': 'Vamos conversar',
     'contact.title': 'Bora construir\nalgo juntos?',
-    'contact.sub': 'Aberto a vagas CLT, PJ e projetos freelance. Resposta rápida.',
+    'contact.sub': 'Projetos freelance e parcerias pontuais. Resposta rápida.',
     'footer.built': 'Feito do zero por Eduardo Genes · 2026',
     'footer.up': 'Voltar ao topo'
   },
   en: {
     'nav.work': 'Work', 'nav.about': 'About', 'nav.xp': 'Journey', 'nav.contact': 'Contact',
-    'hero.status': 'Available for opportunities',
+    'hero.status': 'freelance & one-off projects',
     'hero.sub': 'Full stack developer at IMTS Group. I build whole products — API to interface — with obsessive attention to the experience of whoever uses them. React, Next.js, TypeScript, Node.',
     'hero.cta1': 'View work', 'hero.cta2': 'Get in touch',
     'hero.m1k': 'Role', 'hero.m1v': 'Full stack · front-leaning',
@@ -193,7 +193,7 @@ window.STRINGS = {
     'about.eyebrow': 'About',
     'about.statement1': 'Good front-end is ', 'about.statementEm': 'invisible', 'about.statement2': ' — you just feel that it worked.',
     'about.p1': 'I came from operations, data analysis and process work before moving into tech — and it became an edge: I think about the product, the user and the impact, not just the code.',
-    'about.p2': "Today I'm a full stack developer at IMTS Group — interface on one side, APIs and business logic on the other — finishing my Systems Analysis & Development degree (Jul 2026), with English at C1. I'm obsessed with detail, performance and accessibility.",
+    'about.p2': "Today I'm a full stack developer at IMTS Group, a software house where each project brings a different challenge — React, Angular, TypeScript, Node, Python. Graduated in Systems Analysis & Development (Jul 2026), with English at C1. I'm obsessed with detail, performance and accessibility.",
     'about.photoCap': 'drop your professional photo here',
     'stack.front': 'Front-end', 'stack.int': 'Integration & data', 'stack.tool': 'Tooling',
     'xp.eyebrow': 'Journey',
@@ -201,7 +201,7 @@ window.STRINGS = {
     'cred.edu': 'Education', 'cred.cert': 'Certifications & courses',
     'contact.eyebrow': "Let's talk",
     'contact.title': "Let's build\nsomething together.",
-    'contact.sub': 'Open to full-time, contract and freelance work. Quick to reply.',
+    'contact.sub': 'Freelance projects and one-off partnerships. Quick to reply.',
     'footer.built': 'Built from scratch by Eduardo Genes · 2026',
     'footer.up': 'Back to top'
   }
