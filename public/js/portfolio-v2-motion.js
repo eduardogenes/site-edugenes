@@ -79,6 +79,14 @@
     var stamp = document.querySelector('.stamp');
     var tocLis = Array.prototype.slice.call(document.querySelectorAll('.toc li'));
 
+    /* 0 — papel timbrado: o lockup da marca surge antes da impressão começar.
+       Fade do bloco inteiro (o símbolo em si nunca anima — brand/README.md §7.2) */
+    var brand = document.querySelector('.brand');
+    if (brand) {
+      brand.style.transition = 'opacity .45s ease';
+      requestAnimationFrame(function () { brand.style.opacity = '1'; });
+    }
+
     /* split name into letters if the page hasn't done it (standalone pages) */
     if (!document.querySelector('.name .ch')) {
       var nameEl = document.querySelector('.name');
