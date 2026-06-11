@@ -1,6 +1,44 @@
 ---
 import Base from '../layouts/Base.astro';
 
+/* link único do WhatsApp (mensagem pré-preenchida) — masthead, CTA e FAQ */
+const WA_LINK =
+  'https://wa.me/5585981097155?text=Oi%2C%20Eduardo!%20Tenho%20um%20neg%C3%B3cio%20e%20quero%20uma%20proposta.%20Ele%20%C3%A9%20assim%3A%20';
+
+/* Anexo A — FAQ. Mesma fonte alimenta a marcação e o schema FAQPage. */
+const faq = [
+  {
+    q: 'Quanto custa?',
+    a: 'Depende do tamanho do projeto — uma landing page simples custa bem menos que uma loja completa. Por isso todo projeto começa com uma proposta fechada: você me conta o que precisa e recebe escopo, prazo e valor por escrito, sem compromisso. Nada muda no meio do caminho e não existe mensalidade escondida.',
+  },
+  {
+    q: 'Como funciona o pagamento?',
+    a: 'Fica definido na proposta, antes de qualquer cobrança. O formato mais comum é uma parte no início, pra reservar a agenda, e o restante na entrega, com o site já no ar. Projetos maiores podem ser divididos por etapa.',
+  },
+  {
+    q: 'Quanto tempo demora?',
+    a: 'Uma landing page sai a partir de 3 dias. Site completo, de 1 a 3 semanas. Loja ou catálogo, de 2 a 4. Sistemas sob medida ganham cronograma próprio na proposta — e você acompanha tudo crescendo por um link de prévia.',
+  },
+  {
+    q: 'E depois que o site está no ar?',
+    a: 'Você não fica na mão: a entrega inclui treinamento pra você mexer no que precisa e suporte pós-entrega pra ajustes. E se quiser alguém cuidando sempre — conteúdo, melhorias, velocidade — existe o formato de manutenção, por demanda ou combo mensal.',
+  },
+  {
+    q: 'O site fica meu?',
+    a: 'Fica. O domínio é registrado no seu nome e o site e o conteúdo são seus. Se um dia quiser seguir com outra pessoa, leva tudo — sem aluguel de plataforma e sem ficar refém de ninguém.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
@@ -27,6 +65,7 @@ const serviceSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
     <style is:inline>
       /* extras da página freela */
       /* título mais longo que o do portfólio — escala própria pra caber numa linha */
@@ -56,6 +95,23 @@ const serviceSchema = {
       .proof-line{font-family:var(--f-serif);font-style:italic;font-size:15.5px;margin-top:14px;}
       .proof-line a{font-style:normal;font-weight:600;text-decoration:underline;text-underline-offset:3px;}
       .proof-line a:hover{color:var(--red);}
+      /* Anexo A — FAQ (details nativo: teclado e leitor de tela de graça) */
+      .faq{border-bottom:1px solid var(--rule);}
+      .faq details{border-top:1px solid var(--rule);}
+      .faq summary{
+        display:grid;grid-template-columns:64px 1fr 28px;gap:18px;align-items:baseline;
+        padding:18px 10px;cursor:pointer;list-style:none;
+        font-weight:700;font-size:clamp(18px,2.4vw,28px);letter-spacing:-.015em;line-height:1.05;
+        transition:background .12s,color .12s;
+      }
+      .faq summary::-webkit-details-marker{display:none;}
+      .faq summary .no{font-family:var(--f-mono);font-size:13px;letter-spacing:.07em;font-weight:400;}
+      .faq summary .pm{font-size:22px;font-weight:400;text-align:right;line-height:1;transition:transform .25s;}
+      .faq summary:hover,.faq details[open] summary{background:var(--ink);color:var(--paper);}
+      .faq details[open] summary .pm{transform:rotate(45deg);}
+      .faq .fbody{padding:6px 10px 30px;}
+      .faq .fbody p{font-family:var(--f-serif);font-size:18px;line-height:1.55;margin:0;max-width:62ch;}
+      @media (max-width:760px){.faq summary{grid-template-columns:40px 1fr 22px;}}
       @media (max-width:760px){.pkg{grid-template-columns:1fr;gap:30px;}}
     </style>
   </Fragment>
@@ -70,7 +126,15 @@ const serviceSchema = {
       <div class="meta-row">
         <span>Proposta comercial — 2026</span>
         <span>Fortaleza, CE &amp; remoto</span>
-        <span>WhatsApp +55 85 98109-7155</span>
+        <span
+          >WhatsApp <a
+            href={WA_LINK}
+            target="_blank"
+            rel="noopener"
+            data-umami-event="whatsapp_click"
+            data-umami-event-placement="masthead">+55 85 98109-7155</a
+          ></span
+        >
         <span class="lang"><a href="/">ver portfólio →</a></span>
       </div>
     </div>
@@ -117,6 +181,13 @@ const serviceSchema = {
         <a href="#orcamento"
           ><span class="no">04</span><span>Pedir proposta</span><span class="leader"></span><span class="pg"
             >2 min</span
+          ></a
+        >
+      </li>
+      <li>
+        <a href="#anexo-faq"
+          ><span class="no">A</span><span>Perguntas frequentes</span><span class="leader"></span><span class="pg"
+            >5 perguntas</span
           ></a
         >
       </li>
@@ -280,10 +351,11 @@ const serviceSchema = {
     <div class="wa-row">
       <a
         class="wa-cta"
-        href="https://wa.me/5585981097155?text=Oi%2C%20Eduardo!%20Tenho%20um%20neg%C3%B3cio%20e%20quero%20uma%20proposta.%20Ele%20%C3%A9%20assim%3A%20"
+        href={WA_LINK}
         target="_blank"
         rel="noopener"
-        data-umami-event="whatsapp_click">Chamar no WhatsApp <small>85 98109-7155</small></a
+        data-umami-event="whatsapp_click"
+        data-umami-event-placement="cta">Chamar no WhatsApp <small>85 98109-7155</small></a
       >
       <span class="wa-alt"
         >ou por e-mail: <a
@@ -294,6 +366,40 @@ const serviceSchema = {
         ></span
       >
     </div>
+  </section>
+
+  <!-- ================= ANEXO A — FAQ ================= -->
+  <section class="sec sheet" id="anexo-faq" data-screen-label="Anexo A — FAQ">
+    <div class="sec-head">
+      <h2><span class="no">A</span>Perguntas frequentes</h2>
+      <p class="note">Anexo A — o que todo mundo pergunta antes de fechar.</p>
+    </div>
+    <div class="faq">
+      {
+        faq.map((f, i) => (
+          <details name="faq">
+            <summary>
+              <span class="no">A.{i + 1}</span>
+              <span class="ti">{f.q}</span>
+              <span class="pm">+</span>
+            </summary>
+            <div class="fbody">
+              <p>{f.a}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+    <p class="pkg-note">
+      Ficou com outra dúvida? <a
+        href={WA_LINK}
+        target="_blank"
+        rel="noopener"
+        data-umami-event="whatsapp_click"
+        data-umami-event-placement="faq"
+        style="font-weight:600;">me pergunta no WhatsApp →</a
+      > — respondo hoje.
+    </p>
   </section>
 
   <!-- ================= COLOFÃO ================= -->
@@ -372,6 +478,15 @@ const serviceSchema = {
       });
 
       document.getElementById('to-top').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+      /* FAQ (Anexo A) — conta só a abertura; 'toggle' não borbulha, então é direto */
+      document.querySelectorAll('.faq details').forEach(function (d) {
+        d.addEventListener('toggle', function () {
+          if (!d.open) return;
+          var q = d.querySelector('.ti');
+          try { if (window.umami) window.umami.track('faq_open', { q: q ? q.textContent : '' }); } catch (e) {}
+        });
+      });
     })();
   </script>
   <script is:inline src="/js/portfolio-v2-motion.js"></script>
