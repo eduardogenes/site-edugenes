@@ -84,7 +84,10 @@
         title: loc(p.title),
         desc: loc(p.desc),
         tags: p.tags,
-        links: [{ kind: 'code', href: p.href }],
+        links: p.links.map(function (l) {
+          if (l.kind === 'private') return { kind: 'private' };
+          return { kind: l.kind, href: l.href };
+        }),
         slot: i === 0 ? 'shot-hat' : 'shot-orc'
       };
     });
@@ -94,7 +97,10 @@
         title: loc(p.title),
         desc: loc(p.desc),
         tags: p.tags,
-        links: p.links.map(function (l) { return { kind: l.kind, href: l.href }; }),
+        links: p.links.map(function (l) {
+          if (l.kind === 'private') return { kind: 'private' };
+          return { kind: l.kind, href: l.href };
+        }),
         slot: p.slot,
         nda: p.id === 'llm'
       };
@@ -121,6 +127,7 @@
       var links = p.links.map(function (l) {
         if (l.kind === 'live') return '<a href="' + l.href + '" target="_blank" rel="noopener">' + t('w.live') + '</a>';
         if (l.kind === 'code') return '<a href="' + l.href + '" target="_blank" rel="noopener">' + t('w.code') + '</a>';
+        if (l.kind === 'private') return '<span class="wprivate">' + t('w.private') + '</span>';
         return '';
       }).join('');
       row.innerHTML =

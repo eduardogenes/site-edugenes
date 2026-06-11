@@ -22,6 +22,7 @@ export const FEATURED: FeaturedProject[] = [
     tags: ['Next.js', 'TypeScript', 'Tailwind', 'Vercel', 'Cloudflare', 'SEO'],
     links: [
       { kind: 'live', label: { pt: 'Ver site', en: 'View site' }, href: 'https://wvianaarquitetura.com.br' },
+      { kind: 'private' },
     ],
     slot: 'shot-wviana',
   },
@@ -36,7 +37,7 @@ export const FEATURED: FeaturedProject[] = [
     metric: { pt: '↗ Vendida a colégios pelo Brasil · via IMTS Group', en: '↗ Sold to schools across Brazil · via IMTS Group' },
     tags: ['React', 'TypeScript', 'Angular', 'Multitenant', 'RBAC', 'IA aplicada', 'Gamificação'],
     links: [
-      { kind: 'note', label: { pt: 'Produto comercial — demonstro numa conversa', en: 'Commercial product — happy to demo in a call' }, href: '#contato' },
+      { kind: 'private' },
     ],
     slot: 'shot-llm',
     placeholderText: { pt: 'Print da plataforma', en: 'Platform screenshot' },
@@ -52,6 +53,7 @@ export const FEATURED: FeaturedProject[] = [
     metric: null,
     tags: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Shadcn/UI', 'Context API'],
     links: [
+      { kind: 'live', label: { pt: 'Ver site', en: 'View site' }, href: 'https://geneseek.vercel.app' },
       { kind: 'code', label: { pt: 'Código', en: 'Code' }, href: 'https://github.com/eduardogenes/geneseek' },
     ],
     slot: 'shot-garimpeiro',
@@ -72,6 +74,22 @@ export const FEATURED: FeaturedProject[] = [
     slot: 'shot-mulheres',
     placeholderText: { pt: 'Mockup do app', en: 'App mockup' },
   },
+  {
+    id: 'edugenes',
+    badge: { pt: 'Em produção', en: 'In production' },
+    title: 'edugenes.dev',
+    desc: {
+      pt: 'Este portfólio na identidade «Documento»: Astro 6 + TypeScript, motion design calibrado à mão, i18n PT/EN, SEO técnico e analytics cookieless. Publicado com domínio próprio.',
+      en: 'This portfolio in the «Documento» identity: Astro 6 + TypeScript, hand-tuned motion design, PT/EN i18n, technical SEO and cookieless analytics. Shipped on its own domain.',
+    },
+    metric: { pt: '↗ Em produção · edugenes.dev', en: '↗ Live · edugenes.dev' },
+    tags: ['Astro', 'TypeScript', 'Motion', 'Vercel', 'Umami', 'i18n'],
+    links: [
+      { kind: 'live', label: { pt: 'Ver site', en: 'View site' }, href: 'https://edugenes.dev' },
+      { kind: 'code', label: { pt: 'Código', en: 'Code' }, href: 'https://github.com/eduardogenes/site-edugenes' },
+    ],
+    slot: 'shot-edugenes',
+  },
 ];
 
 export const SECONDARY: SecondaryProject[] = [
@@ -82,7 +100,10 @@ export const SECONDARY: SecondaryProject[] = [
       en: 'Personal-finance dashboard: spending control, scenario simulator, checklist, charts and cloud sync.',
     },
     tags: ['Next.js', 'Supabase', 'Recharts', 'Radix UI'],
-    href: 'https://github.com/eduardogenes-imts/home-alone-tracker',
+    links: [
+      { kind: 'live', label: { pt: 'Ver site', en: 'View site' }, href: 'https://home-alone-tracker.vercel.app' },
+      { kind: 'code', label: { pt: 'Código', en: 'Code' }, href: 'https://github.com/eduardogenes-imts/home-alone-tracker' },
+    ],
   },
   {
     title: { pt: 'Sistema de Orçamentos', en: 'Quote System' },
@@ -91,7 +112,10 @@ export const SECONDARY: SecondaryProject[] = [
       en: 'Internal tool for lodging quotes (Nano Hotéis / Moriá Eco Lodge), with automatic nightly-rate calculation.',
     },
     tags: ['JavaScript', 'HTML5', 'CSS3'],
-    href: 'https://github.com/eduardogenes/orcamento-nano',
+    links: [
+      { kind: 'live', label: { pt: 'Ver site', en: 'View site' }, href: 'https://orcamento-nano.vercel.app' },
+      { kind: 'code', label: { pt: 'Código', en: 'Code' }, href: 'https://github.com/eduardogenes/orcamento-nano' },
+    ],
   },
 ];
 
@@ -159,6 +183,7 @@ export const WMETA: Record<string, { ty: Localized; yr: string }> = {
   llm: { ty: { pt: 'edtech · em produção', en: 'edtech · in production' }, yr: '2025–26' },
   garimpeiro: { ty: { pt: 'open source', en: 'open source' }, yr: '2025' },
   mulheres: { ty: { pt: 'produto próprio', en: 'own product' }, yr: '2026' },
+  edugenes: { ty: { pt: 'portfólio · no ar', en: 'portfolio · live' }, yr: '2026' },
   hat: { ty: { pt: 'open source', en: 'open source' }, yr: '2025' },
   orc: { ty: { pt: 'ferramenta interna', en: 'internal tool' }, yr: '2023' },
 };
@@ -171,7 +196,7 @@ export const S: Record<'pt' | 'en', Record<string, string>> = {
     'm.stamp': 'em produção',
     'm.tail': 'Desenvolvedor full stack — construo o produto inteiro, com queda assumida por front-end e experiência do usuário. Hoje na IMTS Group.',
     'm.since': 'escrevendo interfaces desde 2022',
-    'toc.1': 'Trabalhos', 'toc.1n': '6 fichas',
+    'toc.1': 'Trabalhos', 'toc.1n': '7 fichas',
     'toc.2': 'Trajetória', 'toc.2n': '4 períodos',
     'toc.3': 'Sobre', 'toc.3n': '1 pessoa',
     'toc.4': 'Contato', 'toc.4n': '4 canais',
@@ -185,7 +210,7 @@ export const S: Record<'pt' | 'en', Record<string, string>> = {
     'f.colo': '// Tipografia: Archivo & Newsreader · Nada gerado, nada clonado — cada detalhe foi uma escolha · Rev. 02, junho de 2026 · Fortaleza',
     'f.metrics': 'métricas anônimas e sem cookies (Umami) — nenhum dado pessoal é coletado',
     'f.top': '↑ voltar ao topo',
-    'w.live': 'ver no ar ↗', 'w.code': 'código ↗',
+    'w.live': 'ver no ar ↗', 'w.code': 'código ↗', 'w.private': 'código privado',
     'w.nda': 'Produto comercial — demonstro com prazer numa conversa.',
     'w.shot': 'Print do projeto — arraste aqui',
   },
@@ -195,7 +220,7 @@ export const S: Record<'pt' | 'en', Record<string, string>> = {
     'm.stamp': 'in production',
     'm.tail': 'Full stack developer — I build the whole product, with an admitted soft spot for front-end and user experience. Currently at IMTS Group.',
     'm.since': 'writing interfaces since 2022',
-    'toc.1': 'Work', 'toc.1n': '6 entries',
+    'toc.1': 'Work', 'toc.1n': '7 entries',
     'toc.2': 'Track record', 'toc.2n': '4 chapters',
     'toc.3': 'About', 'toc.3n': '1 person',
     'toc.4': 'Contact', 'toc.4n': '4 channels',
@@ -209,7 +234,7 @@ export const S: Record<'pt' | 'en', Record<string, string>> = {
     'f.colo': '// Type: Archivo & Newsreader · Nothing generated, nothing cloned — every detail was a choice · Rev. 02, June 2026 · Fortaleza',
     'f.metrics': 'anonymous, cookie-free metrics (Umami) — no personal data is collected',
     'f.top': '↑ back to top',
-    'w.live': 'see it live ↗', 'w.code': 'source ↗',
+    'w.live': 'see it live ↗', 'w.code': 'source ↗', 'w.private': 'private code',
     'w.nda': 'Commercial product — happy to demo it in a call.',
     'w.shot': 'Project screenshot — drop it here',
   },

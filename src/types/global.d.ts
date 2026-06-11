@@ -6,14 +6,12 @@
 /** Valor localizável: string simples ou par PT/EN. */
 type Localized<T = string> = T | { pt: T; en: T };
 
-interface ProjectLink {
-  kind: 'live' | 'code' | 'note';
-  label: Localized;
-  href: string;
-}
+type ProjectLink =
+  | { kind: 'live' | 'code' | 'note'; label: Localized; href: string }
+  | { kind: 'private' };
 
 interface FeaturedProject {
-  id: 'wviana' | 'llm' | 'garimpeiro' | 'mulheres';
+  id: 'wviana' | 'llm' | 'garimpeiro' | 'mulheres' | 'edugenes';
   badge: Localized;
   title: Localized;
   desc: Localized;
@@ -28,7 +26,7 @@ interface SecondaryProject {
   title: Localized;
   desc: Localized;
   tags: string[];
-  href: string;
+  links: ProjectLink[];
 }
 
 interface ExperienceEntry {

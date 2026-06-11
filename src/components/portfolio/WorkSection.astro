@@ -19,12 +19,14 @@ const entries = [
     title: pt(p.title),
     desc: pt(p.desc),
     tags: p.tags,
-    links: [{ kind: 'code' as const, href: p.href }],
+    links: p.links,
     slot: i === 0 ? 'shot-hat' : 'shot-orc',
     nda: false,
   })),
 ];
-const linkLabel = { live: t('w.live'), code: t('w.code') };
+const linkLabel = { live: t('w.live'), code: t('w.code'), private: t('w.private') };
+const hasWlinks = (links: typeof entries[0]['links']) =>
+  links.some((l) => l.kind === 'live' || l.kind === 'code' || l.kind === 'private');
 ---
 
 <section class="sec sheet" id="trabalhos" data-screen-label="01 Trabalhos">
@@ -57,15 +59,21 @@ const linkLabel = { live: t('w.live'), code: t('w.code') };
               <div>
                 <p class="wdesc">{p.desc}</p>
                 <p class="wstack">{p.tags.join(' · ')}</p>
-                {p.links.some((l) => l.kind === 'live' || l.kind === 'code') && (
+                {hasWlinks(p.links) && (
                   <div class="wlinks">
                     {p.links
-                      .filter((l) => l.kind === 'live' || l.kind === 'code')
-                      .map((l) => (
-                        <a href={l.href} target="_blank" rel="noopener">
-                          {linkLabel[l.kind as 'live' | 'code']}
-                        </a>
-                      ))}
+                      .filter((l) => l.kind === 'live' || l.kind === 'code' || l.kind === 'private')
+                      .map((l) =>
+                        l.kind === 'private' ? (
+                          <span class="wprivate" data-i18n="w.private">
+                            {linkLabel.private}
+                          </span>
+                        ) : (
+                          <a href={l.href} target="_blank" rel="noopener">
+                            {linkLabel[l.kind as 'live' | 'code']}
+                          </a>
+                        )
+                      )}
                   </div>
                 )}
                 {p.nda && <p class="wnote">{t('w.nda')}</p>}
