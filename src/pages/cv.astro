@@ -1,5 +1,6 @@
 ---
 /* CV imprimível — auto-contido (CSS próprio inline, print-ready A4, noindex). */
+import Analytics from '../components/Analytics.astro';
 ---
 
 <!doctype html>
@@ -25,6 +26,7 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap"
       rel="stylesheet"
     />
+    <Analytics />
     <style is:inline>
       :root{
         --paper:#eeeee6; --ink:#181611; --ink-2:#5b564a; --red:#c92f12;
@@ -101,15 +103,30 @@
       <p class="role">Desenvolvedor full stack — <b>front-end e experiência do usuário em primeiro lugar.</b></p>
 
       <div class="contacts">
-        <span><b>@</b><a href="mailto:eduardogenes95@gmail.com">eduardogenes95@gmail.com</a></span>
-        <span><b>tel</b><a href="tel:+5585981097155">+55 85 98109-7155</a></span>
         <span
-          ><b>in</b><a href="https://linkedin.com/in/eduardogenes" target="_blank" rel="noopener"
-            >/in/eduardogenes</a
+          ><b>@</b><a
+            href="mailto:eduardogenes95@gmail.com"
+            data-umami-event="email_click"
+            data-umami-event-placement="cv">eduardogenes95@gmail.com</a
+          ></span
+        >
+        <span><b>tel</b><a href="tel:+5585981097155" data-umami-event="phone_click">+55 85 98109-7155</a></span>
+        <span
+          ><b>in</b><a
+            href="https://linkedin.com/in/eduardogenes"
+            target="_blank"
+            rel="noopener"
+            data-umami-event="social_click"
+            data-umami-event-network="linkedin">/in/eduardogenes</a
           ></span
         >
         <span
-          ><b>gh</b><a href="https://github.com/eduardogenes" target="_blank" rel="noopener">@eduardogenes</a
+          ><b>gh</b><a
+            href="https://github.com/eduardogenes"
+            target="_blank"
+            rel="noopener"
+            data-umami-event="social_click"
+            data-umami-event-network="github">@eduardogenes</a
           ></span
         >
       </div>
@@ -228,7 +245,7 @@
 
     <div class="printbar">
       <a href="/">← portfólio</a>
-      <button onclick="window.print()">imprimir / salvar PDF</button>
+      <button onclick="window.print()" data-umami-event="cv_print">imprimir / salvar PDF</button>
     </div>
   </body>
 </html>

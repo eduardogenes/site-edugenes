@@ -20,6 +20,7 @@ Rotas limpas e fallback de 404 são resolvidos pela Vercel ([`vercel.json`](verc
 ```
 src/
 ├── layouts/Base.astro         head comum (SEO/OG, fontes, CSS) das páginas «Documento»
+├── components/Analytics.astro loader do Umami + eg-analytics.js (todas as páginas)
 ├── components/portfolio/      Masthead · Toc · WorkSection · TrackSection ·
 │                              AboutSection · ContactSection · Colophon
 ├── pages/                     index · freela · cv · 404
@@ -30,7 +31,8 @@ public/
 │   ├── portfolio-v2.js        i18n, render das fichas/ledger, relógio
 │   ├── portfolio-v2-motion.js boot + abertura física do masthead
 │   ├── portfolio-v2-scrollmotion.js  coreografia de scroll + botões magnéticos
-│   └── portfolio-v2-devmode.js       statusline vim + modo inspect (só no portfólio)
+│   ├── portfolio-v2-devmode.js       statusline vim + modo inspect (só no portfólio)
+│   └── eg-analytics.js        eventos custom do Umami (não é motor — pode evoluir)
 ├── portfolio-v2.css           sistema visual compartilhado (intacto)
 ├── assets/                    favicon, OG cards, placeholder dos prints
 └── retrato.png
@@ -39,7 +41,7 @@ v1/                            versão anterior (React + Vite + TS), arquivada
 
 ### ⚠ Regra de ouro dos motores
 
-Os arquivos de `public/js/` e o `portfolio-v2.css` são **código final**: a física de mola (letras, carimbo, botões magnéticos) foi calibrada à mão, iterativamente. Eles funcionam lendo o DOM que os componentes Astro renderizam — **não reescrever como módulos/hooks/keyframes**, e não renomear as classes que eles esperam (`.masthead`, `.name .l1/.l2`, `.stamp`, `.sec-head`, `.lrow`, `.windex .wrow`, `.wa-cta`, `.bigmail`, `[data-screen-label]`…).
+Os arquivos de `public/js/` e o `portfolio-v2.css` são **código final**: a física de mola (letras, carimbo, botões magnéticos) foi calibrada à mão, iterativamente. Eles funcionam lendo o DOM que os componentes Astro renderizam — **não reescrever como módulos/hooks/keyframes**, e não renomear as classes que eles esperam (`.masthead`, `.name .l1/.l2`, `.stamp`, `.sec-head`, `.lrow`, `.windex .wrow`, `.wa-cta`, `.bigmail`, `[data-screen-label]`…). Exceção: `eg-analytics.js` não é motor (só consome esse mesmo contrato de classes por delegação) e as strings de conteúdo do dicionário i18n em `portfolio-v2.js` podem ser atualizadas.
 
 Divergência deliberada do bundle de design (jun/2026, calibrada com o Eduardo): os ímãs (letras do título, `.bigmail`, `.wa-cta`) ganharam **massa** (`m`) e a **tremida de reacomodação** — ruído zero-média em X/Y/rotação injetado nas molas enquanto o cursor se move, proporcional à velocidade × proximidade. Botões de calibração nos motores: ganhos `1300`/`850`, sensibilidade `/900`, decaimento ~110 ms, massa `m = 1.5`.
 
@@ -52,6 +54,38 @@ npm run build      # gera dist/
 npm run preview    # serve o dist/ localmente
 npm run check      # validação TypeScript/Astro
 ```
+
+## Analytics (Umami)
+
+Umami Cloud (região UE), **cookieless e sem PII** — dispensa banner de consentimento (LGPD);
+a transparência fica na linha de métricas dos colofões. O script é servido pelo próprio domínio
+via rewrite `/stats/*` → `cloud.umami.is` no `vercel.json` (reduz perda por adblocker);
+`data-domains` ignora localhost e previews.
+
+Instrumentação em duas camadas:
+
+- **Estáticos**: `data-umami-event` (+ `data-umami-event-<prop>`) direto nos templates Astro —
+  `whatsapp_click`, `email_click` (prop `placement`), `social_click` (prop `network`),
+  `phone_click`, `freela_nav` (prop `from`), `cv_print`.
+- **DOM dinâmico**: `public/js/eg-analytics.js` por delegação no `document` (sobrevive ao
+  re-render da troca de idioma) — `project_open`, `project_link_click`, `service_open`,
+  `toc_click`, `lang_switch`, `404_view`.
+
+Regras: nomes `objeto_acao` em snake_case, ≤ 2 props por evento, **nunca PII em props**.
+
+### Convenção UTM (links externos meus)
+
+Links divulgados fora do site devem carregar UTM — sem isso tudo vira "tráfego direto":
+
+| Onde                  | `utm_source` | `utm_medium` |
+| --------------------- | ------------ | ------------ |
+| Bio do Instagram      | `instagram`  | `bio`        |
+| Status/msg WhatsApp   | `whatsapp`   | `status`     |
+| Cartão (QR)           | `cartao`     | `qr`         |
+| Assinatura de e-mail  | `email`      | `assinatura` |
+| Perfil LinkedIn       | `linkedin`   | `bio`        |
+
+Ex.: `https://edugenes.com.br/freela?utm_source=instagram&utm_medium=bio`
 
 ## Prints dos projetos (pendente)
 

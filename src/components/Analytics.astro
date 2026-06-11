@@ -1,0 +1,14 @@
+---
+/* Umami Cloud (cookieless, região UE), servido pelo próprio domínio via
+   rewrite /stats/* no vercel.json. data-domains ignora localhost/preview.
+   Eventos: estáticos via data-umami-event nos templates; DOM dinâmico
+   (fichas re-renderizadas pela troca de idioma) via eg-analytics.js. */
+---
+
+<script
+  is:inline
+  defer
+  src="/stats/script.js"
+  data-website-id="87f91c4a-574e-4c45-bd7b-d39ed7cf2caa"
+  data-domains="edugenes.com.br"></script>
+<script is:inline defer src="/js/eg-analytics.js"></script>

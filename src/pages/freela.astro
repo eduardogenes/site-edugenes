@@ -268,10 +268,14 @@ import Base from '../layouts/Base.astro';
         class="wa-cta"
         href="https://wa.me/5585981097155?text=Oi%2C%20Eduardo!%20Tenho%20um%20neg%C3%B3cio%20e%20quero%20uma%20proposta.%20Ele%20%C3%A9%20assim%3A%20"
         target="_blank"
-        rel="noopener">Chamar no WhatsApp <small>85 98109-7155</small></a
+        rel="noopener"
+        data-umami-event="whatsapp_click">Chamar no WhatsApp <small>85 98109-7155</small></a
       >
       <span class="wa-alt"
-        >ou por e-mail: <a href="mailto:eduardogenes95@gmail.com?subject=Proposta%20para%20meu%20neg%C3%B3cio"
+        >ou por e-mail: <a
+          href="mailto:eduardogenes95@gmail.com?subject=Proposta%20para%20meu%20neg%C3%B3cio"
+          data-umami-event="email_click"
+          data-umami-event-placement="wa_alt"
           >eduardogenes95@gmail.com</a
         ></span
       >
@@ -285,6 +289,7 @@ import Base from '../layouts/Base.astro';
         Eduardo Genes · desenvolvedor web · Fortaleza, Brasil · este site também é trabalho meu — feito à mão,
         sem template
       </p>
+      <p class="metrics-note">métricas anônimas e sem cookies (Umami) — nenhum dado pessoal é coletado</p>
       <p><a id="to-top">↑ voltar ao topo</a></p>
     </div>
   </footer>
