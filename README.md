@@ -32,7 +32,10 @@ public/
 │   ├── portfolio-v2-motion.js boot + abertura física do masthead
 │   ├── portfolio-v2-scrollmotion.js  coreografia de scroll + botões magnéticos
 │   ├── portfolio-v2-devmode.js       statusline vim + modo inspect (só no portfólio)
-│   └── eg-analytics.js        eventos custom do Umami (não é motor — pode evoluir)
+│   ├── eg-analytics.js        eventos custom do Umami (não é motor — pode evoluir)
+│   └── web-vitals.iife.js     lib oficial vendorada (RUM — LCP/CLS/INP)
+├── fonts/ + fonts.css         fontes self-hosted (subsets latin/latin-ext)
+├── robots.txt                 aponta o sitemap; sem Disallow (noindex faz o papel)
 ├── portfolio-v2.css           sistema visual compartilhado (intacto)
 ├── assets/                    favicon, OG cards, placeholder dos prints
 └── retrato.png
@@ -66,12 +69,22 @@ Instrumentação em duas camadas:
 
 - **Estáticos**: `data-umami-event` (+ `data-umami-event-<prop>`) direto nos templates Astro —
   `whatsapp_click`, `email_click` (prop `placement`), `social_click` (prop `network`),
-  `phone_click`, `freela_nav` (prop `from`), `cv_print`.
-- **DOM dinâmico**: `public/js/eg-analytics.js` por delegação no `document` (sobrevive ao
-  re-render da troca de idioma) — `project_open`, `project_link_click`, `service_open`,
-  `toc_click`, `lang_switch`, `404_view`.
+  `phone_click`, `freela_nav` (prop `from`).
+- **Via `public/js/eg-analytics.js`** (delegação no `document` — sobrevive ao re-render da
+  troca de idioma): `project_open`, `project_link_click`, `service_open`, `toc_click`,
+  `lang_switch`, `404_view`, `scroll_depth` (marcos 50/90), `section_view`, `inspect_toggle`,
+  `cv_print` (via `beforeprint` — pega botão e Ctrl+P) e `web_vital` (LCP/CLS/INP reais,
+  lib `web-vitals` vendorada).
 
 Regras: nomes `objeto_acao` em snake_case, ≤ 2 props por evento, **nunca PII em props**.
+
+SEO: `robots.txt` + sitemap (`@astrojs/sitemap`, sem `/cv`) + JSON-LD (`Person` na home,
+`ProfessionalService` na /freela). Falta (manual): verificar o domínio no Google Search Console
+e submeter `https://edugenes.com.br/sitemap-index.xml`.
+
+Fontes: self-hosted em `public/fonts/` (latin + latin-ext baixados da URL css2 original do
+Google Fonts, eixos variáveis preservados — `font-stretch` do Archivo incluso). Para alterar
+famílias/pesos, regenerar `fonts.css` + woff2 a partir da nova URL css2.
 
 ### Convenção UTM (links externos meus)
 
