@@ -38,7 +38,7 @@ public/
 ├── robots.txt                 aponta o sitemap; sem Disallow (noindex faz o papel)
 ├── portfolio-v2.css           sistema visual compartilhado (intacto)
 ├── assets/                    favicon, OG cards, placeholder dos prints
-└── retrato.png
+└── retrato.avif / retrato.webp  retrato 640px (AVIF + fallback WebP)
 v1/                            versão anterior (React + Vite + TS), arquivada
 ```
 

@@ -10,7 +10,18 @@
   <div class="about2">
     <div class="txt" id="about-txt"></div>
     <figure class="fig">
-      <img id="profile-photo" src="/retrato.png" alt="Eduardo Genes — retrato" />
+      <picture>
+        <source srcset="/retrato.avif" type="image/avif" />
+        <img
+          id="profile-photo"
+          src="/retrato.webp"
+          alt="Eduardo Genes — retrato"
+          width="640"
+          height="853"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
       <figcaption data-i18n="a.cap">Fortaleza, 2026</figcaption>
     </figure>
   </div>
