@@ -10,4 +10,10 @@ export default defineConfig({
   build: { format: 'file' },
   // /cv fora do sitemap (coerente com o noindex); a 404 o plugin já exclui
   integrations: [sitemap({ filter: (page) => !page.includes('/cv') })],
+  // permite acesso via ngrok no dev (subdomínio muda a cada sessão)
+  vite: {
+    server: {
+      allowedHosts: ['.ngrok-free.dev', '.ngrok.io', '.ngrok.app'],
+    },
+  },
 });
