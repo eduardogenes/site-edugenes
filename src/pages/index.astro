@@ -7,6 +7,17 @@ import TrackSection from '../components/portfolio/TrackSection.astro';
 import AboutSection from '../components/portfolio/AboutSection.astro';
 import ContactSection from '../components/portfolio/ContactSection.astro';
 import Colophon from '../components/portfolio/Colophon.astro';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Eduardo Genes',
+  url: 'https://edugenes.com.br/',
+  jobTitle: 'Desenvolvedor web full stack',
+  email: 'mailto:eduardogenes95@gmail.com',
+  address: { '@type': 'PostalAddress', addressLocality: 'Fortaleza', addressRegion: 'CE', addressCountry: 'BR' },
+  sameAs: ['https://github.com/eduardogenes', 'https://linkedin.com/in/eduardogenes'],
+};
 ---
 
 <Base
@@ -20,6 +31,10 @@ import Colophon from '../components/portfolio/Colophon.astro';
   bootCmd=""
   bodyStyle='background-color: rgb(238, 238, 230); font-family: "Archivo"'
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)} />
+  </Fragment>
+
   <Masthead />
   <Toc />
   <WorkSection />

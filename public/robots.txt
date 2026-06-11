@@ -1,0 +1,6 @@
+# /cv e a 404 têm noindex — sem Disallow aqui de propósito,
+# o crawler precisa conseguir ler a meta robots
+User-agent: *
+Allow: /
+
+Sitemap: https://edugenes.com.br/sitemap-index.xml
