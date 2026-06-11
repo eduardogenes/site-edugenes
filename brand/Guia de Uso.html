@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>edugenes · Guia de Uso da Marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cafe:#E38D3D; --bio:#51B67A; --tinta:#1E1A14; --papel:#FAF8F5;
+    --dark-paper:#F0EEEA; --cafe-deep:#B25400; --bio-deep:#007E46; --dark:#17130E;
+    --soft:#6B655B; --line:#E4E1DA;
+    --sans:"Space Grotesk",sans-serif; --mono:"JetBrains Mono",monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#EDEAE4;font-family:var(--sans);color:var(--tinta);}
+  .page{max-width:880px;margin:0 auto;background:var(--papel);padding:72px 80px 96px;}
+  @media print{
+    body{background:white;}
+    .page{max-width:none;padding:24px 8px;}
+    section{break-inside:avoid;}
+  }
+
+  header{display:flex;flex-direction:column;gap:28px;border-bottom:2px solid var(--tinta);padding-bottom:40px;margin-bottom:56px;}
+  header img{width:340px;}
+  .kicker{font:500 11px/1 var(--mono);letter-spacing:0.3em;text-transform:uppercase;color:var(--soft);}
+  h1{font:700 34px/1.15 var(--sans);letter-spacing:-0.02em;margin:0;}
+
+  section{margin-bottom:64px;}
+  h2{font:700 13px/1 var(--mono);letter-spacing:0.22em;text-transform:uppercase;margin:0 0 6px;color:var(--cafe-deep);}
+  h3{font:600 20px/1.3 var(--sans);letter-spacing:-0.01em;margin:0 0 20px;}
+  p{font:400 14px/1.7 var(--sans);margin:0 0 12px;max-width:62ch;text-wrap:pretty;}
+  p strong{font-weight:600;}
+  .note{font:400 12px/1.7 var(--sans);color:var(--soft);max-width:62ch;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .spec{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .spec .art{display:flex;align-items:center;justify-content:center;padding:34px 24px;min-height:130px;}
+  .spec .art.claro{background:var(--papel);border-bottom:1px solid var(--line);}
+  .spec .art.escuro{background:var(--dark);}
+  .spec .art img{max-width:100%;max-height:84px;}
+  .spec .info{padding:16px 18px 18px;background:white;}
+  .spec .info b{display:block;font:600 13.5px/1.4 var(--sans);margin-bottom:4px;}
+  .spec .info span{font:400 12px/1.6 var(--sans);color:var(--soft);display:block;}
+  .spec .file{font:400 10.5px/1.6 var(--mono);color:var(--cafe-deep);display:block;margin-top:8px;word-break:break-all;}
+
+  .usewhen{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:20px;}
+  .usewhen > div{padding:18px 20px;background:white;}
+  .usewhen > div:first-child{border-right:1px solid var(--line);}
+  .usewhen h4{font:600 11px/1 var(--mono);letter-spacing:0.18em;text-transform:uppercase;margin:0 0 12px;}
+  .usewhen h4.sim{color:var(--bio-deep);}
+  .usewhen h4.nao{color:#B3402A;}
+  .usewhen ul{margin:0;padding-left:16px;}
+  .usewhen li{font:400 12.5px/1.8 var(--sans);}
+
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .swatch{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:white;}
+  .swatch i{display:block;height:72px;}
+  .swatch .meta{padding:12px 14px;}
+  .swatch .meta b{font:600 13px/1.3 var(--sans);display:block;}
+  .swatch .meta span{font:400 10.5px/1.7 var(--mono);color:var(--soft);display:block;}
+
+  table{width:100%;border-collapse:collapse;font:400 12.5px/1.6 var(--sans);}
+  th{font:600 10.5px/1 var(--mono);letter-spacing:0.14em;text-transform:uppercase;text-align:left;color:var(--soft);padding:10px 12px;border-bottom:2px solid var(--tinta);}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  td code{font:400 11px/1.5 var(--mono);color:var(--cafe-deep);}
+
+  .rule-card{display:flex;gap:16px;align-items:flex-start;background:white;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px;}
+  .rule-card .num{font:700 13px/1 var(--mono);color:var(--cafe-deep);padding-top:2px;flex:none;}
+  .rule-card p{margin:0;font-size:13px;}
+
+  footer{border-top:1px solid var(--line);padding-top:24px;font:400 11px/1.7 var(--mono);color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <img src="png/lockup-horizontal-tinta.png" alt="edugenes_">
+    <div>
+      <div class="kicker">Guia de Uso da Marca · v1 · junho 2026</div>
+      <h1>Quando usar cada variação</h1>
+    </div>
+  </header>
+
+  <section>
+    <h2>00 · A ideia</h2>
+    <h3>genes → código genético → código-fonte</h3>
+    <p>O símbolo é uma <strong>escada de pares de bases</strong> (A·T em café, C·G em verde) — o sobrenome Genes carregando a profissão. O underscore <strong>_</strong> no fim do wordmark é o cursor do terminal: código vivo, sempre em construção.</p>
+    <p class="note">Regra de ouro: nunca redesenhe nenhuma peça. Use sempre os arquivos desta pasta.</p>
+  </section>
+
+  <section>
+    <h2>01 · Lockups</h2>
+    <h3>Três formações, uma hierarquia clara</h3>
+    <div class="grid3">
+      <div class="spec">
+        <div class="art claro"><img src="png/lockup-horizontal-tinta.png" alt="lockup horizontal"></div>
+        <div class="info">
+          <b>Horizontal — principal</b>
+          <span>O padrão. Header do site, topo de documentos, apresentações, assinatura de e-mail. Em dúvida, use este.</span>
+          <span class="file">png/lockup-horizontal-tinta.png · -papel.png</span>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="art claro"><img src="png/lockup-empilhado-tinta.png" alt="lockup empilhado" style="max-height:110px"></div>
+        <div class="info">
+          <b>Empilhado — apoio</b>
+          <span>Espaços quadrados ou verticais: capas, cards de compartilhamento, stories, etiquetas.</span>
+          <span class="file">png/lockup-empilhado-tinta.png · -papel.png</span>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="art claro"><img src="png/wordmark-tinta.png" alt="wordmark"></div>
+        <div class="info">
+          <b>Wordmark sozinho — apoio</b>
+          <span>Faixas horizontais baixas: rodapés, créditos, barras de navegação compactas.</span>
+          <span class="file">png/wordmark-tinta.png · -papel.png</span>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px">Versões <strong>tinta</strong> = para fundos claros · versões <strong>papel</strong> = para fundos escuros. Fundo transparente em todas.</p>
+  </section>
+
+  <section>
+    <h2>02 · Símbolo</h2>
+    <h3>Duotone é a assinatura; mono é a versátil</h3>
+    <div class="grid2">
+      <div class="spec">
+        <div class="art claro"><img src="svg/simbolo-duotone.svg" alt="símbolo duotone" style="height:80px"></div>
+        <div class="info">
+          <b>Duotone</b>
+          <span>Sempre que houver cor disponível: digital, slides, impressos coloridos. É a versão que constrói memória da marca.</span>
+          <span class="file">svg/simbolo-duotone.svg · -para-fundo-escuro.svg</span>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="art claro"><img src="svg/simbolo-mono-tinta.svg" alt="símbolo mono" style="height:80px"></div>
+        <div class="info">
+          <b>Monocromático</b>
+          <span>Contextos de 1 cor: carimbo, bordado, gravação a laser, marca d'água, impressão P&B.</span>
+          <span class="file">svg/simbolo-mono-tinta.svg · -papel.svg</span>
+        </div>
+      </div>
+    </div>
+    <div class="usewhen">
+      <div>
+        <h4 class="sim">Pode</h4>
+        <ul>
+          <li>Usar o símbolo sozinho em contextos próprios (site, materiais seus)</li>
+          <li>Escalar à vontade — é SVG</li>
+          <li>Usar sobre café ou verde, na versão mono</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="nao">Não pode</h4>
+        <ul>
+          <li>Mudar as cores das barras ou a ordem A·G·G·A</li>
+          <li>Rotacionar, espelhar ou animar o símbolo</li>
+          <li>Usar abaixo de 20px — aí é caso pro favicon</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>03 · Favicon & Avatar</h2>
+    <h3>Dois cortes oficiais, cada um no seu habitat</h3>
+    <div class="grid2">
+      <div class="spec">
+        <div class="art claro"><img src="png/favicon-512.png" alt="favicon barras" style="height:84px"></div>
+        <div class="info">
+          <b>Favicon · só barras</b>
+          <span><strong>Site e abas de navegador, PWA, atalhos.</strong> É o corte do símbolo pra tamanhos minúsculos: sem os pontos, que viram poeira abaixo de 32px.</span>
+          <span class="file">png/favicon-16/32/48/64/180/192/512.png · svg/favicon-*.svg</span>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="art claro"><img src="png/avatar-eg-tinta.png" alt="avatar eg" style="height:84px;border-radius:50%"></div>
+        <div class="info">
+          <b>Avatar · eg▍ cursor-bloco</b>
+          <span><strong>Perfis: GitHub, LinkedIn, redes, foto de e-mail.</strong> As iniciais são pessoais — é você, não o site. O cursor-bloco ecoa as pílulas do símbolo.</span>
+          <span class="file">png/avatar-eg-tinta.png · -claro.png · -cafe.png</span>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px">Os avatares têm fundo cheio (quadrado) — as plataformas recortam o círculo sozinhas. Tamanhos de favicon: 16/32 (aba), 48/64 (atalhos), 180 (Apple touch), 192/512 (PWA/Android).</p>
+  </section>
+
+  <section>
+    <h2>04 · Cor</h2>
+    <h3>Paleta P1 — café + bio</h3>
+    <div class="swatches">
+      <div class="swatch"><i style="background:var(--cafe)"></i><div class="meta"><b>Café</b><span>#E38D3D<br>oklch(0.72 0.14 60)</span></div></div>
+      <div class="swatch"><i style="background:var(--bio)"></i><div class="meta"><b>Bio</b><span>#51B67A<br>oklch(0.70 0.13 155)</span></div></div>
+      <div class="swatch"><i style="background:var(--tinta)"></i><div class="meta"><b>Tinta</b><span>#1E1A14<br>oklch(0.22 0.012 80)</span></div></div>
+      <div class="swatch"><i style="background:var(--papel);border-bottom:1px solid var(--line)"></i><div class="meta"><b>Papel</b><span>#FAF8F5<br>oklch(0.98 0.005 90)</span></div></div>
+      <div class="swatch"><i style="background:var(--cafe-deep)"></i><div class="meta"><b>Café profundo</b><span>#B25400 — acentos sobre fundos claros pequenos (contraste)</span></div></div>
+      <div class="swatch"><i style="background:var(--bio-deep)"></i><div class="meta"><b>Bio profundo</b><span>#007E46 — idem, par do café profundo</span></div></div>
+      <div class="swatch"><i style="background:var(--dark)"></i><div class="meta"><b>Fundo escuro</b><span>#17130E — superfícies dark</span></div></div>
+      <div class="swatch"><i style="background:var(--dark-paper);border-bottom:1px solid var(--line)"></i><div class="meta"><b>Papel sobre escuro</b><span>#F0EEEA — texto/tile no dark</span></div></div>
+    </div>
+    <p class="note" style="margin-top:14px">Light first: a marca vive primeiro no claro. No escuro, troque tinta→papel e use os acentos profundos quando a peça for pequena (legibilidade).</p>
+  </section>
+
+  <section>
+    <h2>05 · O cursor</h2>
+    <h3>Quando pisca, quando para</h3>
+    <div class="rule-card"><div class="num">R1</div><p><strong>Pisca só em telas vivas</strong> — site, apps, apresentações em HTML. Ciclo de ~1,1s, e sempre respeitando <code>prefers-reduced-motion</code>.</p></div>
+    <div class="rule-card"><div class="num">R2</div><p><strong>Estático com o cursor à vista</strong> em tudo que não anima: print, PDF, avatar, favicon, assinatura de e-mail. O cursor nunca some — só para de piscar.</p></div>
+    <div class="rule-card"><div class="num">R3</div><p><strong>O símbolo (escada) nunca pisca.</strong> O gesto do cursor pertence ao wordmark e ao monograma, apenas.</p></div>
+  </section>
+
+  <section>
+    <h2>06 · Índice de arquivos</h2>
+    <h3>O que é cada coisa</h3>
+    <table>
+      <thead><tr><th>Arquivo</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td><code>svg/simbolo-duotone.svg</code></td><td>Escada com pontos tinta e barras café/verde — o símbolo padrão sobre fundos claros</td></tr>
+        <tr><td><code>svg/simbolo-duotone-para-fundo-escuro.svg</code></td><td>Mesma escada com pontos claros — símbolo sobre fundos escuros</td></tr>
+        <tr><td><code>svg/simbolo-mono-tinta.svg</code></td><td>Escada 100% tinta — 1 cor sobre claro: carimbo, P&amp;B, marca d'água</td></tr>
+        <tr><td><code>svg/simbolo-mono-papel.svg</code></td><td>Escada 100% papel — 1 cor sobre escuro ou sobre café/verde</td></tr>
+        <tr><td><code>svg/favicon-barras.svg</code></td><td>Só as 4 barras, fundo transparente — base vetorial do favicon</td></tr>
+        <tr><td><code>svg/favicon-tile-escuro.svg</code></td><td>Barras em tile quadrado arredondado tinta — vira o favicon.svg do site</td></tr>
+        <tr><td><code>svg/favicon-circulo-escuro.svg</code></td><td>Barras em círculo tinta — plataformas que pedem ícone redondo</td></tr>
+        <tr><td><code>png/favicon-16.png · -32.png</code></td><td>Tile raster pequeno — aba do navegador (fallback PNG)</td></tr>
+        <tr><td><code>png/favicon-48.png · -64.png</code></td><td>Tile raster médio — atalhos, bookmarks, Windows</td></tr>
+        <tr><td><code>png/favicon-180.png</code></td><td>Tile 180×180 — apple-touch-icon (iOS)</td></tr>
+        <tr><td><code>png/favicon-192.png · -512.png</code></td><td>Tile 192/512 — PWA e Android (manifest)</td></tr>
+        <tr><td><code>png/avatar-eg-tinta.png</code></td><td><strong>Avatar padrão</strong> — eg▍ sobre tinta, cursor café. GitHub, LinkedIn, redes</td></tr>
+        <tr><td><code>png/avatar-eg-claro.png</code></td><td>eg▍ sobre fundo claro, cursor café profundo — em plataformas escuras, destaca</td></tr>
+        <tr><td><code>png/avatar-eg-cafe.png</code></td><td>eg▍ sobre café, cursor café profundo — alternativo vibrante, usar com moderação</td></tr>
+        <tr><td><code>png/lockup-horizontal-tinta.png · -papel.png</code></td><td>Marca principal — headers de docs, slides. Tinta = fundo claro, papel = escuro</td></tr>
+        <tr><td><code>png/lockup-empilhado-tinta.png · -papel.png</code></td><td>Formatos quadrados/verticais — capas, cards de share, stories</td></tr>
+        <tr><td><code>png/wordmark-tinta.png · -papel.png</code></td><td>Só o edugenes_ — faixas baixas: rodapés, créditos, navegação</td></tr>
+        <tr><td><code>README.md</code></td><td><strong>Instruções de implementação para o Claude Code</strong> — onde colocar cada arquivo no site, tags do head, manifest, tokens CSS, CSS do cursor e regras obrigatórias</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>07 · Implementação no site</h2>
+    <h3>Entregue o README.md ao Claude Code</h3>
+    <p>O arquivo <strong>README.md</strong> desta pasta é o manual de implementação: diz onde cada arquivo vai no código (<code style="font:400 12px var(--mono);color:var(--cafe-deep)">public/</code>, tags do <code style="font:400 12px var(--mono);color:var(--cafe-deep)">&lt;head&gt;</code>, manifest, tokens CSS, o cursor piscando em CSS com <code style="font:400 12px var(--mono);color:var(--cafe-deep)">prefers-reduced-motion</code>) e as 7 regras obrigatórias.</p>
+    <p>Pra garantir que o Claude Code siga sempre: o README traz na seção 9 um bloco pronto pra colar no <strong>CLAUDE.md do seu repositório</strong> — assim toda conversa futura no seu código já nasce sabendo as regras da marca.</p>
+  </section>
+
+  <footer>
+    edugenes · Eduardo Genes · web developer — guia gerado em junho de 2026.
+    Fontes da marca: Space Grotesk (wordmark, 600/700) e JetBrains Mono (apoio técnico).
+  </footer>
+
+</div>
+</body>
+</html>

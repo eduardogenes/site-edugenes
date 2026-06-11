@@ -1,221 +1,111 @@
-# Portfólio Profissional
+# edugenes.com.br — portfólio «Documento» (v2)
 
-Um portfólio moderno e responsivo desenvolvido com React, TypeScript e Tailwind CSS.
+Site pessoal do Eduardo Genes na identidade visual **«Documento»**: diagramado como uma proposta impressa, com tipografia industrial (Archivo + Newsreader) e uma camada pesada de motion design (boot de terminal, tipos móveis que caem, carimbo, coreografia de scroll).
 
----
+**Stack:** [Astro 6](https://astro.build) + TypeScript estrito, saída 100% estática — zero JS de framework no navegador. A física das animações é JS vanilla com `requestAnimationFrame`, carregada como scripts clássicos.
 
-## 🎯Sobre Mim
+## Páginas / rotas
 
- Desenvolvedor Front-End focado em criar experiências únicas para o usuário. Adoro aprender novas tecnologias e enfrentar desafios que me tirem da zona de conforto.
+| Rota | Fonte | O quê |
+|---|---|---|
+| `/` | `src/pages/index.astro` | Portfólio (PT/EN) |
+| `/freela` | `src/pages/freela.astro` | Proposta comercial (B2B local) |
+| `/cv` | `src/pages/cv.astro` | Currículo imprimível (`noindex`) |
+| — | `src/pages/404.astro` | Página de erro temática (`noindex`) |
 
-Entre em contato comigo:
-- [E-mail](mailto:seuemail@email.com)
-- [LinkedIn](https://linkedin.com/in/seu-perfil)
-- [GitHub](https://github.com/seu-usuario)
+Rotas limpas e fallback de 404 são resolvidos pela Vercel ([`vercel.json`](vercel.json): preset Astro + `cleanUrls`; `build.format: 'file'` no [`astro.config.mjs`](astro.config.mjs) gera `freela.html`/`cv.html`).
 
-## 🚀 Tecnologias do Projeto
+## Estrutura
 
-- React
-- TypeScript
-- Tailwind CSS
-- Vite
-- Lucide React (ícones)
-
-## 🌟 Funcionalidades
-
-- Design responsivo para todos os dispositivos
-- Modo escuro/claro
-- Seções para: Sobre, Habilidades, Projetos, Formação e Contato
-- Animações suaves
-- Links para redes sociais e currículo
-
----
-
-## ✨ Projetos em Destaque
-
-### 1. Sistema de Gerenciamento de Tarefas
-Um aplicativo que permite aos usuários criar, organizar e gerenciar tarefas do dia a dia.
-- **Tecnologias**: React, TypeScript, Tailwind CSS
-- [Acesse o projeto aqui](https://link-para-o-projeto.com)
-
-### 2. Calculadora de Investimentos
-Uma calculadora responsiva que simula retornos financeiros com base em diferentes entradas.
-- **Tecnologias**: HTML, CSS, JavaScript
-- [Acesse o projeto aqui](https://link-para-o-projeto.com)
-
-
----
-
-## 📚 Arquitetura do Projeto
-
-### Estrutura de Diretórios
 ```
 src/
-├── components/     # Componentes React reutilizáveis
-├── constants/      # Constantes e dados estáticos
-├── contexts/       # Contextos React (ex: ThemeContext)
-├── hooks/          # Hooks personalizados
-├── styles/         # Estilos globais e utilitários
-├── types/         # Definições de tipos TypeScript
-└── utils/         # Funções utilitárias
+├── layouts/Base.astro         head comum (SEO/OG, fontes, CSS) das páginas «Documento»
+├── components/Analytics.astro loader do Umami + eg-analytics.js (todas as páginas)
+├── components/portfolio/      Masthead · Toc · WorkSection · TrackSection ·
+│                              AboutSection · ContactSection · Colophon
+├── pages/                     index · freela · cv · 404
+└── types/global.d.ts          tipagem dos dados globais (window.FEATURED etc.)
+public/
+├── js/                        ⚠ motores de animação + dados — código final, intacto
+│   ├── portfolio.data.js      dados dos projetos/experiência (PT/EN)
+│   ├── portfolio-v2.js        i18n, render das fichas/ledger, relógio
+│   ├── portfolio-v2-motion.js boot + abertura física do masthead
+│   ├── portfolio-v2-scrollmotion.js  coreografia de scroll + botões magnéticos
+│   ├── portfolio-v2-devmode.js       statusline vim + modo inspect (só no portfólio)
+│   ├── eg-analytics.js        eventos custom do Umami (não é motor — pode evoluir)
+│   └── web-vitals.iife.js     lib oficial vendorada (RUM — LCP/CLS/INP)
+├── fonts/ + fonts.css         fontes self-hosted (subsets latin/latin-ext)
+├── robots.txt                 aponta o sitemap; sem Disallow (noindex faz o papel)
+├── portfolio-v2.css           sistema visual compartilhado (intacto)
+├── assets/                    favicon, OG cards, placeholder dos prints
+└── retrato.png
+v1/                            versão anterior (React + Vite + TS), arquivada
 ```
 
-### Componentes Principais
+### ⚠ Regra de ouro dos motores
 
-#### 1. App.tsx
-- Componente raiz da aplicação
-- Gerencia o estado de carregamento inicial
-- Implementa o ThemeProvider para controle de tema
-- Organiza a estrutura principal do layout
+Os arquivos de `public/js/` e o `portfolio-v2.css` são **código final**: a física de mola (letras, carimbo, botões magnéticos) foi calibrada à mão, iterativamente. Eles funcionam lendo o DOM que os componentes Astro renderizam — **não reescrever como módulos/hooks/keyframes**, e não renomear as classes que eles esperam (`.masthead`, `.name .l1/.l2`, `.stamp`, `.sec-head`, `.lrow`, `.windex .wrow`, `.wa-cta`, `.bigmail`, `[data-screen-label]`…). Exceção: `eg-analytics.js` não é motor (só consome esse mesmo contrato de classes por delegação) e as strings de conteúdo do dicionário i18n em `portfolio-v2.js` podem ser atualizadas.
 
-#### 2. ThemeContext
-- Gerencia o tema dark/light da aplicação
-- Persiste a preferência do usuário no localStorage
-- Sincroniza com as preferências do sistema operacional
-- Fornece hook useTheme para fácil acesso ao tema
+Divergência deliberada do bundle de design (jun/2026, calibrada com o Eduardo): os ímãs (letras do título, `.bigmail`, `.wa-cta`) ganharam **massa** (`m`) e a **tremida de reacomodação** — ruído zero-média em X/Y/rotação injetado nas molas enquanto o cursor se move, proporcional à velocidade × proximidade. Botões de calibração nos motores: ganhos `1300`/`850`, sensibilidade `/900`, decaimento ~110 ms, massa `m = 1.5`.
 
-#### 3. Componentes de Seção
-- **Header**: Navegação principal e controle de tema
-- **Hero**: Seção de apresentação inicial
-- **About**: Informações detalhadas sobre experiência
-- **Skills**: Grade de habilidades técnicas
-- **Projects**: Portfólio de projetos
-- **Contact**: Formulário de contato
-- **Footer**: Links e informações adicionais
+## Desenvolvimento
 
-## 🛠️ Stack Tecnológica
-
-### Core
-- **React 18**: Biblioteca principal para construção da UI
-- **TypeScript**: Adiciona tipagem estática ao JavaScript
-- **Vite**: Build tool moderna e rápida
-
-### Estilização
-- **Tailwind CSS**: Framework CSS utility-first
-- **PostCSS**: Processador CSS para plugins modernos
-- **CSS Modules**: Escopo local para estilos
-
-### Bibliotecas Auxiliares
-- **Lucide React**: Biblioteca de ícones modernos
-- **React Hook Form**: Gerenciamento de formulários
-- **Framer Motion**: Animações fluidas
-
-## 💡 Padrões e Boas Práticas
-
-### Componentes
-- Componentes funcionais com TypeScript
-- Props tipadas e documentadas
-- Separação de responsabilidades
-- Reutilização de código através de hooks personalizados
-
-### Estado
-- Contexto React para estado global
-- useState para estado local
-- useEffect para efeitos colaterais
-
-### Estilização
-- Classes utilitárias do Tailwind
-- Dark mode nativo
-- Design responsivo mobile-first
-- Animações otimizadas para performance
-
-### TypeScript
-- Interfaces para tipos complexos
-- Type guards quando necessário
-- Strict mode habilitado
-
-## 🔧 Configuração do Ambiente
-
-1. **Pré-requisitos**
-   - Node.js >= 16.x
-   - npm >= 8.x
-
-2. **Instalação**
-   ```bash
-   npm install
-   ```
-
-3. **Scripts Disponíveis**
-   - `npm run dev`: Inicia servidor de desenvolvimento
-   - `npm run build`: Gera build de produção
-   - `npm run preview`: Visualiza build local
-   - `npm run lint`: Executa verificação de código
-
-## 🎨 Design System
-
-### Cores
-- Primary: #3B82F6 (blue-500)
-- Background: #F9FAFB (light) / #111827 (dark)
-- Text: #111827 (light) / #F9FAFB (dark)
-- Accent: #2563EB (blue-600)
-
-### Tipografia
-- Fonte principal: Inter
-- Tamanhos: 
-  - Heading: 2rem - 4rem
-  - Body: 1rem - 1.125rem
-  - Small: 0.875rem
-
-### Breakpoints
-- sm: 640px
-- md: 768px
-- lg: 1024px
-- xl: 1280px
-
-## 🔐 Boas Práticas de Segurança
-
-- Sanitização de inputs
-- Proteção contra XSS
-- Validação de formulários
-- Variáveis de ambiente seguras
-
-## 📱 Responsividade
-
-O projeto segue uma abordagem mobile-first com breakpoints específicos para:
-- Dispositivos móveis (< 640px)
-- Tablets (640px - 1024px)
-- Desktop (> 1024px)
-
-## 🚀 Performance
-
-- Lazy loading de imagens
-- Code splitting automático
-- Otimização de assets
-- Caching eficiente
-
-## 📈 SEO e Acessibilidade
-
-- Tags semânticas HTML5
-- Meta tags otimizadas
-- Landmarks ARIA
-- Alt text em imagens
-- Contraste de cores adequado
-
-## 🔧 Instalação e Uso
-
-1. Clone o repositório
-```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-```
-
-2. Instale as dependências
 ```bash
 npm install
+npm run dev        # dev server com HMR (http://localhost:4321)
+npm run build      # gera dist/
+npm run preview    # serve o dist/ localmente
+npm run check      # validação TypeScript/Astro
 ```
 
-3. Execute o projeto
-```bash
-npm run dev
-```
+## Analytics (Umami)
 
-## 🌐 Deploy
+Umami Cloud (região UE), **cookieless e sem PII** — dispensa banner de consentimento (LGPD);
+a transparência fica na linha de métricas dos colofões. O script é servido pelo próprio domínio
+via rewrite `/stats/*` → `cloud.umami.is` no `vercel.json` (reduz perda por adblocker);
+`data-domains` ignora localhost e previews.
 
-O projeto está disponível em: []
+Instrumentação em duas camadas:
 
-## 📝 Licença
+- **Estáticos**: `data-umami-event` (+ `data-umami-event-<prop>`) direto nos templates Astro —
+  `whatsapp_click`, `email_click` (prop `placement`), `social_click` (prop `network`),
+  `phone_click`, `freela_nav` (prop `from`).
+- **Via `public/js/eg-analytics.js`** (delegação no `document` — sobrevive ao re-render da
+  troca de idioma): `project_open`, `project_link_click`, `service_open`, `toc_click`,
+  `lang_switch`, `404_view`, `scroll_depth` (marcos 50/90), `section_view`, `inspect_toggle`,
+  `cv_print` (via `beforeprint` — pega botão e Ctrl+P) e `web_vital` (LCP/CLS/INP reais,
+  lib `web-vitals` vendorada).
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Regras: nomes `objeto_acao` em snake_case, ≤ 2 props por evento, **nunca PII em props**.
 
----
+SEO: `robots.txt` + sitemap (`@astrojs/sitemap`, sem `/cv`) + JSON-LD (`Person` na home,
+`ProfessionalService` na /freela). Falta (manual): verificar o domínio no Google Search Console
+e submeter `https://edugenes.com.br/sitemap-index.xml`.
 
-Espero que goste! Feedbacks são sempre bem-vindos! 😊
+Fontes: self-hosted em `public/fonts/` (latin + latin-ext baixados da URL css2 original do
+Google Fonts, eixos variáveis preservados — `font-stretch` do Archivo incluso). Para alterar
+famílias/pesos, regenerar `fonts.css` + woff2 a partir da nova URL css2.
+
+### Convenção UTM (links externos meus)
+
+Links divulgados fora do site devem carregar UTM — sem isso tudo vira "tráfego direto":
+
+| Onde                  | `utm_source` | `utm_medium` |
+| --------------------- | ------------ | ------------ |
+| Bio do Instagram      | `instagram`  | `bio`        |
+| Status/msg WhatsApp   | `whatsapp`   | `status`     |
+| Cartão (QR)           | `cartao`     | `qr`         |
+| Assinatura de e-mail  | `email`      | `assinatura` |
+| Perfil LinkedIn       | `linkedin`   | `bio`        |
+
+Ex.: `https://edugenes.com.br/freela?utm_source=instagram&utm_medium=bio`
+
+## Prints dos projetos (pendente)
+
+As fichas usam um placeholder (`public/assets/projetos/_placeholder.svg`). Para publicar os prints reais, basta soltar os arquivos em `public/assets/projetos/` com estes nomes — substituem o placeholder sem mexer no código:
+
+`shot-wviana.png` · `shot-llm.png` · `shot-garimpeiro.png` · `shot-mulheres.png` · `shot-hat.png` · `shot-orc.png`
+
+## Histórico
+
+A versão anterior do portfólio (React + Vite + TypeScript + Tailwind) está preservada em [`v1/`](v1/), fora do deploy.

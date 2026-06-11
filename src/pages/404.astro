@@ -1,0 +1,75 @@
+---
+/* 404 temática — auto-contida (carimbo anima no load, noindex).
+   A Vercel usa dist/404.html automaticamente como fallback. */
+import Analytics from '../components/Analytics.astro';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — documento extraviado · Eduardo Genes</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1E1A14" />
+    <meta name="robots" content="noindex" />
+    <link rel="stylesheet" href="/fonts.css" />
+    <Analytics />
+    <style is:inline>
+      :root{
+        --paper:#eeeee6; --ink:#181611; --ink-2:#5b564a; --red:#c92f12;
+        --f-disp:'Archivo',sans-serif; --f-serif:'Newsreader',serif;
+        --f-mono:ui-monospace,'SF Mono','Cascadia Mono',Menlo,monospace;
+      }
+      *{box-sizing:border-box;}
+      body{margin:0;min-height:100vh;background:var(--paper);color:var(--ink);font-family:var(--f-disp);
+        display:flex;flex-direction:column;justify-content:center;padding:6vmin 7vmin;-webkit-font-smoothing:antialiased;}
+      a{color:inherit;}
+      a:hover{color:var(--red);}
+      :focus-visible{outline:2.5px solid var(--red);outline-offset:3px;}
+
+      .meta{display:flex;justify-content:space-between;gap:14px;font-family:var(--f-mono);font-size:11px;
+        letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);padding-bottom:14px;border-bottom:4px solid var(--ink);flex-wrap:wrap;}
+      h1{font-family:var(--f-disp);font-weight:900;font-stretch:118%;letter-spacing:-.02em;line-height:.86;
+        font-size:clamp(110px,26vw,330px);margin:4vmin 0 0;display:flex;align-items:baseline;gap:4vmin;flex-wrap:wrap;}
+      .stamp{display:inline-block;font-family:var(--f-serif);font-style:italic;font-weight:500;
+        font-size:clamp(17px,2.6vw,30px);letter-spacing:.02em;color:var(--red);position:relative;
+        padding:.5em 1.1em;transform:rotate(-3deg);white-space:nowrap;}
+      .stamp::before{content:"";position:absolute;inset:0;border:3px solid var(--red);border-radius:50%;
+        transform:rotate(-1.5deg);}
+      p.line{font-family:var(--f-serif);font-style:italic;font-size:clamp(18px,2.4vw,25px);color:var(--ink-2);
+        margin:3vmin 0 0;max-width:46ch;}
+      .links{margin-top:4.5vmin;border-top:1.5px solid var(--ink);padding-top:18px;display:flex;gap:30px;flex-wrap:wrap;
+        font-family:var(--f-mono);font-size:13px;letter-spacing:.05em;}
+      .links a{text-decoration:none;border-bottom:1.5px solid var(--ink);padding-bottom:2px;}
+      .links a:hover{border-color:var(--red);}
+      @media (prefers-reduced-motion: no-preference){
+        @keyframes stamp-pop{0%{opacity:0;transform:scale(2.4) rotate(6deg);}70%{opacity:1;transform:scale(.94) rotate(-4deg);}100%{opacity:1;transform:scale(1) rotate(-3deg);}}
+        .stamp{animation:stamp-pop .5s cubic-bezier(.3,.7,.3,1) both .35s;}
+      }
+    </style>
+  </head>
+  <body data-screen-label="404">
+    <div>
+      <div class="meta">
+        <span>protocolo nº 404</span>
+        <span>arquivo morto — seção de extravios</span>
+      </div>
+      <h1>404 <span class="stamp">documento extraviado</span></h1>
+      <p class="line">
+        Esta página não consta no índice — pode ter sido movida, renomeada ou nunca ter ido pro prelo.
+      </p>
+      <div class="links">
+        <a href="/">← voltar ao portfólio</a>
+        <a href="/freela" data-umami-event="freela_nav" data-umami-event-from="404">proposta pra empresas</a>
+        <a href="mailto:eduardogenes95@gmail.com" data-umami-event="email_click" data-umami-event-placement="404"
+          >reportar extravio</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

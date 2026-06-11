@@ -1,0 +1,4 @@
+# fora do upload de deploy (o build remoto só precisa de src/, public/ e configs)
+v1/
+screenshots/
+README.md
