@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orçamento Icarawai — Eduardo Genes</title>
+<meta name="description" content="Os três caminhos para a Icarawai, com valores, prazos e custos de terceiros.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="edugenes.dev">
+<meta property="og:title" content="Orçamento · Icarawai">
+<meta property="og:description" content="Os três caminhos, com valores, prazos e custos de terceiros.">
+<meta property="og:image" content="https://edugenes.dev/proposta-icarawai/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://edugenes.dev/proposta-icarawai/orcamento">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F4EFE7">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@1,6..72,400..600&display=swap" rel="stylesheet">
+<style>
+/* Documento de proposta: coluna única de leitura, com faixas de comparação lado a lado. Mesmo sistema visual da apresentação Icarawai. */
+:root{
+  color-scheme: light;
+  --sand:#F4EFE7;
+  --sand-2:#EAE2D6;
+  --paper:#FFFFFF;
+  --ink:#121212;
+  --ink-2:#3A3836;
+  --muted:#77716A;
+  --line:#DDD4C7;
+  --accent:#FF5A36;
+  --accent-ink:#B8331A;
+  --accent-soft:#FFE3DB;
+  --ok:#1F9D55;
+  --ok-soft:#DDF3E5;
+  --warn-soft:#FFF1CC;
+  --warn-ink:#8A5A00;
+  --display:"Archivo", "Arial Narrow", system-ui, sans-serif;
+  --body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--sand);color:var(--ink)}
+body{font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:1080px;margin:0 auto}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--display);font-weight:900;font-stretch:72%;text-transform:uppercase;line-height:.95;text-wrap:balance}
+h1{font-size:clamp(48px,8vw,96px)}
+h2{font-size:clamp(32px,4.6vw,52px);margin-bottom:10px}
+h3{font-size:24px;font-stretch:80%}
+.eyebrow{font-family:var(--display);font-weight:700;font-stretch:115%;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:12px}
+.lead{font-size:18px;color:var(--ink-2);max-width:62ch}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+section{padding-block:48px 8px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--sand);border:1px solid var(--line);white-space:nowrap}
+.pill.acc{background:var(--accent);color:#fff;border-color:var(--accent)}
+.pill.ok{background:var(--ok-soft);color:#11633A;border-color:transparent}
+
+/* cabeçalho */
+.head{padding-block:calc(40px + env(safe-area-inset-top,0px)) 8px;display:grid;gap:22px}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-stretch:110%;letter-spacing:.16em;font-size:13px}
+.brand img{width:34px;height:34px;border-radius:9px;object-fit:cover}
+.meta{display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.meta b{display:block;color:var(--ink);font-size:15px}
+.head h1 span{color:var(--accent)}
+
+/* resumo das opções */
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.sum{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.sum.rec{border:2px solid var(--accent);box-shadow:0 18px 40px rgba(255,90,54,.14)}
+.sum .tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.sum h3{font-size:26px}
+.sum .price{font-family:var(--display);font-weight:900;font-stretch:75%;font-size:40px;line-height:1}
+.sum .price small{font-family:var(--body);font-size:13px;font-weight:600;color:var(--muted);letter-spacing:0}
+.sum p{font-size:14px;color:var(--ink-2)}
+.sum .foot{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);font-size:13px;color:var(--ink-2);display:grid;gap:2px}
+
+/* hoje */
+.today{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:22px;min-width:0}
+.box h3{margin-bottom:12px}
+.kv{display:grid;gap:10px}
+.kv div{display:flex;justify-content:space-between;gap:12px;font-size:15px;border-bottom:1px solid #F1ECE4;padding-bottom:8px}
+.kv div:last-child{border-bottom:0;padding-bottom:0}
+.kv b{white-space:nowrap}
+ul.check{list-style:none;display:grid;gap:8px}
+ul.check li{display:flex;gap:10px;font-size:15px;align-items:flex-start}
+ul.check li::before{content:"✓";flex:none;width:22px;height:22px;border-radius:50%;background:var(--ok-soft);color:#11633A;display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:1px}
+ul.check.minus li::before{content:"–";background:var(--warn-soft);color:var(--warn-ink)}
+ul.check.plus li::before{content:"+";background:var(--accent-soft);color:var(--accent-ink);font-size:15px}
+
+/* custos de terceiros */
+.third{margin-top:20px;background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.trow{display:grid;grid-template-columns:1.2fr 1.6fr .9fr;gap:16px;padding:14px 20px;border-bottom:1px solid #F1ECE4;align-items:center;font-size:15px}
+.trow:last-child{border-bottom:0}
+.trow.h{background:var(--sand);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.trow b{display:block}
+.trow .who{font-size:12px;color:var(--muted)}
+.trow .v{font-weight:700;text-align:right}
+
+/* opções detalhadas */
+.opt{margin-top:18px;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:26px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px}
+.opt.rec{border:2px solid var(--accent)}
+.opt-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.opt-h .n{font-family:var(--display);font-weight:900;font-stretch:75%;font-size:20px;width:38px;height:38px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center}
+.opt.rec .opt-h .n{background:var(--accent)}
+.opt p.desc{color:var(--ink-2);margin:6px 0 16px;max-width:52ch}
+.priceblock{background:var(--sand);border-radius:18px;padding:18px;display:grid;gap:10px}
+.pline{display:flex;justify-content:space-between;gap:10px;font-size:15px;align-items:baseline}
+.pline s{color:var(--muted)}
+.pline .disc{color:#11633A;font-weight:700}
+.pline.total{border-top:1px solid var(--line);padding-top:10px;font-weight:800}
+.pline.total b{font-family:var(--display);font-weight:900;font-stretch:75%;font-size:34px;line-height:1}
+.pline .lbl{color:var(--ink-2)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.cols2{display:grid;gap:18px}
+.cols2 h4{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+
+/* comparação */
+.tablewrap{overflow-x:auto;margin-top:20px;border:1px solid var(--line);border-radius:20px;background:var(--paper)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:720px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid #F1ECE4;vertical-align:top}
+thead th{background:var(--sand);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+thead th.rec{color:var(--accent-ink)}
+td.c,th.c{text-align:center}
+tbody tr:last-child td{border-bottom:0}
+td.rec{background:#FFF7F4}
+.y{color:#11633A;font-weight:800}
+.n0{color:#B9AE9F}
+.part{color:var(--warn-ink);font-weight:700;font-size:13px}
+
+/* primeiro ano */
+.year{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.yr{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.yr.rec{border:2px solid var(--accent)}
+.yr small{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.yr b{display:block;font-family:var(--display);font-weight:900;font-stretch:75%;font-size:34px;line-height:1.05;margin:6px 0}
+.yr p{font-size:13px;color:var(--ink-2)}
+
+/* condições */
+.terms{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.terms .box p{font-size:15px;color:var(--ink-2)}
+.terms .box p + p{margin-top:8px}
+
+.next{margin-top:22px;background:var(--ink);color:#fff;border-radius:24px;padding:28px;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.next h3{font-size:30px}
+.next p{color:#D9D3CB;max-width:56ch}
+.next .sig{font-size:14px;color:#BDB6AD}
+.next .sig b{display:block;color:#fff;font-size:17px}
+.foot-note{margin-top:18px;font-size:12.5px;color:var(--muted);max-width:80ch}
+
+@media (max-width:900px){
+  .summary{grid-template-columns:1fr}
+  .today,.terms{grid-template-columns:1fr}
+  .opt{grid-template-columns:1fr}
+  .year{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .trow{grid-template-columns:1fr auto;gap:6px 12px}
+  .trow > :nth-child(2){grid-column:1/-1;order:3;font-size:13.5px;color:var(--ink-2)}
+  .trow.h{display:none}
+  .year{grid-template-columns:1fr}
+  .opt{padding:20px}
+}
+
+/* =========== identidade edugenes ("Documento") =========== */
+:root{
+  --sand:#EFECE3;--sand-2:#E6E2D6;--paper:#FAF8F5;--ink:#181611;--ink-2:#5B564A;--muted:#857F72;--line:#D6D1C4;
+  --accent:#C92F12;--accent-ink:#A82510;--accent-soft:#F4DCD4;
+  --display:"Archivo","Arial",system-ui,sans-serif;--serif:"Newsreader",Georgia,serif;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+html,body{background:var(--sand)}
+.head{border-top:3px solid var(--ink);margin-top:calc(24px + env(safe-area-inset-top,0px));padding-top:14px}
+.brandrow{border-bottom:1px solid var(--ink);padding-bottom:14px;align-items:center}
+.brand{font-family:var(--display);font-weight:800;font-stretch:100%;letter-spacing:-.01em;font-size:20px}
+.brand .sym{width:26px;height:26px}
+.brand i{font-style:normal;color:var(--accent)}
+.docmeta{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:800;font-stretch:112%;letter-spacing:-.025em;line-height:.95}
+h1{font-size:clamp(34px,5.2vw,66px);overflow-wrap:anywhere}
+h2{font-size:clamp(28px,3.6vw,44px)}
+h3{font-size:22px;font-stretch:108%;letter-spacing:-.01em}
+.lead{font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.45}
+.eyebrow{font-family:var(--mono);font-weight:500;font-stretch:100%;font-size:12px;letter-spacing:.1em;color:var(--ink);display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"§";color:var(--accent);font-weight:700}
+.eyebrow::after{content:"";flex:1;border-top:1px dotted var(--ink-2)}
+section{border-top:1px solid var(--ink);margin-top:40px;padding-top:32px}
+.sum,.box,.third,.opt,.priceblock,.tablewrap,.yr,.next{border-radius:6px}
+.sum.rec,.opt.rec,.yr.rec{box-shadow:none}
+.sum .price,.pline.total b,.yr b{font-stretch:100%;font-weight:800;letter-spacing:-.03em}
+.opt-h .n{font-stretch:100%}
+.meta,.foot-note,.small{font-family:var(--mono);font-size:12px;letter-spacing:.02em}
+.meta b{font-family:var(--display);font-size:15px}
+.next{background:var(--ink)}
+.next .sig{display:flex;align-items:center;gap:12px}
+.next .sig .sym{width:32px;height:32px;background:#F0EEEA;border-radius:6px;padding:4px}
+.next .sig b{font-family:var(--display)}
+.next .sig{font-family:var(--mono);font-size:12px}
+@media (max-width:560px){.docmeta{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <div class="brandrow">
+      <div class="brand"><svg class="sym" viewBox="0 0 50 49" aria-hidden="true"><circle cx="3.5" cy="3.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="3.5" r="3.5" fill="#1E1A14"/><rect x="12" y="0" width="26" height="7" rx="3.5" fill="#E38D3D"/><circle cx="3.5" cy="17.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="17.5" r="3.5" fill="#1E1A14"/><rect x="21" y="14" width="17" height="7" rx="3.5" fill="#51B67A"/><circle cx="3.5" cy="31.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="31.5" r="3.5" fill="#1E1A14"/><rect x="12" y="28" width="17" height="7" rx="3.5" fill="#51B67A"/><circle cx="3.5" cy="45.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="45.5" r="3.5" fill="#1E1A14"/><rect x="12" y="42" width="26" height="7" rx="3.5" fill="#E38D3D"/></svg><span>edugenes<i>_</i></span></div>
+      <span class="docmeta">PROPOSTA COMERCIAL — ICARAWAI</span>
+      <span class="docmeta">REV. 01 / NOV 2026 · FORTALEZA, CE</span>
+    </div>
+    <div>
+      <div class="eyebrow">Orçamento</div>
+      <h1>Site próprio <span>Icarawai</span></h1>
+      <p class="lead" style="margin-top:14px">Três caminhos, do ajuste rápido no que vocês já usam até um site próprio completo. Separei o que é pago a mim do que é pago a terceiros, para vocês verem o custo real de cada opção.</p>
+    </div>
+    <div class="meta">
+      <div><b class="num">05/11/2026</b>data</div>
+      <div><b class="num">20/11/2026</b>válido até</div>
+      <div><b>Condição parceiro</b>já aplicada nos valores</div>
+    </div>
+  </header>
+
+  <!-- RESUMO -->
+  <section aria-labelledby="t-resumo">
+    <div class="eyebrow" id="t-resumo">Resumo</div>
+    <h2>As três opções</h2>
+    <div class="summary">
+      <div class="sum">
+        <span class="tag">Opção 1</span>
+        <h3>Ajuste rápido</h3>
+        <div class="price num">R$ 400 <small>uma vez</small></div>
+        <p>Ativo pagamento, frete e domínio na plataforma que vocês já usam.</p>
+        <div class="foot"><span>Mensal: plano atual da VitrineTurbo</span><span>Prazo: até 7 dias</span></div>
+      </div>
+      <div class="sum rec">
+        <span class="tag" style="color:var(--accent-ink)">Opção 2 · recomendada</span>
+        <h3>Site próprio</h3>
+        <div class="price num">R$ 1.900 <small>uma vez</small></div>
+        <p>Site com o design e o endereço da marca, vendendo sozinho, com painel completo.</p>
+        <div class="foot"><span>Hospedagem: 3 formas, de R$ 0 a R$ 120/mês, + domínio R$ 40/ano</span><span>Prazo: 5 a 6 semanas</span></div>
+      </div>
+      <div class="sum">
+        <span class="tag">Opção 3</span>
+        <h3>Site próprio completo</h3>
+        <div class="price num">R$ 2.900 <small>uma vez</small></div>
+        <p>Tudo da opção 2, mais lookbook, carrinho esquecido, avaliações e cashback.</p>
+        <div class="foot"><span>Hospedagem: 3 formas, de R$ 0 a R$ 120/mês, + domínio R$ 40/ano</span><span>Prazo: 7 semanas</span></div>
+      </div>
+    </div>
+    <p class="foot-note">Módulo adicional Gestão + (vendas de WhatsApp, loja física e todos os canais num só lugar): R$ 1.200, nas opções 2 e 3.</p>
+  </section>
+
+  <!-- HOJE -->
+  <section aria-labelledby="t-hoje">
+    <div class="eyebrow" id="t-hoje">Ponto de partida</div>
+    <h2>O que vocês têm hoje</h2>
+    <p class="lead">Catálogo na VitrineTurbo, com o pedido fechado no WhatsApp.</p>
+    <div class="today">
+      <div class="box">
+        <h3>Quanto custa hoje</h3>
+        <div class="kv num">
+          <div><span>Plano VitrineTurbo</span><b>R$ 28 a 57/mês</b></div>
+          <div><span>Taxa por venda</span><b>quase zero</b></div>
+          <div><span>Como recebem</span><b>Pix direto na conta</b></div>
+          <div><span>Quem fecha a venda</span><b>alguém no WhatsApp</b></div>
+        </div>
+        <p class="small muted" style="margin-top:12px">O valor do plano depende de ser mensal, semestral ou anual.</p>
+      </div>
+      <div class="box">
+        <h3>O que já funciona</h3>
+        <ul class="check">
+          <li>Catálogo com cor, tamanho e fotos</li>
+          <li>Ofertas, destaques, banners e selos de estoque</li>
+          <li>Carrinho que manda o pedido pro WhatsApp</li>
+          <li>Estoque, pedidos e cupons</li>
+          <li>Grupos VIP e Pixel de anúncios</li>
+        </ul>
+        <ul class="check minus" style="margin-top:12px">
+          <li>Cada venda depende de alguém responder e conferir o Pix</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERCEIROS -->
+  <section aria-labelledby="t-terceiros">
+    <div class="eyebrow" id="t-terceiros">Pago a terceiros</div>
+    <h2>Custos que existem em qualquer caminho</h2>
+    <p class="lead">Esses valores não são meus. São pagos direto aos serviços, com as contas no nome da Icarawai.</p>
+    <div class="third num">
+      <div class="trow h"><span>Item</span><span>Quando entra</span><span style="text-align:right">Valor</span></div>
+      <div class="trow"><span><b>Domínio icarawai.com.br</b><span class="who">Registro.br</span></span><span>Em todas as opções, para ter endereço próprio</span><span class="v">R$ 40/ano</span></div>
+      <div class="trow"><span><b>Pix no site</b><span class="who">meio de pagamento</span></span><span>Em toda venda paga online, em qualquer opção</span><span class="v">~1% da venda</span></div>
+      <div class="trow"><span><b>Cartão no site</b><span class="who">meio de pagamento</span></span><span>Em toda venda paga online; varia com prazo e parcelas</span><span class="v">~4% da venda</span></div>
+      <div class="trow"><span><b>Etiqueta de frete</b><span class="who">Correios e transportadoras</span></span><span>Por envio; o cliente paga no checkout</span><span class="v">pago pelo cliente</span></div>
+      <div class="trow"><span><b>WhatsApp automático</b><span class="who">API oficial da Meta</span></span><span>Só na opção 3 e no Gestão +: lembrete de carrinho e confirmação de pedido</span><span class="v">R$ 0,32 / R$ 0,04 por msg</span></div>
+    </div>
+    <p class="foot-note">Exemplo: vendendo R$ 5 mil por mês online, as taxas de pagamento ficam perto de R$ 150. Elas existem também na opção 1, porque são do pagamento online, não do site.</p>
+  </section>
+
+  <!-- OPÇÕES -->
+  <section aria-labelledby="t-opcoes">
+    <div class="eyebrow" id="t-opcoes">Detalhes</div>
+    <h2>Cada opção por dentro</h2>
+
+    <article class="opt">
+      <div>
+        <div class="opt-h"><span class="n">1</span><h3>Ajuste rápido</h3><span class="pill">na VitrineTurbo</span></div>
+        <p class="desc">Resolve hoje o principal: o cliente paga sozinho, sem ninguém precisar fechar a venda. Mantém a plataforma e os limites dela.</p>
+        <div class="cols2">
+          <div><h4>Inclui</h4>
+            <ul class="check">
+              <li>Pagamento online ativado (Pix e cartão)</li>
+              <li>Frete configurado</li>
+              <li>Domínio próprio conectado</li>
+              <li>Revisão de categorias, banners e Pixel</li>
+              <li>Meia hora de orientação para a equipe</li>
+            </ul></div>
+          <div><h4>Continua como está</h4>
+            <ul class="check minus">
+              <li>Design limitado aos temas da plataforma</li>
+              <li>Nome da plataforma em partes do site e no Google</li>
+              <li>Sem combos, modo live ou relatório por parceira</li>
+            </ul></div>
+        </div>
+      </div>
+      <div class="priceblock num">
+        <div class="pline"><span class="lbl">Valor cheio</span><s>R$ 600</s></div>
+        <div class="pline"><span class="lbl">Condição parceiro</span><span class="disc">− R$ 200</span></div>
+        <div class="pline total"><span>Investimento</span><b>R$ 400</b></div>
+        <div class="pline"><span class="lbl">Mensal</span><span>plano da VitrineTurbo</span></div>
+        <div class="pline"><span class="lbl">Prazo</span><span>até 7 dias</span></div>
+        <p class="small muted">Domínio próprio exige um plano pago da VitrineTurbo.</p>
+      </div>
+    </article>
+
+    <article class="opt rec">
+      <div>
+        <div class="opt-h"><span class="n">2</span><h3>Site próprio</h3><span class="pill acc">recomendada</span></div>
+        <p class="desc">O site da marca, desenhado para a Icarawai, vendendo sozinho 24 horas. Tudo o que vocês usam hoje continua, e o resto fica à altura da marca.</p>
+        <div class="cols2">
+          <div><h4>Inclui</h4>
+            <ul class="check">
+              <li>Design exclusivo, no celular e no computador</li>
+              <li>Endereço icarawai.com.br e nome da marca no Google e no WhatsApp</li>
+              <li>Pix, cartão e frete calculado pelo CEP</li>
+              <li>Painel com tudo que vocês já têm hoje</li>
+              <li>Monte seu combo (Combo dos Brabos)</li>
+              <li>Modo Live com preço e contagem regressiva</li>
+              <li>Cupom e link por parceira, com relatório</li>
+              <li>Página da marca, de coleção, guia de medidas e vídeo no produto</li>
+              <li>Campanhas com início e fim agendados e link exclusivo dos grupos VIP</li>
+              <li>Aviso de status do pedido para o cliente por e-mail</li>
+              <li>Migração dos produtos atuais e treinamento</li>
+            </ul></div>
+        </div>
+      </div>
+      <div class="priceblock num">
+        <div class="pline"><span class="lbl">Valor cheio</span><s>R$ 2.500</s></div>
+        <div class="pline"><span class="lbl">Condição parceiro</span><span class="disc">− R$ 600</span></div>
+        <div class="pline total"><span>Investimento</span><b>R$ 1.900</b></div>
+        <div class="pline"><span class="lbl">Hospedagem (pago a mim)</span><span>R$ 0 a R$ 120/mês</span></div>
+        <div class="pline"><span class="lbl">Domínio (anual)</span><span>R$ 40/ano</span></div>
+        <div class="pline"><span class="lbl">Prazo</span><span>5 a 6 semanas</span></div>
+        <div class="chips"><span class="pill ok">2 meses grátis na hospedagem Completa</span></div>
+      </div>
+    </article>
+
+    <article class="opt">
+      <div>
+        <div class="opt-h"><span class="n">3</span><h3>Site próprio completo</h3></div>
+        <p class="desc">Tudo da opção 2, com os recursos que trazem o cliente de volta e deixam a vitrine com cara de revista.</p>
+        <div class="cols2">
+          <div><h4>Tudo da opção 2, mais</h4>
+            <ul class="check plus">
+              <li>Lookbook e “Compre o look” com desconto de look completo</li>
+              <li>Carrinho esquecido: lembrete automático no WhatsApp</li>
+              <li>Avaliações com foto na página do produto</li>
+              <li>Cashback no Clube dos Brabos e Delas</li>
+              <li>Lista de desejos e aviso de volta ao estoque</li>
+              <li>Acesso por pessoa da equipe, com permissões</li>
+            </ul></div>
+        </div>
+      </div>
+      <div class="priceblock num">
+        <div class="pline"><span class="lbl">Valor cheio</span><s>R$ 3.900</s></div>
+        <div class="pline"><span class="lbl">Condição parceiro</span><span class="disc">− R$ 1.000</span></div>
+        <div class="pline total"><span>Investimento</span><b>R$ 2.900</b></div>
+        <div class="pline"><span class="lbl">Hospedagem (pago a mim)</span><span>R$ 0 a R$ 120/mês</span></div>
+        <div class="pline"><span class="lbl">Domínio (anual)</span><span>R$ 40/ano</span></div>
+        <div class="pline"><span class="lbl">Prazo</span><span>7 semanas</span></div>
+        <div class="chips"><span class="pill ok">2 meses grátis na hospedagem Completa</span></div>
+      </div>
+    </article>
+
+    <article class="opt">
+      <div>
+        <div class="opt-h"><span class="n">+</span><h3>Módulo Gestão +</h3><span class="pill">adicional nas opções 2 e 3</span></div>
+        <p class="desc">Todas as vendas num lugar só: site, WhatsApp, Instagram, lives e loja física, com o mesmo estoque.</p>
+        <ul class="check">
+          <li>Link de pagamento gerado no painel para vender pelo WhatsApp</li>
+          <li>Caixa da loja física no celular ou tablet, com login por vendedor</li>
+          <li>Vendas por canal, por vendedor e por parceira</li>
+          <li>Fechamento do mês: produto campeão, ticket médio e estoque parado</li>
+        </ul>
+      </div>
+      <div class="priceblock num">
+        <div class="pline"><span class="lbl">Valor cheio</span><s>R$ 1.600</s></div>
+        <div class="pline"><span class="lbl">Condição parceiro</span><span class="disc">− R$ 400</span></div>
+        <div class="pline total"><span>Investimento</span><b>R$ 1.200</b></div>
+        <div class="pline"><span class="lbl">Manutenção</span><span>+ R$ 30/mês</span></div>
+        <div class="pline"><span class="lbl">Prazo</span><span>+ 2 semanas</span></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- COMPARATIVO -->
+  <section aria-labelledby="t-comp">
+    <div class="eyebrow" id="t-comp">Lado a lado</div>
+    <h2>O que cada caminho entrega</h2>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Recurso</th><th class="c">Hoje</th><th class="c">Opção 1</th><th class="c rec">Opção 2</th><th class="c">Opção 3</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cliente paga sozinho (Pix e cartão)</td><td class="c n0">—</td><td class="c y">✓</td><td class="c y rec">✓</td><td class="c y">✓</td></tr>
+          <tr><td>Frete calculado no site</td><td class="c n0">—</td><td class="c y">✓</td><td class="c y rec">✓</td><td class="c y">✓</td></tr>
+          <tr><td>Endereço próprio (icarawai.com.br)</td><td class="c n0">—</td><td class="c y">✓</td><td class="c y rec">✓</td><td class="c y">✓</td></tr>
+          <tr><td>Nome da marca no Google e na prévia do WhatsApp</td><td class="c n0">—</td><td class="c part">parcial</td><td class="c y rec">✓</td><td class="c y">✓</td></tr>
+          <tr><td>Design exclusivo, sem tema pronto</td><td class="c n0">—</td><td class="c n0">—</td><td class="c y rec">✓</td><td class="c y">✓</td></tr>
+          <tr><td>Combo montável e Modo Live</td><td class="c n0">—</td><td class="c n0">—</td><td class="c y rec">✓</td><td class="c y">✓</td></tr>
+          <tr><td>Relatório por parceira</td><td class="c n0">—</td><td class="c n0">—</td><td class="c y rec">✓</td><td class="c y">✓</td></tr>
+          <tr><td>Páginas de coleção, marca e medidas</td><td class="c n0">—</td><td class="c n0">—</td><td class="c y rec">✓</td><td class="c y">✓</td></tr>
+          <tr><td>Lookbook e “Compre o look”</td><td class="c n0">—</td><td class="c n0">—</td><td class="c n0 rec">—</td><td class="c y">✓</td></tr>
+          <tr><td>Carrinho esquecido, avaliações e cashback</td><td class="c n0">—</td><td class="c n0">—</td><td class="c n0 rec">—</td><td class="c y">✓</td></tr>
+          <tr><td>Todas as vendas e a loja física num lugar</td><td class="c n0">—</td><td class="c n0">—</td><td class="c part rec">com Gestão +</td><td class="c part">com Gestão +</td></tr>
+          <tr><td>Suporte técnico dedicado</td><td class="c n0">—</td><td class="c n0">—</td><td class="c y rec">✓</td><td class="c y">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PRIMEIRO ANO -->
+  <section aria-labelledby="t-ano">
+    <div class="eyebrow" id="t-ano">Conta fechada</div>
+    <h2>Quanto sai o primeiro ano</h2>
+    <p class="lead">Somando o que é pago a mim e os custos fixos de terceiros. As taxas por venda ficam de fora, porque são iguais em qualquer opção com pagamento online.</p>
+    <div class="year num">
+      <div class="yr"><small>Hoje</small><b>R$ 336 a 684</b><p>só o plano da VitrineTurbo, sem pagamento online</p></div>
+      <div class="yr"><small>Opção 1</small><b>R$ 776 a 1.124</b><p>R$ 400 + plano VitrineTurbo + domínio</p></div>
+      <div class="yr rec"><small>Opção 2</small><b>R$ 3.140</b><p>R$ 1.900 + 10 meses de hospedagem Completa + domínio</p></div>
+      <div class="yr"><small>Opção 3</small><b>R$ 4.140</b><p>R$ 2.900 + 10 meses de hospedagem Completa + domínio</p></div>
+    </div>
+    <p class="foot-note">Os valores consideram a hospedagem Completa. Na Acompanhada, o primeiro ano fica cerca de R$ 480 mais barato; na Por conta de vocês, cerca de R$ 1.160 mais barato, com suporte pago por chamado. A partir do segundo ano, as opções 2 e 3 custam por ano cerca de R$ 1.480 (Completa), R$ 760 (Acompanhada) ou R$ 40 mais chamados (Por conta de vocês). Nas duas últimas, somam-se os serviços de hospedagem, que variam com o uso. A assinatura da VitrineTurbo deixa de ser necessária depois do lançamento. Com o Gestão +, somam-se R$ 1.200 de investimento e R$ 30/mês.</p>
+  </section>
+
+  <!-- HOSPEDAGEM -->
+  <section aria-labelledby="t-host">
+    <div class="eyebrow" id="t-host">Depois do lançamento</div>
+    <h2>Hospedagem e manutenção</h2>
+    <p class="lead">Três formas de manter o site no ar nas opções 2 e 3. A diferença entre elas é quem cuida dele. Em todas, o domínio icarawai.com.br é pago por vocês ao Registro.br, R$ 40 uma vez por ano.</p>
+    <div class="summary">
+      <div class="sum rec">
+        <span class="tag" style="color:var(--accent-ink)">Recomendada</span>
+        <h3>Completa</h3>
+        <div class="price num">R$ 120 <small>por mês</small></div>
+        <p>O site fica no meu servidor e tudo é comigo.</p>
+        <ul class="check" style="margin-top:6px">
+          <li>Servidor, backup diário e monitoramento</li>
+          <li>Atualizações de segurança e correção de erros</li>
+          <li>Renovações técnicas e avisos dos serviços</li>
+          <li>Até 1h por mês de ajustes técnicos</li>
+        </ul>
+        <div class="foot"><span>2 primeiros meses grátis</span><span>Anual: 12 meses pelo preço de 10</span></div>
+      </div>
+      <div class="sum">
+        <span class="tag">Meio-termo</span>
+        <h3>Acompanhada</h3>
+        <div class="price num">R$ 60 <small>por mês</small></div>
+        <p>O site fica nas contas da Icarawai, e eu acompanho.</p>
+        <ul class="check" style="margin-top:6px">
+          <li>Monitoramento e conferência mensal do backup</li>
+          <li>Atualizações de segurança e correção de erros</li>
+          <li>Aviso antes de algum serviço passar a cobrar</li>
+          <li>Ajustes técnicos a R$ 60/hora</li>
+        </ul>
+        <div class="foot"><span>Serviços de hospedagem: custo variável, pago por vocês</span><span>Sem custo dentro dos limites grátis; acima deles, ~R$ 30 a 160/mês</span></div>
+      </div>
+      <div class="sum">
+        <span class="tag">Menor custo fixo</span>
+        <h3>Por conta de vocês</h3>
+        <div class="price num">R$ 0 <small>por mês, pago a mim</small></div>
+        <p>O site fica nas contas da Icarawai, e vocês cuidam.</p>
+        <ul class="check" style="margin-top:6px">
+          <li>Entrego configurado, com backup automático</li>
+          <li>60 dias de garantia para erros</li>
+        </ul>
+        <ul class="check minus" style="margin-top:6px">
+          <li>Sem monitoramento: se cair, vocês só sabem quando alguém avisar</li>
+          <li>Contas, cartão, renovação do domínio e limites ficam com vocês</li>
+          <li>Depois da garantia, suporte a R$ 80/hora (mínimo 1h)</li>
+        </ul>
+        <div class="foot"><span>Serviços de hospedagem: custo variável, pago por vocês</span><span>Sem custo dentro dos limites grátis; acima deles, ~R$ 30 a 160/mês</span></div>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>&nbsp;</th><th class="c rec">Completa</th><th class="c">Acompanhada</th><th class="c">Por conta de vocês</th></tr></thead>
+        <tbody class="num">
+          <tr><td>Mensal (pago a mim)</td><td class="c rec">R$ 120</td><td class="c">R$ 60</td><td class="c">R$ 0</td></tr>
+          <tr><td>Domínio (pago por vocês, uma vez por ano)</td><td class="c rec">R$ 40/ano</td><td class="c">R$ 40/ano</td><td class="c">R$ 40/ano</td></tr>
+          <tr><td>Serviços de hospedagem (pago por vocês)</td><td class="c rec">incluso</td><td class="c">variável: sem custo dentro dos limites grátis; acima deles, ~R$ 30 a 160/mês</td><td class="c">variável: sem custo dentro dos limites grátis; acima deles, ~R$ 30 a 160/mês</td></tr>
+          <tr><td>Onde fica</td><td class="c rec">meu servidor</td><td class="c">contas da Icarawai</td><td class="c">contas da Icarawai</td></tr>
+          <tr><td>Monitoramento</td><td class="c y rec">✓</td><td class="c y">✓</td><td class="c n0">—</td></tr>
+          <tr><td>Backup diário</td><td class="c rec">comigo</td><td class="c">eu confiro todo mês</td><td class="c">automático, sem conferência</td></tr>
+          <tr><td>Correção de erros</td><td class="c y rec">incluso</td><td class="c y">incluso</td><td class="c">60 dias, depois R$ 80/h</td></tr>
+          <tr><td>Ajustes técnicos</td><td class="c rec">1h/mês inclusa</td><td class="c">R$ 60/h</td><td class="c">R$ 80/h</td></tr>
+          <tr><td>Se a loja crescer</td><td class="c rec">mesmo valor*</td><td class="c">custo dos serviços sobe</td><td class="c">custo dos serviços sobe</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="foot-note"><b>Sobre os serviços de hospedagem nas formas Acompanhada e Por conta de vocês:</b> os planos grátis têm limites de visitas, tráfego de fotos, tamanho do banco de dados e processamento. O custo depende de quanto a loja é usada: com o movimento atual, deve caber nos limites grátis; em campanhas, lives com muito acesso ou com a loja crescendo, pode passar a ser cobrado, de ~R$ 30 a 160/mês, em dólar e conforme a tabela de cada serviço. Por isso não dá para garantir um valor fixo.</p>
+    <p class="foot-note">* Dentro de um uso razoável; se a loja crescer muito, revisamos juntos. Planos grátis de terceiros não têm garantia nem suporte do fornecedor, e suas regras podem mudar; nas formas Acompanhada e Por conta de vocês, a adaptação a uma mudança dessas é cobrada como ajuste. Com o Gestão +, somam-se R$ 30/mês nas formas Completa e Acompanhada.</p>
+  </section>
+
+  <!-- CONDIÇÕES -->
+  <section aria-labelledby="t-cond">
+    <div class="eyebrow" id="t-cond">Condições</div>
+    <h2>Como funciona</h2>
+    <div class="terms">
+      <div class="box">
+        <h3>Pagamento</h3>
+        <p>Opção 1: à vista na entrega.</p>
+        <p>Opções 2 e 3: 40% no início, 30% na aprovação do design e 30% no lançamento. Parcelamento pode ser combinado.</p>
+        <p>Hospedagem Completa: cobrada a partir do 3º mês, ou 12 meses pelo preço de 10 no plano anual.</p>
+      </div>
+      <div class="box">
+        <h3>Conteúdo e suporte</h3>
+        <p>Cadastro de produtos, banners e cupons fica com vocês, pelo painel, em qualquer forma de hospedagem.</p>
+        <p>Erro é algo entregue que não funciona e é corrigido conforme a forma escolhida. Pedido novo é algo fora do escopo e é orçado à parte.</p>
+      </div>
+      <div class="box">
+        <h3>É da Icarawai</h3>
+        <p>Domínio, conta de pagamento e base de clientes ficam no nome da empresa.</p>
+        <p>Se um dia quiserem sair, entrego o banco de dados e os arquivos e ajudo na mudança.</p>
+        <p>Nas contas de vocês, uso acesso de colaborador, nunca a senha principal.</p>
+      </div>
+      <div class="box">
+        <h3>Escopo e prazos</h3>
+        <p>O escopo é o que está listado em cada opção. Pedidos novos são orçados à parte.</p>
+        <p>Os prazos contam a partir do envio das fotos e informações dos produtos. A vitrine atual segue no ar até o site novo ser aprovado.</p>
+      </div>
+    </div>
+
+    <div class="next">
+      <div>
+        <h3>Próximo passo</h3>
+        <p>Escolham a opção e me avisem. Começamos pela conversa de descoberta e vocês recebem uma versão de teste toda semana.</p>
+      </div>
+      <div class="sig"><svg class="sym" viewBox="0 0 50 49" aria-hidden="true"><circle cx="3.5" cy="3.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="3.5" r="3.5" fill="#1E1A14"/><rect x="12" y="0" width="26" height="7" rx="3.5" fill="#E38D3D"/><circle cx="3.5" cy="17.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="17.5" r="3.5" fill="#1E1A14"/><rect x="21" y="14" width="17" height="7" rx="3.5" fill="#51B67A"/><circle cx="3.5" cy="31.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="31.5" r="3.5" fill="#1E1A14"/><rect x="12" y="28" width="17" height="7" rx="3.5" fill="#51B67A"/><circle cx="3.5" cy="45.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="45.5" r="3.5" fill="#1E1A14"/><rect x="12" y="42" width="26" height="7" rx="3.5" fill="#E38D3D"/></svg><div><b>Eduardo Genes</b>edugenes.dev · WhatsApp 85 98109-7155</div></div>
+    </div>
+    <p class="foot-note">Valores de terceiros (taxas de pagamento, domínio, WhatsApp) são estimativas pelas tabelas públicas de novembro de 2026 e podem mudar. Proposta válida até 20/11/2026.</p>
+  </section>
+
+</div>
+
+</body>
+</html>
