@@ -17,6 +17,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F4EFE7">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>(function(d){d.classList.add("js");try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("mo")}catch(e){}})(document.documentElement)</script>
+<script>window.egT=function(n,p){try{if(window.umami&&umami.track)umami.track(n,p);else(window.egQ=window.egQ||[]).push([n,p])}catch(e){}};</script>
+<script defer src="/stats/script.js" data-website-id="87f91c4a-574e-4c45-bd7b-d39ed7cf2caa" data-domains="edugenes.dev,edugenes.com.br" onload="(window.egQ||[]).forEach(function(a){try{umami.track(a[0],a[1])}catch(e){}});window.egQ=[]"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@1,6..72,400..600&display=swap" rel="stylesheet">
@@ -201,6 +204,152 @@ section{border-top:1px solid var(--ink);margin-top:40px;padding-top:32px}
 .next .sig b{font-family:var(--display)}
 .next .sig{font-family:var(--mono);font-size:12px}
 @media (max-width:560px){.docmeta{display:none}}
+
+/* =========== interação: montar o pacote =========== */
+:root{--ease-out:cubic-bezier(.16,1,.3,1)}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.pline .r{text-align:right;max-width:24ch}
+
+/* simulador */
+.sim{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;margin-top:22px;align-items:start}
+.sim-ctl{display:grid;gap:18px;min-width:0}
+.sim fieldset{border:0;display:grid;gap:8px;min-width:0}
+.sim legend{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:8px;padding:0}
+.ch{position:relative;display:flex;align-items:center;gap:14px;min-height:56px;padding:12px 16px;background:var(--paper);border:1px solid var(--line);border-radius:6px;cursor:pointer;transition:border-color .2s ease,box-shadow .2s ease,opacity .2s ease;-webkit-tap-highlight-color:transparent}
+.ch input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.ch-n{flex:none;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:15px;color:var(--ink-2);transition:background-color .2s ease,border-color .2s ease,color .2s ease}
+.ch-t{display:grid;gap:1px;min-width:0}
+.ch-t b{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em}
+.ch-t b em{font-style:normal;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);margin-left:6px;vertical-align:2px}
+.ch-t small{font-size:13.5px;color:var(--ink-2)}
+.ch:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.ch:has(input:checked) .ch-n{background:var(--ink);border-color:var(--ink);color:#fff}
+.ch:has(input[type=radio]:checked) .ch-n:empty::after{content:"";width:10px;height:10px;border-radius:50%;background:#fff}
+.ch.box .ch-n{border-radius:6px}
+.ch.box:has(input:checked) .ch-n{background:var(--accent);border-color:var(--accent)}
+.ch.box:has(input:checked) .ch-n::after{content:"";width:12px;height:7px;border:solid #fff;border-width:0 0 2.5px 2.5px;rotate:-45deg;translate:0 -2px}
+.ch:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:3px}
+.ch:has(input:disabled){opacity:.42;cursor:not-allowed}
+.ch:active{scale:.99}
+.fs-note{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.sim-mini{display:none}
+
+/* recibo do pacote */
+.sim-out{position:sticky;top:16px;min-width:0}
+.rc{background:var(--paper);border:1px solid var(--ink);border-top-width:3px;border-radius:6px;padding:20px 22px 22px}
+.rc-h{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px dotted var(--ink-2)}
+.rc-pk{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.3;margin:12px 0 6px;color:var(--ink)}
+.rc-l{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0 3px;border-top:1px solid #EEE9E0;font-size:15px}
+.rc-l small{display:block;font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+.rc-l b{font-family:var(--display);font-weight:800;font-size:19px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+#rPrazo,#rMes{white-space:normal;max-width:24ch}
+.rc-sub{overflow-wrap:anywhere;font-family:var(--mono);font-size:11.5px;color:var(--ink-2);text-align:right;min-height:0}
+.rc-sub:empty{display:none}
+.rc-notes{list-style:none;display:grid;gap:6px;margin-top:14px;padding-top:12px;border-top:1px dotted var(--ink-2)}
+.rc-notes li{font-size:13px;color:var(--ink-2);display:flex;gap:8px}
+.rc-notes li::before{content:"+";flex:none;font-family:var(--mono);font-weight:700;color:var(--accent)}
+.rc-notes a{color:var(--ink);text-underline-offset:3px}
+.rc-pay{margin-top:14px;padding:10px 12px;background:var(--sand);border-radius:6px;font-size:13.5px;color:var(--ink)}
+.wa{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:16px;transition:background-color .2s ease,scale .15s ease}
+.wa:active{scale:.98}
+@media (hover:hover) and (pointer:fine){.wa:hover{background:var(--accent)}}
+.rc-wa{margin-top:8px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+
+/* hospedagem recolhida: a recomendada já vem escolhida */
+.host-sum{display:flex;align-items:center;justify-content:space-between;gap:6px 12px;flex-wrap:wrap;min-height:56px;padding:10px 12px 10px 16px;background:var(--paper);border:1px solid var(--ink);box-shadow:inset 0 0 0 1px var(--ink);border-radius:6px}
+.host-sum b{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em}
+.host-sum em{font-style:normal;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);margin-left:8px;vertical-align:2px}
+.host-sum em[hidden]{display:none}
+.host-sum small{display:block;font-size:13.5px;color:var(--ink-2)}
+.lnk{min-height:44px;padding:0 6px;background:none;border:0;font:700 14px/1 var(--body);color:var(--ink);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.host-opts{display:grid;gap:8px}
+.host-opts[hidden]{display:none}
+.host-opts:not([hidden])+.fs-note,.host-sum.off{display:none}
+/* resumo: investimento e economia na frente, conta completa recolhida */
+.rc-inv{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-top:6px;padding-top:12px;border-top:2px solid var(--ink)}
+.rc-inv>span:first-child{font-weight:800;font-size:16px}
+.rc-inv small{display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--ink-2)}
+.rc-v{text-align:right}
+.rc-v s{display:block;width:max-content;margin-left:auto;font-size:15px;color:var(--ink-2);text-decoration:none;background:linear-gradient(var(--accent),var(--accent)) no-repeat 0 58%/100% 1.5px;font-variant-numeric:tabular-nums}
+.rc-v b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(38px,4.4vw,48px);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rc-save{display:table;margin:10px 0 0 auto;background:var(--ok-soft);color:#11633A;font-weight:700;font-size:14px;padding:6px 10px;border-radius:4px}
+.mo .rc-save.pop{animation:savepop .6s var(--ease-out)}
+@keyframes savepop{0%{scale:.92;opacity:.4}60%{scale:1.04}100%{scale:1;opacity:1}}
+.rc-gain{margin-top:14px;padding-top:12px;border-top:1px dotted var(--ink-2)}
+.rc-gh{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.rc-gain ul{list-style:none;display:grid;gap:4px}
+.rc-gain li{display:flex;gap:8px;align-items:flex-start;font-size:14px;line-height:1.4;padding:2px 4px;margin:0 -4px;border-radius:4px}
+.rc-gain li::before{content:"✓";flex:none;width:18px;height:18px;margin-top:1px;border-radius:50%;background:var(--ok-soft);color:#11633A;display:grid;place-items:center;font-size:11px;font-weight:800}
+.rc-gain li.g span::after{content:" · Gestão +";font-family:var(--mono);font-size:11px;color:var(--accent-ink);white-space:nowrap}
+.rc-gain li.new::before{content:"+";background:var(--accent);color:#fff;font-size:13px}
+.mo .rc-gain li.new{animation:gain 1.8s ease}
+@keyframes gain{0%,35%{background-color:var(--accent-soft)}100%{background-color:transparent}}
+.rc-more{margin-top:10px;border-top:1px solid #EEE9E0}
+.rc-more summary{min-height:44px;display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:14px;list-style:none}
+.rc-more summary::-webkit-details-marker{display:none}
+.rc-more summary::before{content:"+";width:14px;font-family:var(--mono);font-weight:700;color:var(--accent)}
+.rc-more[open] summary::before{content:"–"}
+.rc-more .rc-notes{margin-top:10px}
+.rc-third{margin-top:12px;font-size:13.5px;color:var(--ink-2)}
+.rc-third a{color:var(--ink);font-weight:700;text-underline-offset:3px}
+.pickable>.sum{cursor:pointer;transition:box-shadow .2s ease,scale .15s ease;-webkit-tap-highlight-color:transparent}
+.pickable>.sum:active{scale:.985}
+@media (hover:hover) and (pointer:fine){.pickable>.sum:not(.pick):hover{box-shadow:0 0 0 1px var(--ink-2)}}
+.pick-hint{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.pick-hint::before{content:"↳ ";color:var(--accent);font-weight:700}
+/* o resto do documento acompanha a escolha */
+.sum,.opt,.yr{position:relative}
+.pick-tag{position:absolute;top:-11px;right:14px;background:var(--ink);color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;pointer-events:none}
+.mo .pick-tag{animation:tag .45s var(--ease-out)}
+@keyframes tag{from{opacity:0;translate:0 6px}to{opacity:1;translate:0 0}}
+.sum.pick,.opt.pick,.yr.pick{box-shadow:0 0 0 2px var(--ink)}
+.sum.rec.pick,.opt.rec.pick,.yr.rec.pick{box-shadow:0 0 0 1px var(--accent)}
+td,th{transition:background-color .3s ease,color .3s ease}
+.js td.rec{background:#F8E6DF}
+.js thead th.rec{background:var(--accent-soft);color:var(--accent-ink)}
+
+/* taxas */
+.fees{margin-top:16px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px}
+.fees-l{display:block;font-weight:700;font-size:15px}
+.fees-row{display:flex;align-items:center;gap:16px;margin-top:6px}
+.fees-row output{flex:none;min-width:9ch;text-align:right;font-family:var(--display);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums}
+.fees input[type=range]{flex:1;min-width:0;height:44px;background:none;-webkit-appearance:none;appearance:none;cursor:pointer;touch-action:pan-y}
+.fees input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(var(--ink),var(--ink)) 0/var(--p,14%) 100% no-repeat,var(--line)}
+.fees input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-12px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);box-shadow:0 2px 6px rgba(24,22,17,.18)}
+.fees input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:var(--line)}
+.fees input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--ink)}
+.fees input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.fees input[type=range]:focus-visible{outline:none}
+.fees input[type=range]:focus-visible::-webkit-slider-thumb{outline:2px solid var(--accent);outline-offset:3px}
+.fees input[type=range]:focus-visible::-moz-range-thumb{outline:2px solid var(--accent);outline-offset:3px}
+.fees-o{margin-top:6px;font-size:16px}
+.fees-o b{font-family:var(--display);font-weight:800;font-size:19px;font-variant-numeric:tabular-nums}
+.fees-o small{font-size:13px;color:var(--ink-2)}
+.fees-n{margin-top:8px;font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
+
+/* motion de leitura: entradas suaves e o desconto em destaque */
+.pline s{text-decoration:none;background:linear-gradient(var(--accent),var(--accent)) no-repeat 0 58%/100% 1.5px}
+.pline .disc{display:inline-block}
+.mo .rv{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .8s var(--ease-out)}
+.mo .rv.in{opacity:1;transform:none}
+.mo .priceblock.arm s{background-size:0 1.5px}
+.mo .priceblock.arm.on s{background-size:100% 1.5px;transition:background-size .55s var(--ease-out) .25s}
+.mo .priceblock.arm .disc{opacity:0;scale:1.6;rotate:-4deg}
+.mo .priceblock.arm.on .disc{opacity:1;scale:1;rotate:0deg;transition:opacity .2s ease .7s,scale .5s var(--ease-out) .7s,rotate .5s var(--ease-out) .7s}
+@media print{.mo .rv{opacity:1;transform:none}}
+
+@media (max-width:900px){
+  .sim{grid-template-columns:1fr}
+  .sim-out{position:static}
+  .sim-mini{display:flex;position:sticky;bottom:0;z-index:5;align-items:center;gap:12px;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:12px max(16px,env(safe-area-inset-left,0px)) calc(12px + env(safe-area-inset-bottom,0px));background:var(--ink);color:#fff}
+  .sim-mini span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#D9D3CB}
+  .sim-mini b{font-family:var(--display);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums}
+  .sim-mini a{margin-left:auto;color:#fff;font-size:13px;font-weight:700;min-height:44px;display:flex;align-items:center}
+}
+@media (prefers-reduced-motion:reduce){
+  td,th,.ch,.ch-n,.rc-gain li{transition:none}
+}
 </style>
 </head>
 <body>
@@ -298,6 +447,12 @@ section{border-top:1px solid var(--ink);margin-top:40px;padding-top:32px}
       <div class="trow"><span><b>Cartão no site</b><span class="who">meio de pagamento</span></span><span>Em toda venda paga online; varia com prazo e parcelas</span><span class="v">~4% da venda</span></div>
       <div class="trow"><span><b>Etiqueta de frete</b><span class="who">Correios e transportadoras</span></span><span>Por envio; o cliente paga no checkout</span><span class="v">pago pelo cliente</span></div>
       <div class="trow"><span><b>WhatsApp automático</b><span class="who">API oficial da Meta</span></span><span>Só na opção 3 e no Gestão +: lembrete de carrinho e confirmação de pedido</span><span class="v">R$ 0,32 / R$ 0,04 por msg</span></div>
+    </div>
+    <div class="fees" id="taxas" hidden>
+      <label for="feeR" class="fees-l">Quanto vocês vendem online por mês?</label>
+      <div class="fees-row"><input type="range" id="feeR" min="1000" max="30000" step="500" value="5000" aria-valuetext="R$ 5.000 por mês"><output id="feeV" for="feeR">R$ 5.000</output></div>
+      <p class="fees-o" aria-live="polite">Taxas de pagamento: de <b id="feeLo">R$ 50</b> <small>(tudo no Pix)</small> a <b id="feeHi">R$ 200</b> <small>(tudo no cartão)</small> por mês.</p>
+      <p class="fees-n">Estimativa com Pix ~1% e cartão ~4% da venda, pelas tabelas públicas de novembro de 2026; o cartão varia com prazo e parcelas, e os valores podem mudar. Existe em qualquer opção com pagamento online, inclusive na 1.</p>
     </div>
     <p class="foot-note">Exemplo: vendendo R$ 5 mil por mês online, as taxas de pagamento ficam perto de R$ 150. Elas existem também na opção 1, porque são do pagamento online, não do site.</p>
   </section>
@@ -412,7 +567,7 @@ section{border-top:1px solid var(--ink);margin-top:40px;padding-top:32px}
         <div class="pline"><span class="lbl">Valor cheio</span><s>R$ 1.600</s></div>
         <div class="pline"><span class="lbl">Condição parceiro</span><span class="disc">− R$ 800</span></div>
         <div class="pline total"><span>Investimento</span><b>R$ 800</b></div>
-        <div class="pline"><span class="lbl">Manutenção</span><span>+ R$ 30/mês</span></div>
+        <div class="pline"><span class="lbl">Manutenção</span><span class="r">+ R$ 30/mês nas hospedagens Completa e Acompanhada</span></div>
         <div class="pline"><span class="lbl">Prazo</span><span>+ 2 semanas</span></div>
       </div>
     </article>
@@ -445,8 +600,67 @@ section{border-top:1px solid var(--ink);margin-top:40px;padding-top:32px}
     </div>
   </section>
 
+  <!-- MONTE O SEU (só com JS; sem JS fica a seção estática "Quanto sai o primeiro ano", logo abaixo) -->
+  <section id="monte" aria-labelledby="t-monte" hidden>
+    <div class="eyebrow" id="t-monte">Conta fechada</div>
+    <h2>Monte o seu pacote</h2>
+    <p class="lead">Já deixei montado o que eu faria no lugar de vocês. Troquem o que quiserem: os valores se ajustam na hora.</p>
+    <div class="sim">
+      <form class="sim-ctl" id="simForm" action="#" onsubmit="return false">
+        <fieldset>
+          <legend>Opção</legend>
+          <label class="ch"><input type="radio" name="opcao" value="1"><span class="ch-n">1</span><span class="ch-t"><b>Ajuste rápido</b><small>na VitrineTurbo · até 7 dias</small></span></label>
+          <label class="ch"><input type="radio" name="opcao" value="2" checked><span class="ch-n">2</span><span class="ch-t"><b>Site próprio <em>recomendada</em></b><small>site da marca, vendendo sozinho · 5 a 6 semanas</small></span></label>
+          <label class="ch"><input type="radio" name="opcao" value="3"><span class="ch-n">3</span><span class="ch-t"><b>Site próprio completo</b><small>tudo da 2, mais recursos de recompra · 7 semanas</small></span></label>
+        </fieldset>
+        <fieldset id="fsHost">
+          <legend>Hospedagem</legend>
+          <div class="host-sum" id="hostSum"><span><b id="hostName">Completa</b><em id="hostRec">recomendada</em><small id="hostPrice">R$ 120/mês · 2 primeiros meses grátis</small></span><button type="button" class="lnk" id="hostMore" aria-expanded="false" aria-controls="hostOpts">ver outras formas</button></div>
+          <div class="host-opts" id="hostOpts" hidden>
+            <label class="ch"><input type="radio" name="hosp" value="c" checked><span class="ch-n" aria-hidden="true"></span><span class="ch-t"><b>Completa <em>recomendada</em></b><small>R$ 120/mês · 2 primeiros meses grátis · tudo comigo</small></span></label>
+            <label class="ch"><input type="radio" name="hosp" value="a"><span class="ch-n" aria-hidden="true"></span><span class="ch-t"><b>Acompanhada</b><small>R$ 60/mês · nas contas da Icarawai, eu acompanho</small></span></label>
+            <label class="ch"><input type="radio" name="hosp" value="p"><span class="ch-n" aria-hidden="true"></span><span class="ch-t"><b>Por conta de vocês</b><small>R$ 0/mês pago a mim · vocês cuidam</small></span></label>
+          </div>
+          <p class="fs-note" id="hostNote" hidden>Na opção 1 o site continua na VitrineTurbo: o mensal é o plano de vocês lá.</p>
+        </fieldset>
+        <fieldset id="fsG">
+          <legend>Módulo adicional</legend>
+          <label class="ch box"><input type="checkbox" name="gestao" id="gestao"><span class="ch-n" aria-hidden="true"></span><span class="ch-t"><b>Gestão +</b><small>todas as vendas num lugar só · dá pra adicionar agora ou ativar depois</small></span></label>
+          <p class="fs-note" id="gNote" hidden>O Gestão + entra só nas opções 2 e 3.</p>
+        </fieldset>
+        <div class="sim-mini" aria-hidden="true"><span>Investimento</span><b id="mInv">R$ 1.900</b><a href="#simOut" tabindex="-1">ver o resumo ↓</a></div>
+      </form>
+      <div class="sim-out" id="simOut">
+        <div class="rc">
+          <div class="rc-h"><span id="rLabel">O que eu faria no lugar de vocês</span><span>válido até 20/11/2026</span></div>
+          <p class="rc-pk" id="rPk" aria-live="polite">Opção 2 · Site próprio · hospedagem Completa</p>
+          <div class="rc-inv"><span>Investimento<small>uma vez</small></span><span class="rc-v"><s id="rFull">R$ 2.500</s><b id="rInv">R$ 1.900</b></span></div>
+          <p class="rc-save" id="rSave">Condição parceiro: vocês economizam R$ 600</p>
+          <div class="rc-gain"><p class="rc-gh">O que entra</p><ul id="rGain"></ul></div>
+          <div class="rc-l"><span>Depois do lançamento</span><b id="rMes">R$ 120/mês</b></div>
+          <p class="rc-sub" id="rMesSub"></p>
+          <div class="rc-l"><span>Prazo</span><b id="rPrazo">5 a 6 semanas</b></div>
+          <p class="rc-sub" id="rPrazoSub"></p>
+          <details class="rc-more" id="rMore">
+            <summary>ver a conta completa</summary>
+            <div class="rc-l"><span>Domínio<small>pago ao Registro.br</small></span><b>R$ 40/ano</b></div>
+            <div class="rc-l"><span>Total do 1º ano</span><b id="rY1">R$ 3.140</b></div>
+            <p class="rc-sub" id="rY1Sub"></p>
+            <div class="rc-l"><span>A partir do 2º ano</span><b id="rY2">R$ 1.480/ano</b></div>
+            <p class="rc-sub" id="rY2Sub"></p>
+            <ul class="rc-notes" id="rNotes"></ul>
+          </details>
+          <p class="rc-third">Taxas e serviços de terceiros à parte. <a href="#t-terceiros">Ver detalhes</a></p>
+          <p class="rc-pay">Pagamento flexível: por etapas do projeto ou parcelado. A gente combina o que fica melhor pra vocês.</p>
+          <a class="wa" id="waBtn" href="https://wa.me/5585981097155" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Quero conversar sobre esta opção</a>
+          <p class="rc-wa">Abre o WhatsApp com o pacote montado, pra gente conversar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PRIMEIRO ANO -->
-  <section aria-labelledby="t-ano">
+  <section id="ano" aria-labelledby="t-ano">
     <div class="eyebrow" id="t-ano">Conta fechada</div>
     <h2>Quanto sai o primeiro ano</h2>
     <p class="lead">Somando o que é pago a mim e os custos fixos de terceiros. As taxas por venda ficam de fora, porque são iguais em qualquer opção com pagamento online.</p>
@@ -456,7 +670,7 @@ section{border-top:1px solid var(--ink);margin-top:40px;padding-top:32px}
       <div class="yr rec"><small>Opção 2</small><b>R$ 3.140</b><p>R$ 1.900 + 10 meses de hospedagem Completa + domínio</p></div>
       <div class="yr"><small>Opção 3</small><b>R$ 4.140</b><p>R$ 2.900 + 10 meses de hospedagem Completa + domínio</p></div>
     </div>
-    <p class="foot-note">Os valores consideram a hospedagem Completa. Na Acompanhada, o primeiro ano fica cerca de R$ 480 mais barato; na Por conta de vocês, cerca de R$ 1.160 mais barato, com suporte pago por chamado. A partir do segundo ano, as opções 2 e 3 custam por ano cerca de R$ 1.480 (Completa), R$ 760 (Acompanhada) ou R$ 40 mais chamados (Por conta de vocês). Nas duas últimas, somam-se os serviços de hospedagem, que variam com o uso. A assinatura da VitrineTurbo deixa de ser necessária depois do lançamento. Com o Gestão +, somam-se R$ 800 de investimento e R$ 30/mês.</p>
+    <p class="foot-note">Os valores consideram a hospedagem Completa. Na Acompanhada, o primeiro ano fica cerca de R$ 480 mais barato; na Por conta de vocês, cerca de R$ 1.200 mais barato, com suporte pago por chamado. A partir do segundo ano, as opções 2 e 3 custam por ano cerca de R$ 1.480 (Completa), R$ 760 (Acompanhada) ou R$ 40 mais chamados (Por conta de vocês). Nas duas últimas, somam-se os serviços de hospedagem, que variam com o uso. A assinatura da VitrineTurbo deixa de ser necessária depois do lançamento. Com o Gestão +, somam-se R$ 800 de investimento e R$ 30/mês nas hospedagens Completa e Acompanhada.</p>
   </section>
 
   <!-- HOSPEDAGEM -->
@@ -535,8 +749,9 @@ section{border-top:1px solid var(--ink);margin-top:40px;padding-top:32px}
     <div class="terms">
       <div class="box">
         <h3>Pagamento</h3>
-        <p>Opção 1: à vista na entrega.</p>
-        <p>Opções 2 e 3: 40% no início, 30% na aprovação do design e 30% no lançamento. Parcelamento pode ser combinado.</p>
+        <p>Opção 1: à vista ou parcelado, a combinar.</p>
+        <p>Opções 2 e 3: dá pra pagar por etapas do projeto (por exemplo, uma parte no início, outra na aprovação do design e o restante no lançamento) ou parcelado. Combinamos juntos a forma que fica melhor pra vocês.</p>
+        <p>Gestão +: pode entrar junto no pagamento do site ou ser pago à parte quando for ativado, a combinar.</p>
         <p>Hospedagem Completa: cobrada a partir do 3º mês, ou 12 meses pelo preço de 10 no plano anual.</p>
       </div>
       <div class="box">
@@ -569,5 +784,216 @@ section{border-top:1px solid var(--ink);margin-top:40px;padding-top:32px}
 
 </div>
 
+<script>
+/* Simulador: toda conta usa só valores e regras deste documento.
+   Investimento: opção 1 R$ 400 · 2 R$ 1.900 · 3 R$ 2.900 · Gestão + R$ 800 (só 2 e 3).
+   Hospedagem (2 e 3): Completa R$ 120/mês com 2 meses grátis no 1º ano · Acompanhada R$ 60 · Por conta R$ 0.
+   Gestão +: + R$ 30/mês só na Completa e na Acompanhada, 12 meses no 1º ano. Domínio R$ 40/ano.
+   1º ano = investimento + hospedagem + Gestão + mensal + domínio. 2º ano = 12 × mensal + domínio.
+   Opção 1: R$ 400 + 12 × plano VitrineTurbo (R$ 28 a 57) + domínio. */
+(function(){
+  const D=document,H=D.documentElement,MO=H.classList.contains('mo');
+  const $=(s,r=D)=>r.querySelector(s),$$=(s,r=D)=>[...r.querySelectorAll(s)];
+  const R=n=>'R$ '+Math.round(n).toLocaleString('pt-BR');
+  const expo=t=>t>=1?1:1-Math.pow(2,-10*t);
+  const INV={1:400,2:1900,3:2900},NOME={1:'Ajuste rápido',2:'Site próprio',3:'Site próprio completo'};
+  const HOST={c:{nome:'Completa',m:120,mesesAno1:10},a:{nome:'Acompanhada',m:60,mesesAno1:12},p:{nome:'Por conta de vocês',m:0,mesesAno1:12}};
+  const PRAZO={1:'até 7 dias',2:'5 a 6 semanas',3:'7 semanas'},PRAZO_G={2:'7 a 8 semanas',3:'9 semanas'};
+  const VT=[28,57],DOM=40,G_INV=800,G_MES=30;
+
+  function calc(o,h,g){
+    if(o===1){
+      return {inv:400,invSub:'',mes:null,y1:[400+12*VT[0]+DOM,400+12*VT[1]+DOM],y2:[12*VT[0]+DOM,12*VT[1]+DOM],
+        y1Sub:'R$ 400 + 12 × R$ 28 a 57 (plano VitrineTurbo) + R$ 40 (domínio)',y2Sub:'plano VitrineTurbo + domínio',prazo:PRAZO[1]};
+    }
+    const H_=HOST[h],gm=g&&h!=='p'?G_MES:0,inv=INV[o]+(g?G_INV:0),mes=H_.m+gm;
+    const y1=inv+H_.m*H_.mesesAno1+gm*12+DOM,y2=12*mes+DOM;
+    const parts=[R(INV[o])];
+    if(g)parts.push(R(G_INV)+' (Gestão +)');
+    if(H_.m)parts.push(H_.mesesAno1+' × '+R(H_.m)+' ('+H_.nome+')');
+    if(gm)parts.push('12 × '+R(gm)+' (Gestão +)');
+    parts.push(R(DOM)+' (domínio)');
+    return {inv,invSub:g?R(INV[o])+' da opção '+o+' + '+R(G_INV)+' do Gestão +':'',mes,gm,y1,y2,
+      y1Sub:parts.join(' + '),y2Sub:mes?'12 × '+R(mes)+' + '+R(DOM)+' (domínio)':(h==='p'?'só o domínio, mais chamados de suporte se precisar':''),
+      prazo:g?PRAZO_G[o]+' ('+PRAZO[o]+' + 2 do Gestão +)':PRAZO[o]};
+  }
+  const fmtV=v=>Array.isArray(v)?R(v[0])+' a '+Math.round(v[1]).toLocaleString('pt-BR'):R(v);
+
+  /* contagem de números (aceita faixas "R$ 776 a 1.124") */
+  function countTo(el,text,from,dur){
+    if(!MO){el.textContent=text;return;}
+    const nums=[];text.replace(/\d{1,3}(?:\.\d{3})+|\d+/g,m=>{nums.push(+m.replace(/\./g,''));return m;});
+    const start=Array.isArray(from)?from:nums.map(()=>from||0),t0=performance.now();
+    cancelAnimationFrame(el._raf);
+    const f=now=>{const k=expo(Math.min(1,(now-t0)/(dur||900)));let i=0;
+      el.textContent=text.replace(/\d{1,3}(?:\.\d{3})+|\d+/g,()=>{const a=start[i]??0,b=nums[i++];return Math.round(a+(b-a)*k).toLocaleString('pt-BR');});
+      if(k<1)el._raf=requestAnimationFrame(f);};
+    el._raf=requestAnimationFrame(f);
+  }
+  const numsOf=t=>(t.match(/\d{1,3}(?:\.\d{3})+|\d+/g)||[]).map(m=>+m.replace(/\./g,''));
+
+  /* ---------- simulador: abre na recomendação; destaca investimento, economia e o que entra ---------- */
+  const FULL={1:600,2:2500,3:3900},G_FULL=1600;
+  /* itens tirados das listas "Inclui" de cada opção neste documento */
+  const GAIN={
+    1:['Pagamento online ativado (Pix e cartão)','Frete configurado','Domínio próprio conectado','Revisão de categorias, banners e Pixel'],
+    2:['Design exclusivo, no celular e no computador','Endereço icarawai.com.br e nome da marca no Google e no WhatsApp','Pix, cartão e frete calculado pelo CEP','Monte seu combo e Modo Live','Cupom e link por parceira, com relatório'],
+    3:['Tudo da opção 2','Lookbook e “Compre o look”','Carrinho esquecido: lembrete automático no WhatsApp','Avaliações com foto na página do produto','Cashback no Clube dos Brabos e Delas'],
+    g:['Link de pagamento para vender pelo WhatsApp','Caixa da loja física no celular ou tablet','Vendas por canal, por vendedor e por parceira']
+  };
+  const sec=$('#monte'),form=$('#simForm');
+  if(sec&&form){
+    sec.hidden=false;
+    const ano=$('#ano');if(ano)ano.hidden=true;
+    const q=new URLSearchParams(location.search);
+    const qo=q.get('opcao'),qh=q.get('hosp');
+    if(['1','2','3'].includes(qo))form.opcao.value=qo;
+    if(['c','a','p'].includes(qh))form.hosp.value=qh;
+    if(q.get('gestao')==='1')form.gestao.checked=true;
+
+    const els={label:$('#rLabel'),pk:$('#rPk'),full:$('#rFull'),inv:$('#rInv'),save:$('#rSave'),gain:$('#rGain'),mes:$('#rMes'),mesSub:$('#rMesSub'),
+      prazo:$('#rPrazo'),y1:$('#rY1'),y1Sub:$('#rY1Sub'),y2:$('#rY2'),y2Sub:$('#rY2Sub'),notes:$('#rNotes'),wa:$('#waBtn'),mini:$('#mInv'),more:$('#rMore')};
+    const hostOpts=$('#hostOpts'),hostMore=$('#hostMore'),hostSum=$('#hostSum');
+    const sums=$$('.summary'),optSum=$$('.sum',sums[0]),hostSums=sums[1]?$$('.sum',sums[1]):[];
+    const opts=$$('article.opt'),tables=$$('.tablewrap table');
+    let lastInv=null,lastGain=null,lastSave=null,touched=false;
+
+    const tag=(el,on)=>{on=on&&touched;let t=$(':scope > .pick-tag',el);el.classList.toggle('pick',on);
+      if(on&&!t){t=D.createElement('span');t.className='pick-tag';t.textContent='sua escolha';el.appendChild(t);}else if(!on&&t)t.remove();};
+    const col=(table,n)=>{$$('th,td',table).forEach(c=>c.classList.remove('rec'));if(n)$$('tr',table).forEach(r=>{const c=r.children[n-1];if(c&&n>1)c.classList.add('rec');});};
+    const openHosts=open=>{hostOpts.hidden=!open;hostMore.setAttribute('aria-expanded',open);hostMore.textContent=open?'recolher':'ver outras formas';};
+    if(form.hosp.value!=='c')openHosts(true);
+    hostMore.addEventListener('click',()=>{const open=hostOpts.hidden;openHosts(open);if(open){window.egT&&egT('icw_ver_hospedagens');$('input[name=hosp]:checked',hostOpts).focus();}});
+
+    function update(){
+      const o=+form.opcao.value,h=form.hosp.value,g=form.gestao.checked&&o>1;
+      $('#fsG').disabled=o===1;$('#gNote').hidden=o!==1;
+      hostSum.classList.toggle('off',o===1);$('#hostNote').hidden=o!==1;
+      if(o===1)openHosts(false);
+      $$('input',hostOpts).forEach(i=>i.disabled=o===1);hostMore.disabled=o===1;
+      $('#hostName').textContent=HOST[h].nome;$('#hostRec').hidden=h!=='c';
+      $('#hostPrice').textContent=h==='c'?'R$ 120/mês · 2 primeiros meses grátis':h==='a'?'R$ 60/mês · eu acompanho':'R$ 0/mês pago a mim · vocês cuidam';
+      const r=calc(o,h,g);
+
+      els.label.textContent=(o===2&&h==='c'&&!g)?'O que eu faria no lugar de vocês':'Seu pacote';
+      els.pk.textContent='Opção '+o+' · '+NOME[o]+(o>1?' · hospedagem '+HOST[h].nome:'')+(g?' · com Gestão +':'');
+      /* investimento com o valor cheio riscado e a economia da condição parceiro */
+      const full=FULL[o]+(g?G_FULL:0),save=full-r.inv;
+      els.full.textContent=R(full);
+      if(lastInv===null)els.inv.textContent=R(r.inv);else countTo(els.inv,R(r.inv),[lastInv],600);
+      lastInv=r.inv;els.mini.textContent=R(r.inv);
+      els.save.textContent='Condição parceiro: vocês economizam '+R(save).replace(' ','\u00a0');
+      if(lastSave!==null&&save!==lastSave&&MO){els.save.classList.remove('pop');void els.save.offsetWidth;els.save.classList.add('pop');}
+      lastSave=save;
+
+      /* o que entra: o que é novo em relação à escolha anterior ganha destaque */
+      const items=GAIN[o].map(t=>({t,g:false})).concat(g?GAIN.g.map(t=>({t,g:true})):[]);
+      els.gain.innerHTML='';
+      items.forEach(it=>{const li=D.createElement('li');if(it.g)li.className='g';
+        if(lastGain&&!lastGain.includes(it.t)&&it.t!=='Tudo da opção 2')li.classList.add('new');
+        const sp=D.createElement('span');sp.textContent=it.t;li.appendChild(sp);els.gain.appendChild(li);});
+      lastGain=items.map(it=>it.t).concat(o===3?GAIN[2]:[]);
+
+      if(o===1){els.mes.textContent='plano VitrineTurbo';els.mesSub.textContent='R$ 28 a 57/mês, conforme mensal, semestral ou anual';}
+      else{
+        els.mes.textContent=R(r.mes)+'/mês';
+        els.mesSub.textContent=h==='c'?(r.gm?'nos 2 primeiros meses, só os R$ 30 do Gestão + (hospedagem grátis)':'2 primeiros meses grátis')
+          :(h==='p'&&g?'o Gestão + não tem mensalidade nesta hospedagem':'');
+      }
+      els.prazo.textContent=g?PRAZO_G[o]:PRAZO[o];$('#rPrazoSub').textContent=g?PRAZO[o]+' + 2 do Gestão +':'';
+      els.y1.textContent=fmtV(r.y1);els.y1Sub.textContent=r.y1Sub;
+      els.y2.textContent=fmtV(r.y2)+'/ano'+(o>1&&h==='p'?' + chamados':'');els.y2Sub.textContent=r.y2Sub;
+
+      const notes=[];
+      if(o===1)notes.push('O domínio próprio exige um plano pago da VitrineTurbo.');
+      else notes.push('A assinatura da VitrineTurbo deixa de ser necessária depois do lançamento.');
+      if(o>1&&h==='c')notes.push('Até 1h por mês de ajustes técnicos incluída.');
+      if(o>1&&h!=='c')notes.push('Serviços de hospedagem pagos por vocês: sem custo dentro dos limites grátis; acima deles, ~R$ 30 a 160/mês.');
+      if(o>1&&h==='a')notes.push('Ajustes técnicos a R$ 60/hora.');
+      if(o>1&&h==='p')notes.push('Depois dos 60 dias de garantia, suporte a R$ 80/hora (mínimo 1h).');
+      if(o===3||g)notes.push('WhatsApp automático: R$ 0,32 / R$ 0,04 por mensagem, pago à Meta.');
+      els.notes.innerHTML=notes.map(n=>'<li><span>'+n+'</span></li>').join('');
+
+      const msg='Fala, Edu! Montei aqui no orçamento: Opção '+o+' · '+NOME[o]+(o>1?', hospedagem '+HOST[h].nome:'')+(g?', com Gestão +':'')+'. Investimento '+R(r.inv)+'. Bora conversar?';
+      els.wa.href='https://wa.me/5585981097155?text='+encodeURIComponent(msg);
+
+      /* o documento acompanha */
+      optSum.forEach((s,i)=>tag(s,i+1===o));
+      hostSums.forEach((s,i)=>tag(s,o>1&&'cap'[i]===h));
+      opts.forEach((a,i)=>tag(a,i<3?i+1===o:g));
+      if(tables[0])col(tables[0],o+2);
+      if(tables[1])col(tables[1],o>1?' cap'.indexOf(h)+1:0);
+    }
+    const T=(n,o)=>window.egT&&egT(n,o);
+    /* os cards do Resumo e da Hospedagem também escolhem: marcam aqui e o documento todo acompanha */
+    const cardPick=(cards,name,vals,label)=>{
+      const grp=cards[0]&&cards[0].parentElement;if(!grp)return;
+      grp.setAttribute('role','radiogroup');grp.setAttribute('aria-label',label);grp.classList.add('pickable');
+      const set=i=>{const inp=$('input[name='+name+'][value="'+vals[i]+'"]',form);if(!inp.checked){inp.checked=true;if(name==='hosp'&&vals[i]!=='c')openHosts(true);form.dispatchEvent(new Event('change'));}else{touched=true;update();}};
+      cards.forEach((c,i)=>{
+        c.setAttribute('role','radio');
+        c.addEventListener('click',()=>set(i));
+        c.addEventListener('keydown',e=>{
+          if(e.key===' '||e.key==='Enter'){e.preventDefault();set(i);return;}
+          const d=['ArrowRight','ArrowDown'].includes(e.key)?1:['ArrowLeft','ArrowUp'].includes(e.key)?-1:0;
+          if(d){e.preventDefault();const j=(i+d+cards.length)%cards.length;set(j);cards[j].focus();}
+        });
+      });
+      const hint=D.createElement('p');hint.className='pick-hint';hint.textContent=name==='opcao'?'Toque numa opção pra marcar: o resto do orçamento acompanha.':'Toque numa forma de hospedagem pra marcar.';
+      grp.after(hint);
+    };
+    const syncCards=()=>{
+      const o=form.opcao.value,h=form.hosp.value;
+      optSum.forEach((c,i)=>{const on=String(i+1)===o;c.setAttribute('aria-checked',on);c.tabIndex=on?0:-1;});
+      hostSums.forEach((c,i)=>{const on='cap'[i]===h;c.setAttribute('aria-checked',on);c.tabIndex=on?0:-1;});
+    };
+    cardPick(optSum,'opcao',['1','2','3'],'Escolha uma opção');
+    cardPick(hostSums,'hosp',['c','a','p'],'Escolha a hospedagem');
+    form.addEventListener('change',()=>{touched=true;syncCards();});
+    form.addEventListener('change',()=>{update();const o=+form.opcao.value,h=form.hosp.value,g=form.gestao.checked&&o>1;
+      T('icw_simulador',{opcao:o,hospedagem:o>1?HOST[h].nome:'-',gestao:g?'sim':'não',investimento:R(calc(o,h,g).inv),ano1:fmtV(calc(o,h,g).y1)});});
+    els.more.addEventListener('toggle',()=>{if(els.more.open)T('icw_ver_conta');});
+    els.wa.addEventListener('click',()=>{const o=+form.opcao.value;T('icw_whatsapp',{pacote:els.pk.textContent,investimento:R(calc(o,form.hosp.value,form.gestao.checked&&o>1).inv)});});
+    if(qo)T('icw_veio_da_apresentacao',{opcao:+qo,gestao:q.get('gestao')==='1'?'sim':'não'});
+    if(qo)touched=true;
+    update();syncCards();
+    if(location.hash==='#monte'||qo)requestAnimationFrame(()=>sec.scrollIntoView({block:'start'}));
+  }
+
+  /* ---------- taxas: faixa de tudo no Pix (1%) a tudo no cartão (4%) ---------- */
+  const fees=$('#taxas'),fr=$('#feeR');
+  if(fees&&fr){
+    fees.hidden=false;
+    const upd=()=>{const v=+fr.value;$('#feeV').textContent=R(v);fr.setAttribute('aria-valuetext',R(v)+' por mês');
+      $('#feeLo').textContent=R(v*.01);$('#feeHi').textContent=R(v*.04);
+      fr.style.setProperty('--p',((v-fr.min)/(fr.max-fr.min)*100)+'%');};
+    fr.addEventListener('input',upd);upd();
+    fr.addEventListener('change',()=>window.egT&&egT('icw_taxas',{vendas_mes:R(+fr.value)}));
+  }
+
+  /* ---------- registro de seções vistas (uma vez cada) ---------- */
+  if(window.egT&&'IntersectionObserver' in window){
+    const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){so.unobserve(e.target);const h=$('h2',e.target);egT('icw_secao',{secao:h?h.textContent:e.target.id});}}),{threshold:.25});
+    $$('section').forEach(s=>{if(!s.hidden)so.observe(s);});
+  }
+
+  /* ---------- motion de leitura ---------- */
+  if(MO&&'IntersectionObserver' in window){
+    const once=(el,fn,th)=>{const o=new IntersectionObserver(es=>{if(es[0].isIntersecting){o.disconnect();fn();}},{threshold:th||.2});o.observe(el);};
+    /* entradas suaves: blocos de cada seção, em sequência curta */
+    $$('section').forEach(s=>{$$(':scope > *:not(.eyebrow), :scope > .summary > *, :scope > .year > *, :scope > .terms > *, :scope > .today > *',s)
+      .filter(el=>!el.matches('.summary,.year,.terms,.today'))
+      .forEach((el,i)=>{el.classList.add('rv');el.style.transitionDelay=Math.min(i,5)*60+'ms';once(el,()=>el.classList.add('in'),.08);});});
+    /* desconto: risca o valor cheio, carimba a condição e conta até o investimento */
+    $$('.priceblock').forEach(pb=>{
+      const full=$('s',pb),tot=$('.pline.total b',pb);if(!full||!tot)return;
+      pb.classList.add('arm');const text=tot.textContent,from=numsOf(full.textContent);
+      once(pb,()=>{pb.classList.add('on');setTimeout(()=>countTo(tot,text,from,900),900);},.45);
+    });
+    /* primeiro ano: os totais contam ao aparecer */
+    $$('.year .yr b').forEach(b=>once(b,()=>countTo(b,b.textContent,0,1000),.6));
+  }
+})();
+</script>
 </body>
 </html>
