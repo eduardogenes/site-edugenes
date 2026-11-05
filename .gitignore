@@ -3,3 +3,8 @@
 node_modules/
 dist/
 .astro/
+
+# ferramental local (skill impeccable / Claude Code) — não faz sentido versionar
+.claude/
+.impeccable/
+PRODUCT.md
