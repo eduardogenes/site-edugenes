@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Icarawai · Próximo nível — proposta de Eduardo Genes</title>
+<meta name="description" content="Uma visão do que dá pra construir pra Icarawai: site próprio, vendas sem depender de ninguém, painel e gestão.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="edugenes.dev">
+<meta property="og:title" content="Icarawai · Próximo nível">
+<meta property="og:description" content="Uma ideia do Edu pra Icarawai: site próprio, vendas sozinhas, painel e gestão.">
+<meta property="og:image" content="https://edugenes.dev/proposta-icarawai/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://edugenes.dev/proposta-icarawai">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#EFECE3">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@1,6..72,400..600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --sand:#F4EFE7;
+  --sand-2:#EAE2D6;
+  --paper:#FFFFFF;
+  --ink:#121212;
+  --ink-2:#3A3836;
+  --muted:#77716A;
+  --line:#DDD4C7;
+  --accent:#FF5A36;
+  --accent-ink:#B8331A;
+  --accent-soft:#FFE3DB;
+  --ok:#1F9D55;
+  --ok-soft:#DDF3E5;
+  --sea:#2F6F73;
+  --sea-soft:#DCEBEA;
+  --radius:18px;
+  --display:"Archivo", system-ui, sans-serif;
+  --body:"Inter", system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--sand);color:var(--ink);overscroll-behavior:none}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit}
+
+/* ---------- topo ---------- */
+.top{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) 14px max(24px,env(safe-area-inset-left,0px));background:rgba(244,239,231,.94);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-stretch:110%;letter-spacing:.14em;font-size:13px}
+.brand img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+.top .by{font-size:12px;color:var(--muted)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);width:0;transition:width .15s linear}
+
+.dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:10px}
+.dots a{width:9px;height:9px;border-radius:50%;background:var(--line);display:block;transition:all .2s}
+.dots a.on{background:var(--ink);transform:scale(1.35)}
+@media (max-width:900px){.dots{display:none}}
+
+/* ---------- seções ---------- */
+.slide{min-height:100vh;min-height:100svh;padding:110px 64px 72px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.slide.alt{background:var(--paper)}
+.slide.dark-ish{background:var(--sand-2)}
+.wrap{max-width:1180px;margin:0 auto;width:100%}
+.kicker{font-family:var(--display);font-weight:700;font-stretch:115%;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-ink);display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.kicker .n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;letter-spacing:0}
+h1,h2,h3{font-family:var(--display);font-weight:900;font-stretch:72%;line-height:.92;letter-spacing:-.01em;text-transform:uppercase}
+h1{font-size:clamp(50px,6.6vw,108px)}
+h2{font-size:clamp(40px,6vw,84px);max-width:16ch}
+h3{font-size:26px;font-stretch:80%;line-height:1}
+.lead{font-size:clamp(17px,1.6vw,21px);color:var(--ink-2);max-width:56ch;margin-top:20px}
+.accent{color:var(--accent)}
+.pill{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
+.pill.ok{background:var(--ok-soft);border-color:transparent;color:#11633A}
+.pill.acc{background:var(--accent-soft);border-color:transparent;color:var(--accent-ink)}
+.note{font-size:12px;color:var(--muted);margin-top:14px}
+
+/* ---------- capa ---------- */
+.cover{background:var(--sand);color:var(--ink);overflow:hidden;padding-top:120px}
+.cover .kicker .n{background:var(--accent)}
+.cover-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.cover h1 span{display:block}
+.cover h1 .out{color:transparent;-webkit-text-stroke:2px var(--ink)}
+.cover-meta{display:flex;gap:28px;margin-top:36px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.cover-meta b{display:block;color:var(--ink);font-size:15px}
+.collage{position:relative;height:560px}
+.collage figure{position:absolute;border-radius:20px;overflow:hidden;box-shadow:0 30px 60px rgba(40,28,15,.28);border:6px solid var(--paper)}
+.collage img{width:100%;height:100%;object-fit:cover}
+.collage .c1{width:58%;height:78%;left:0;top:6%;transform:rotate(-3deg)}
+.collage .c2{width:50%;height:56%;right:0;top:0;transform:rotate(4deg)}
+.collage .c3{width:46%;height:44%;right:6%;bottom:0;transform:rotate(-2deg)}
+.cover .scroll{margin-top:44px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
+.cover .scroll i{width:36px;height:1px;background:var(--muted);display:inline-block}
+
+/* ---------- força ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.stat b{font-family:var(--display);font-weight:900;font-stretch:75%;font-size:clamp(34px,4.6vw,58px);line-height:1;display:block;white-space:nowrap}
+.stat span{font-size:14px;color:var(--ink-2)}
+.quote{margin-top:28px;display:flex;gap:16px;align-items:center;background:var(--ink);color:#fff;border-radius:var(--radius);padding:22px 26px}
+.quote p{font-size:18px}
+.quote .tag{font-family:var(--display);font-weight:800;font-stretch:115%;font-size:11px;letter-spacing:.2em;color:#FFB39F;white-space:nowrap}
+
+/* ---------- jornada ---------- */
+.journeys{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:44px}
+.journey{border-radius:var(--radius);padding:26px;border:1px solid var(--line);background:var(--sand)}
+.journey.new{background:var(--paper);color:var(--ink);border:2px solid var(--accent);box-shadow:0 20px 50px rgba(255,90,54,.16)}
+.journey h3{margin-bottom:6px}
+.journey .sub{font-size:14px;color:var(--muted);margin-bottom:22px}
+.journey.new .sub{color:var(--muted)}
+.steps{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.step{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:600}
+.journey.new .step{background:var(--sand);border-color:var(--line);color:var(--ink)}
+.journey.new .step.pay{background:var(--accent);border-color:var(--accent);color:#fff}
+.arrow{color:var(--muted);font-weight:700}
+.big-n{font-family:var(--display);font-weight:900;font-stretch:72%;font-size:96px;line-height:.9;margin-top:22px}
+.big-n small{font-size:18px;font-stretch:100%;font-weight:600;letter-spacing:0;text-transform:none;margin-left:8px}
+
+/* ---------- telefone ---------- */
+.duo{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.phones{display:flex;gap:22px;justify-content:center;align-items:flex-start}
+.phone{width:290px;flex:none;background:#0E0E0E;border-radius:44px;padding:11px;box-shadow:0 40px 80px rgba(40,28,15,.25)}
+.phone.lower{margin-top:40px}
+.screen{background:var(--paper);border-radius:34px;overflow:hidden;height:min(600px,74vh);min-height:560px;position:relative;font-size:12px}
+.notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:86px;height:22px;background:#0E0E0E;border-radius:20px;z-index:5}
+.s-bar{display:flex;align-items:center;justify-content:space-between;padding:38px 14px 10px;border-bottom:1px solid #EFEAE3}
+.s-logo{font-family:var(--display);font-weight:900;font-stretch:110%;letter-spacing:.2em;font-size:13px}
+.s-ic{display:flex;gap:10px;font-size:14px}
+.s-hero{position:relative;height:250px;overflow:hidden}
+.s-hero img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.s-hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.78));display:flex;flex-direction:column;justify-content:flex-end;padding:16px;color:#fff}
+.s-hero .ov b{font-family:var(--display);font-weight:900;font-stretch:72%;font-size:34px;line-height:.9;text-transform:uppercase}
+.s-hero .ov span{font-size:11px;opacity:.9;margin-top:6px}
+.s-btn{display:inline-block;margin-top:10px;background:#fff;color:var(--ink);font-weight:700;font-size:11px;padding:8px 12px;border-radius:999px;width:max-content}
+.s-chips{display:flex;gap:6px;padding:12px 14px;overflow:hidden}
+.s-chips span{border:1px solid #E6DFD5;border-radius:999px;padding:5px 10px;white-space:nowrap;font-weight:600;font-size:11px}
+.s-chips span.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.s-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px}
+.s-card img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;background:#eee}
+.s-card p{font-weight:600;font-size:11px;margin-top:6px;line-height:1.25}
+.s-card .pr{font-weight:800;font-size:12px}
+.s-card .pr s{color:var(--muted);font-weight:500;margin-right:4px}
+.s-live{margin:10px 14px 0;background:var(--accent);color:#fff;border-radius:12px;padding:9px 12px;display:flex;align-items:center;gap:8px;font-weight:700;font-size:11px}
+.s-live i{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.25}}
+
+.p-img{height:262px;position:relative}
+.p-img img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.p-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+.p-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.6)}
+.p-dots i:first-child{background:#fff;width:16px;border-radius:4px}
+.p-body{padding:14px}
+.p-body h4{font-family:var(--display);font-weight:800;font-stretch:85%;font-size:18px;line-height:1.05;text-transform:uppercase}
+.p-price{display:flex;align-items:baseline;gap:8px;margin-top:6px}
+.p-price b{font-size:20px;font-weight:800}
+.p-price s{color:var(--muted)}
+.p-pix{font-size:11px;color:#11633A;font-weight:700;margin-top:2px}
+.p-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
+.swatches{display:flex;gap:8px}
+.swatches i{width:24px;height:24px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #DDD}
+.swatches i.on{box-shadow:0 0 0 2px var(--ink)}
+.p-cep{display:flex;gap:6px;margin-top:4px}
+.p-cep span{flex:1;border:1px solid #E6DFD5;border-radius:10px;padding:8px 10px;color:var(--ink-2)}
+.p-cep em{font-style:normal;background:var(--sand);border-radius:10px;padding:8px 10px;font-weight:700}
+.p-ship{font-size:11px;margin-top:6px;color:var(--ink-2)}
+.p-cta{position:absolute;left:14px;right:14px;bottom:14px;display:flex;gap:8px}
+.p-cta b{flex:1;text-align:center;background:var(--ink);color:#fff;border-radius:999px;padding:12px;font-size:12px}
+.p-cta span{width:44px;display:grid;place-items:center;border:1px solid #E6DFD5;border-radius:999px;font-size:15px}
+
+.c-head{padding:38px 14px 10px;font-family:var(--display);font-weight:800;font-stretch:90%;font-size:16px;text-transform:uppercase;border-bottom:1px solid #EFEAE3}
+.c-item{display:flex;gap:10px;padding:9px 14px;border-bottom:1px solid #F2EDE6}
+.c-item img{width:44px;height:54px;object-fit:cover;border-radius:8px}
+.c-item p{font-weight:600;font-size:11px;line-height:1.25}
+.c-item small{color:var(--muted);font-size:10px}
+.c-item b{margin-left:auto;font-size:12px;white-space:nowrap}
+.c-sec{padding:10px 14px}
+.c-sec h5{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.c-opt{display:flex;align-items:center;justify-content:space-between;border:1px solid #E6DFD5;border-radius:12px;padding:8px 12px;margin-bottom:6px;font-weight:600;font-size:12px}
+.c-opt.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.c-opt small{font-weight:600;color:#11633A}
+.c-tot{display:flex;justify-content:space-between;padding:4px 14px;font-size:12px}
+.c-tot.big{font-weight:800;font-size:15px;padding-top:8px}
+
+.feat-list{display:grid;gap:12px;margin-top:30px}
+.feat{display:flex;gap:14px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.slide.alt .feat{background:var(--sand)}
+.feat .ic{flex:none;width:38px;height:38px;border-radius:12px;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:17px}
+.feat b{display:block;font-size:16px}
+.feat span{font-size:14px;color:var(--ink-2)}
+
+/* ---------- vendas do jeito deles ---------- */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:44px}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px;position:relative;overflow:hidden}
+.tile h3{margin-bottom:8px}
+.tile p{font-size:15px;color:var(--ink-2);max-width:40ch}
+.t-live{grid-column:span 3;background:var(--ink);color:#fff;border-color:var(--ink)}
+.t-live p{color:#D9D3CB}
+.t-combo{grid-column:span 3}
+.t-cupom{grid-column:span 2}
+.t-vip{grid-column:span 2}
+.t-zap{grid-column:span 2}
+.live-ui{margin-top:20px;display:flex;gap:14px;align-items:center;background:#1E1C1A;border-radius:16px;padding:12px}
+.live-ui img{width:76px;height:92px;object-fit:cover;border-radius:10px}
+.live-ui .badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent);font-size:10px;font-weight:800;letter-spacing:.1em;padding:4px 8px;border-radius:6px}
+.live-ui .badge i{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.4s infinite}
+.live-ui b{display:block;margin-top:6px;font-size:15px}
+.live-ui small{color:#BDB6AD}
+.live-ui .cd{margin-left:auto;text-align:right;font-family:var(--display);font-weight:900;font-stretch:75%;font-size:30px;line-height:1}
+.live-ui .cd small{display:block;font-family:var(--body);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.combo-ui{margin-top:18px;display:flex;gap:10px;align-items:center}
+.combo-ui .slot{width:74px;height:90px;border-radius:12px;overflow:hidden;border:2px solid var(--ink)}
+.combo-ui .slot img{width:100%;height:100%;object-fit:cover}
+.combo-ui .slot.empty{border-style:dashed;border-color:var(--line);display:grid;place-items:center;color:var(--muted);font-size:24px}
+.combo-ui .price{margin-left:auto;text-align:right}
+.combo-ui .price s{color:var(--muted);font-size:13px;text-decoration:none}
+.combo-ui .price b{display:block;font-family:var(--display);font-weight:900;font-stretch:75%;font-size:30px;line-height:1;white-space:nowrap;margin:2px 0 6px}
+.coupons{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.coupons div{display:flex;justify-content:space-between;align-items:center;border:1px dashed var(--line);border-radius:12px;padding:9px 12px;font-size:13px}
+.coupons code{font-family:var(--display);font-weight:800;font-stretch:110%;letter-spacing:.08em}
+.coupons span{font-weight:700}
+
+/* ---------- painel ---------- */
+.desk{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 30px 70px rgba(40,28,15,.14);overflow:hidden;margin-top:40px}
+.desk-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid #EFEAE3;background:#FBF9F6}
+.desk-bar i{width:10px;height:10px;border-radius:50%;background:#E4DCD1}
+.desk-bar span{margin-left:12px;font-size:12px;color:var(--muted);background:var(--paper);border:1px solid #EFEAE3;border-radius:8px;padding:4px 12px}
+.desk-body{display:grid;grid-template-columns:200px 1fr;min-height:430px}
+.side{border-right:1px solid #EFEAE3;padding:18px 12px;display:flex;flex-direction:column;gap:3px;font-size:13px}
+.side .lg{font-family:var(--display);font-weight:900;font-stretch:110%;letter-spacing:.18em;font-size:12px;padding:0 10px 16px}
+.side a{text-decoration:none;padding:8px 10px;border-radius:10px;color:var(--ink-2);display:flex;justify-content:space-between;align-items:center}
+.side a.on{background:var(--ink);color:#fff;font-weight:600}
+.side a .plus{font-size:10px;font-weight:700;background:var(--accent-soft);color:var(--accent-ink);padding:2px 6px;border-radius:6px}
+.main{padding:22px 24px}
+.main-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.main-h b{font-size:18px}
+.main-h small{color:var(--muted);font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kpi{border:1px solid #EFEAE3;border-radius:14px;padding:12px 14px}
+.kpi small{font-size:11px;color:var(--muted)}
+.kpi b{display:block;font-size:22px;font-weight:800;margin-top:2px}
+.kpi em{font-style:normal;font-size:11px;color:var(--ok);font-weight:700}
+.tbl{margin-top:14px;border:1px solid #EFEAE3;border-radius:14px;overflow:hidden;font-size:12.5px}
+.tbl .r{display:grid;grid-template-columns:70px 1.6fr 1fr .9fr .9fr;gap:10px;padding:10px 14px;border-bottom:1px solid #F2EDE6;align-items:center}
+.tbl .r:last-child{border-bottom:0}
+.tbl .r.fresh{background:var(--ok-soft);font-weight:600}
+.toast{position:absolute;right:20px;top:64px;background:var(--ink);color:#fff;border-radius:14px;padding:12px 16px;font-size:13px;font-weight:600;box-shadow:0 18px 40px rgba(0,0,0,.25);display:flex;gap:10px;align-items:center;opacity:0;transform:translateY(-10px);transition:all .6s cubic-bezier(.2,.8,.2,1)}
+.toast.show{opacity:1;transform:none}
+.toast small{display:block;font-weight:500;color:#BDB6AD;font-size:11px}
+.desk{position:relative}
+.tbl .r.h{background:#FBF9F6;font-size:11px;color:var(--muted);font-weight:600}
+.st{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;width:max-content}
+.st.pg{background:var(--ok-soft);color:#11633A}
+.st.sp{background:var(--sea-soft);color:var(--sea)}
+.st.ag{background:#FFF1CC;color:#8A5A00}
+.ch{font-size:11px;font-weight:600;color:var(--ink-2)}
+
+.keep{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:34px}
+.keep h3{font-size:22px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.keep ul{list-style:none;display:grid;gap:8px}
+.keep li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.keep li::before{content:"✓";flex:none;width:22px;height:22px;border-radius:50%;background:var(--ok-soft);color:#11633A;display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:1px}
+.keep .new li::before{content:"+";background:var(--accent-soft);color:var(--accent-ink);font-size:15px}
+
+/* ---------- gestão ---------- */
+.g-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;margin-top:40px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px}
+.card-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.card-h b{font-size:16px}
+.bars{display:grid;gap:12px}
+.bar{display:grid;grid-template-columns:110px 1fr 80px;gap:12px;align-items:center;font-size:14px}
+.bar .tr{height:14px;background:var(--sand);border-radius:999px;overflow:hidden}
+.bar .tr i{display:block;height:100%;border-radius:999px;background:var(--ink);width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.bar .tr i.a{background:var(--accent)}
+.bar .tr i.s{background:var(--sea)}
+.bar .tr i.m{background:#B9AE9F}
+.bar b{text-align:right}
+.rank{display:grid;gap:10px}
+.rank div{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;font-size:14px}
+.rank .pos{width:28px;height:28px;border-radius:50%;background:var(--sand);display:grid;place-items:center;font-weight:800;font-size:12px}
+.rank div:first-child .pos{background:var(--accent);color:#fff}
+.rank small{display:block;color:var(--muted);font-size:12px}
+.g-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.mini h4{font-size:15px;margin:10px 0 4px}
+.mini p{font-size:14px;color:var(--ink-2)}
+.mini .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--sand);font-size:18px}
+.linkbox{margin-top:12px;display:flex;gap:6px;align-items:center;background:var(--sand);border-radius:10px;padding:8px 10px;font-size:12px;font-family:ui-monospace,monospace;overflow:hidden;white-space:nowrap}
+.linkbox b{font-family:var(--body);margin-left:auto;background:var(--ink);color:#fff;font-size:11px;padding:4px 8px;border-radius:6px}
+
+/* ---------- como trabalhamos ---------- */
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:44px;counter-reset:ph}
+.phase{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:20px;position:relative}
+.phase .wk{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.phase h3{font-size:24px;margin:8px 0 10px}
+.phase ul{list-style:none;display:grid;gap:6px;font-size:13.5px;color:var(--ink-2)}
+.phase ul li::before{content:"— ";color:var(--muted)}
+.phase .out{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;font-weight:600}
+.phase .out span{display:block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.phase.go{background:var(--ink);color:#fff;border-color:var(--ink)}
+.phase.go ul{color:#D9D3CB}
+.phase.go .wk{color:#FFB39F}
+.phase.go .out{border-color:#3A3633}
+.rituals{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.ritual{border-radius:20px;padding:20px;background:var(--sand);border:1px solid var(--line)}
+.ritual b{display:block;font-size:16px;margin-bottom:4px}
+.ritual p{font-size:14px;color:var(--ink-2)}
+.ritual .big{font-family:var(--display);font-weight:900;font-stretch:72%;font-size:40px;line-height:1;margin-bottom:6px;color:var(--accent)}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.split .card h3{font-size:24px;margin-bottom:14px}
+.split ul{list-style:none;display:grid;gap:10px}
+.split li{display:flex;gap:12px;font-size:15px;align-items:flex-start}
+.split li i{flex:none;font-style:normal;width:26px;height:26px;border-radius:8px;background:var(--sand);display:grid;place-items:center;font-size:13px}
+.rules{margin-top:16px;display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);background:var(--sand);border-radius:18px;padding:12px 16px;font-size:13px;color:var(--ink-2)}
+.rules b{color:var(--ink)}
+
+/* ---------- final ---------- */
+.final{background:var(--paper);text-align:left}
+.final h2{max-width:13ch}
+.next{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+.next div{border:1px solid var(--line);border-radius:20px;padding:22px;background:var(--sand)}
+.next b{font-family:var(--display);font-weight:900;font-stretch:72%;font-size:44px;color:var(--accent);line-height:1}
+.next h4{font-size:17px;margin:10px 0 4px}
+.next p{font-size:14px;color:var(--ink-2)}
+.sign{margin-top:44px;display:flex;align-items:center;gap:14px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.sign b{color:var(--ink);font-size:16px}
+.sign .line{flex:1;height:1px;background:var(--line);min-width:40px}
+.rules .pill{white-space:nowrap;flex:none}
+
+
+/* ---------- marca em todo lugar ---------- */
+.previews{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+.pv-col h4{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.pv-col.new h4{color:var(--accent-ink)}
+.chat{background:#E7DFD3;border-radius:20px;padding:16px;display:grid;gap:10px}
+.bubble{background:#DCF8C6;border-radius:14px 14px 4px 14px;max-width:340px;margin-left:auto;overflow:hidden;box-shadow:0 1px 1px rgba(0,0,0,.08);font-size:13px}
+.bubble .og{display:flex;gap:10px;background:#CDEFB4;padding:8px;align-items:center}
+.bubble .og img{width:52px;height:52px;object-fit:cover;border-radius:8px;flex:none}
+.bubble .og b{display:block;font-size:13px;line-height:1.25}
+.bubble .og small{display:block;color:#53604A;font-size:11.5px;line-height:1.3}
+.bubble .og em{font-style:normal;display:block;color:#6B7A60;font-size:11px;margin-top:2px}
+.bubble p{padding:8px 10px;color:#1F5FA8;word-break:break-all}
+.serp{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px 20px;margin-top:12px}
+.serp .q{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;color:var(--ink-2);margin-bottom:14px}
+.serp .res small{display:block;font-size:12px;color:var(--ink-2)}
+.serp .res b{display:block;color:#1A0DAB;font-size:17px;font-weight:500;margin:2px 0}
+.serp .res p{font-size:13px;color:var(--ink-2)}
+.serp .res .stars{color:#E8A400;font-size:12px}
+.serp.muted .res b{color:var(--muted)}
+.serp.muted{opacity:.85}
+
+/* ---------- design livre ---------- */
+.look{display:grid;grid-template-columns:1.1fr 1fr;gap:0;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-top:40px}
+.look .ph{position:relative;min-height:420px}
+.look .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.look .ph .cap{position:absolute;left:18px;bottom:18px;right:18px;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.4)}
+.look .ph .cap span{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.look .ph .cap b{display:block;font-family:var(--display);font-weight:900;font-stretch:72%;font-size:54px;line-height:.9;text-transform:uppercase}
+.look .info{padding:26px;display:flex;flex-direction:column;gap:14px}
+.look .info h3{font-size:30px}
+.look .info p{font-size:15px;color:var(--ink-2)}
+.look-items{display:grid;gap:10px}
+.look-items div{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:8px}
+.look-items img{width:54px;height:66px;object-fit:cover;border-radius:10px}
+.look-items b{font-size:14px;display:block}
+.look-items small{color:var(--muted);font-size:12px}
+.look-items .pr{margin-left:auto;font-weight:800;font-size:14px;white-space:nowrap}
+.look .buy{display:flex;align-items:center;justify-content:space-between;background:var(--ink);color:#fff;border-radius:999px;padding:12px 18px;font-weight:700;font-size:14px}
+.look .buy span{color:#FFB39F}
+.design-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+.dg{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px}
+.slide.alt .dg{background:var(--sand)}
+.dg b{display:block;font-size:15px;margin:10px 0 4px}
+.dg p{font-size:13.5px;color:var(--ink-2)}
+.dg .ic{width:36px;height:36px;border-radius:11px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center}
+
+/* ---------- relacionamento ---------- */
+.rel{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.zap{background:#E7DFD3;border-radius:20px;padding:16px;display:grid;gap:8px}
+.zap .in{background:#fff;border-radius:14px 14px 14px 4px;padding:10px 12px;font-size:13.5px;max-width:92%;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.zap .in small{display:block;color:var(--muted);font-size:11px;margin-top:4px;text-align:right}
+.zap .btn{display:inline-block;margin-top:8px;background:var(--ok);color:#fff;border-radius:8px;padding:6px 10px;font-weight:700;font-size:12px}
+.review{display:flex;gap:12px;align-items:flex-start;border-bottom:1px solid #F2EDE6;padding:12px 0}
+.review:last-child{border-bottom:0}
+.review img{width:56px;height:56px;border-radius:10px;object-fit:cover;flex:none}
+.review .stars{color:#E8A400;font-size:13px;letter-spacing:1px}
+.review p{font-size:13.5px;color:var(--ink-2)}
+.review b{font-size:13px}
+.clube{margin-top:16px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px}
+.clube .card b.big{font-family:var(--display);font-weight:900;font-stretch:72%;font-size:46px;line-height:1;color:var(--accent);display:block}
+
+/* ---------- é de vocês ---------- */
+.own{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
+.own .card{display:flex;gap:16px;align-items:flex-start}
+.own .card .ic{flex:none;width:44px;height:44px;border-radius:14px;background:var(--ink);color:#fff;display:grid;place-items:center}
+.own .card b{display:block;font-size:17px;margin-bottom:4px}
+.own .card p{font-size:14.5px;color:var(--ink-2)}
+
+@media (max-width:1080px){
+  .design-grid{grid-template-columns:repeat(2,1fr)}
+  .look{grid-template-columns:1fr}
+  .look .ph{min-height:340px}
+  .clube{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .previews,.rel,.own{grid-template-columns:1fr}
+  .design-grid{grid-template-columns:1fr}
+  .look .ph .cap b{font-size:40px}
+  .own .card{flex-direction:column}
+}
+
+/* ---------- caminhos ---------- */
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.path{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.path.rec{border:2px solid var(--accent);box-shadow:0 18px 40px rgba(255,90,54,.14)}
+.path .num{font-family:var(--display);font-weight:900;font-stretch:75%;font-size:44px;line-height:1;color:var(--accent)}
+.path h3{font-size:30px}
+.path p{font-size:15px;color:var(--ink-2)}
+.path .meta{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line);display:flex;gap:8px;flex-wrap:wrap}
+.addon{margin-top:16px;display:flex;gap:18px;align-items:center;background:var(--paper);border:1px dashed var(--line);border-radius:20px;padding:18px 22px}
+.addon b{font-size:17px;display:block}
+.addon p{font-size:14.5px;color:var(--ink-2)}
+@media (max-width:900px){.paths{grid-template-columns:1fr}.addon{flex-direction:column;align-items:flex-start}}
+
+/* ---------- animação de entrada ---------- */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+@media print{.js .rv{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.s-live i,.live-ui .badge i{animation:none}html{scroll-behavior:auto}}
+
+/* ---------- desktop: snap ---------- */
+@media (min-width:1000px) and (min-height:700px){
+  html{scroll-snap-type:y proximity}
+  .slide{scroll-snap-align:start}
+}
+
+/* ---------- responsivo ---------- */
+@media (max-width:1080px){
+  .slide{padding:100px 32px 64px}
+  .cover-grid,.duo{grid-template-columns:1fr}
+  .collage{height:440px;max-width:520px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .t-live,.t-combo{grid-column:span 2}
+  .t-cupom,.t-vip,.t-zap{grid-column:span 1}
+  .t-zap{grid-column:span 2}
+  .timeline{grid-template-columns:repeat(2,1fr)}
+  .phase.go{grid-column:span 2}
+  .g-grid{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .top{padding:12px 16px}
+  .top .by{display:none}
+  .slide{padding:88px 16px 56px;min-height:auto}
+  .cover{min-height:100vh;min-height:100svh}
+  .collage{height:360px}
+  .journeys,.keep,.split,.rituals,.next,.g-row{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr;gap:10px}
+  .stat{padding:16px}
+  .stat b{font-size:clamp(30px,9vw,44px)}
+  .bento{grid-template-columns:1fr}
+  .t-live,.t-combo,.t-cupom,.t-vip,.t-zap{grid-column:span 1}
+  .timeline{grid-template-columns:1fr}
+  .phase.go{grid-column:span 1}
+  .phones{flex-direction:column;align-items:center}
+  .phone.lower{margin-top:0}
+  .phone{width:min(290px,100%)}
+  .desk-body{grid-template-columns:1fr}
+  .side{display:none}
+  .kpis{grid-template-columns:1fr 1fr}
+  .tbl .r{grid-template-columns:48px 1fr auto auto;font-size:11.5px;gap:8px;padding:9px 10px}
+  .tbl .r > :nth-child(3){display:none}
+  .toast{position:static;margin:12px 12px 0;transform:none}
+  .bar{grid-template-columns:88px 1fr 64px;font-size:13px}
+  .quote{flex-direction:column;align-items:flex-start}
+  .live-ui{flex-wrap:wrap}
+  .live-ui .cd{font-size:24px;margin-left:0;text-align:left;width:100%}
+  .live-ui .badge,.live-ui small{white-space:nowrap}
+  .combo-ui{flex-wrap:wrap}
+  .combo-ui .price{margin-left:0;width:100%;text-align:left}
+  .combo-ui .slot{width:58px;height:72px}
+  .big-n{font-size:72px}
+}
+
+/* =========== identidade edugenes ("Documento") =========== */
+:root{
+  --sand:#EFECE3; --sand-2:#E6E2D6; --paper:#FAF8F5; --ink:#181611; --ink-2:#5B564A; --muted:#857F72; --line:#D6D1C4;
+  --red:#C92F12; --red-soft:#F4DCD4; --rule:#181611;
+  --display:"Archivo", "Arial", system-ui, sans-serif; --serif:"Newsreader", Georgia, serif; --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+html,body{background:var(--sand)}
+.mono{font-family:var(--mono)}
+/* cabeçalho de documento */
+.top{border-top:3px solid var(--rule);border-bottom:1px solid var(--rule);background:rgba(239,236,227,.96);gap:18px;padding-top:calc(12px + env(safe-area-inset-top,0px));padding-bottom:12px}
+.brand{gap:10px;font-family:var(--display);font-weight:800;font-stretch:100%;letter-spacing:-.01em;font-size:20px;text-transform:none}
+.brand .sym{width:26px;height:26px;flex:none}
+.brand i{font-style:normal;color:var(--red)}
+.top .by{font-size:11px;letter-spacing:.08em;color:var(--ink)}
+.progress{background:var(--red)}
+.dots a.on{background:var(--red)}
+/* títulos largos, como no site */
+h1,h2,h3{font-family:var(--display);font-weight:800;font-stretch:112%;letter-spacing:-.025em;line-height:.95;text-wrap:balance}
+h1{font-size:clamp(40px,5.2vw,78px)}
+h2{font-size:clamp(32px,4.4vw,62px);max-width:18ch}
+h3{font-size:21px;font-stretch:108%;letter-spacing:-.01em}
+.accent{color:var(--red)}
+.cover h1 .out{-webkit-text-stroke:1.6px var(--ink)}
+.lead{font-family:var(--serif);font-style:italic;font-size:clamp(19px,1.8vw,24px);color:var(--ink-2);line-height:1.4}
+/* rótulos com linha pontilhada, como o índice do site */
+.kicker{font-family:var(--mono);font-weight:500;font-stretch:100%;font-size:12px;letter-spacing:.1em;color:var(--ink);gap:12px}
+.kicker .n,.cover .kicker .n{background:none;color:var(--red);width:auto;height:auto;font-size:12px;font-weight:700}
+.kicker::after{content:"";flex:1;min-width:40px;border-top:1px dotted var(--ink-2)}
+.final .kicker .n{background:none !important}
+/* seções como folhas do documento */
+.slide{border-top:1px solid var(--rule)}
+.slide.cover{border-top:0}
+.slide.alt{background:var(--paper)}
+.slide.dark-ish{background:var(--sand-2)}
+/* cartões do documento: cantos retos, régua fina */
+.stat,.feat,.journey,.tile,.phase,.ritual,.path,.addon,.next div,.rules,.quote,.dg,.own .card,.look,.split .card,.g-grid .card,.g-row .card,.rel .card,.clube .card,.keep>div,.desk,.serp,.chat{border-radius:6px}
+.stat b{font-stretch:100%;font-weight:800;font-size:clamp(28px,3vw,42px);letter-spacing:-.02em}
+.big-n,.ritual .big,.next b,.path .num{font-family:var(--display);font-stretch:100%;font-weight:800;color:var(--red);letter-spacing:-.03em}
+.journey.new{border-color:var(--red);box-shadow:none}
+.journey.new .step.pay{background:var(--red);border-color:var(--red)}
+.path.rec{border-color:var(--red);box-shadow:none}
+.pill.acc{background:var(--red-soft);color:var(--red)}
+.dg .ic{background:var(--red-soft);color:var(--red)}
+.quote{background:var(--ink)}
+.quote .tag{font-family:var(--mono);font-stretch:100%;letter-spacing:.1em;color:#F0B9A9}
+.keep h3,.split .card h3{font-size:20px}
+/* carimbo desenhado à mão */
+.stamp{display:block;width:230px;height:auto;margin-top:18px;rotate:-4deg}
+.cover-meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em}
+.cover-meta b{font-family:var(--display);font-size:16px;letter-spacing:-.01em}
+.cover .scroll{font-family:var(--mono)}
+/* assinatura */
+.sign{align-items:center}
+.sign .who{display:flex;align-items:center;gap:12px}
+.sign .who .sym{width:30px;height:30px}
+.sign .who b{font-family:var(--display);font-weight:800;font-size:20px}
+.sign .who span{font-size:13px;color:var(--ink-2)}
+.sign .mono{font-size:12px;letter-spacing:.04em;color:var(--ink)}
+.colophon{margin-top:22px;font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+@media (max-width:900px){.hide-sm{display:none}}
+@media (max-width:720px){.top .by{display:none}.sign .who{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><svg class="sym" viewBox="0 0 50 49" aria-hidden="true"><circle cx="3.5" cy="3.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="3.5" r="3.5" fill="#1E1A14"/><rect x="12" y="0" width="26" height="7" rx="3.5" fill="#E38D3D"/><circle cx="3.5" cy="17.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="17.5" r="3.5" fill="#1E1A14"/><rect x="21" y="14" width="17" height="7" rx="3.5" fill="#51B67A"/><circle cx="3.5" cy="31.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="31.5" r="3.5" fill="#1E1A14"/><rect x="12" y="28" width="17" height="7" rx="3.5" fill="#51B67A"/><circle cx="3.5" cy="45.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="45.5" r="3.5" fill="#1E1A14"/><rect x="12" y="42" width="26" height="7" rx="3.5" fill="#E38D3D"/></svg><span>edugenes<i>_</i></span></div>
+  <div class="by mono">PROPOSTA DE VISÃO — ICARAWAI</div>
+  <div class="by mono hide-sm">REV. 01 / NOV 2026 · FORTALEZA, CE</div>
+  <div class="progress" id="progress"></div>
+</header>
+<nav class="dots" id="dots" aria-label="Seções"></nav>
+
+<!-- 0 · CAPA -->
+<section class="slide cover" id="capa" data-title="Capa">
+  <div class="wrap cover-grid">
+    <div>
+      <div class="kicker rv"><span class="n">§</span>Uma visão para a Icarawai</div>
+      <h1 class="rv"><span>Essência</span><span>em movimento.</span><span class="out">Agora no</span><span class="accent">próximo nível.</span></h1>
+      <p class="lead rv">Um site com o endereço e a cara da marca, que vende sozinho, traz o cliente de volta e mostra tudo o que vocês vendem, do story ao balcão.</p>
+      <div class="cover-meta rv">
+        <div><b>Site próprio</b>domínio, design e vendas sozinhas</div>
+        <div><b>Painel</b>tudo que vocês já têm, e mais</div>
+        <div><b>Gestão +</b>todas as vendas num lugar</div>
+      </div>
+      <div class="scroll rv"><i></i>role para ver</div>
+      <svg class="stamp rv" viewBox="0 0 260 110" aria-hidden="true"><ellipse cx="130" cy="55" rx="118" ry="40" fill="none" stroke="#c92f12" stroke-width="2.2" transform="rotate(-6 130 55)"/><ellipse cx="128" cy="57" rx="112" ry="36" fill="none" stroke="#c92f12" stroke-width="1.2" opacity=".6" transform="rotate(-4 128 57)"/><text x="130" y="64" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="26" fill="#c92f12" transform="rotate(-6 130 55)">feito pra icarawai</text></svg>
+    </div>
+    <div class="collage rv" aria-hidden="true">
+      <figure class="c1"><img src="/proposta-icarawai/img/foto-07.jpg" alt=""></figure>
+      <figure class="c2"><img src="/proposta-icarawai/img/foto-06.jpg" alt=""></figure>
+      <figure class="c3"><img src="/proposta-icarawai/img/foto-02.jpg" alt=""></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 1 · O QUE VOCÊS JÁ TÊM -->
+<section class="slide" id="partida" data-title="Ponto de partida">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">01</span>Ponto de partida</div>
+    <h2 class="rv">Vocês já têm <span class="accent">movimento.</span></h2>
+    <p class="lead rv">A marca está viva: coleção própria, comunidade no WhatsApp, lives e parcerias. O próximo passo é dar a isso uma casa própria.</p>
+    <div class="stats">
+      <div class="stat rv"><b>Coleção</b><span>conjuntos, macaquinhos, shorts e camisas, do treino ao dia a dia</span></div>
+      <div class="stat rv"><b>2</b><span>grupos VIP: “Delas” e “dos Brabos”</span></div>
+      <div class="stat rv"><b>2 linhas</b><span>Delas e dos Brabos, fitness e casual com a marca IW</span></div>
+      <div class="stat rv"><b>Ao vivo</b><span>lives, campanhas e parcerias com criadores</span></div>
+    </div>
+    <div class="quote rv"><span class="tag">A OPORTUNIDADE</span><p>Transformar cada story, cada live e cada indicação em venda finalizada, sem depender de alguém respondendo no WhatsApp.</p></div>
+  </div>
+</section>
+
+<!-- 2 · JORNADA -->
+<section class="slide alt" id="jornada" data-title="Jornada de compra">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">02</span>Jornada de compra</div>
+    <h2 class="rv">Venda fechada <span class="accent">sem depender</span> de vocês.</h2>
+    <div class="journeys">
+      <div class="journey rv">
+        <h3>Hoje</h3>
+        <p class="sub">Funciona, mas cada venda espera alguém responder.</p>
+        <div class="steps"><span class="step">Story</span><span class="arrow">→</span><span class="step">Linktree</span><span class="arrow">→</span><span class="step">Catálogo</span><span class="arrow">→</span><span class="step">WhatsApp</span><span class="arrow">→</span><span class="step">Pix + comprovante</span><span class="arrow">→</span><span class="step">Frete na conversa</span></div>
+        <div class="big-n">6<small>etapas até a venda</small></div>
+      </div>
+      <div class="journey new rv">
+        <h3>Com a nova loja</h3>
+        <p class="sub">O cliente compra sozinho, a qualquer hora. O WhatsApp continua lá para quem quiser conversar.</p>
+        <div class="steps"><span class="step">Story / live</span><span class="arrow">→</span><span class="step">Produto</span><span class="arrow">→</span><span class="step pay">Pago ✓</span></div>
+        <div class="big-n">3<small>passos, sozinho, 24 horas por dia</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARCA EM TODO LUGAR -->
+<section class="slide alt" id="marca" data-title="Sua marca em todo lugar">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">03</span>Sua marca em todo lugar</div>
+    <h2 class="rv">Cada link fala <span class="accent">Icarawai.</span></h2>
+    <p class="lead rv">O endereço, o nome na aba, a prévia no WhatsApp e o resultado no Google: tudo com o nome de vocês e de mais ninguém. É assim que uma marca fica conhecida.</p>
+    <div class="previews">
+      <div class="pv-col rv">
+        <h4>Como o link aparece hoje</h4>
+        <div class="chat"><div class="bubble"><div class="og"><img src="/proposta-icarawai/img/foto-01.jpg" alt=""><div><b>Icarawai - VitrineTurbo</b><small>ICARAWAI | Essência em movimento.</small><em>vitrineturbo.com</em></div></div><p>vitrineturbo.com/icarawai</p></div></div>
+        <div class="serp muted"><div class="q"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg> conjunto fitness poliamida fortaleza</div><div class="res"><small>vitrineturbo.com</small><b>VitrineTurbo: Catálogo Digital para WhatsApp</b><p>Hoje as páginas de produto chegam ao Google com o título e o endereço da plataforma.</p></div></div>
+      </div>
+      <div class="pv-col new rv">
+        <h4>Com o site próprio</h4>
+        <div class="chat"><div class="bubble"><div class="og"><img src="/proposta-icarawai/img/foto-07.jpg" alt=""><div><b>Conjunto Josi · Short duplo + blusa</b><small>R$ 119,90 · Poliamida, secagem rápida · Icarawai</small><em>icarawai.com.br</em></div></div><p>icarawai.com.br/conjunto-josi</p></div></div>
+        <div class="serp"><div class="q"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg> conjunto fitness poliamida fortaleza</div><div class="res"><small>icarawai.com.br › delas › conjuntos</small><b>Conjunto Josi · Short duplo + blusa | Icarawai</b><p><span class="stars">★★★★★</span> 4,9 (38) · R$ 119,90 · Em estoque. Poliamida com elastano, zero transparência.</p></div></div>
+      </div>
+    </div>
+    <p class="note rv">Prévia e resultado de busca ilustrativos. O domínio final é escolhido com vocês.</p>
+  </div>
+</section>
+
+<!-- 3 · A LOJA -->
+<section class="slide" id="loja" data-title="A loja">
+  <div class="wrap duo">
+    <div>
+      <div class="kicker rv"><span class="n">04</span>A loja</div>
+      <h2 class="rv">Com a cara da <span class="accent">Icarawai.</span></h2>
+      <p class="lead rv">Visual próprio, endereço próprio e foco total nas peças. Pensada primeiro para o celular, que é onde o cliente de vocês está.</p>
+      <div class="feat-list">
+        <div class="feat rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div><div><b>Endereço da marca</b><span>O link que vocês divulgam em story, bio e grupo leva só o nome Icarawai.</span></div></div>
+        <div class="feat rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg></div><div><b>Coleções e lançamentos em destaque</b><span>Kauai, Brabos, Delas: cada coleção com sua vitrine e seu banner.</span></div></div>
+        <div class="feat rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div><div><b>Rápida e fácil de achar no Google</b><span>Carrega rápido no 4G e já fica pronta para medir os anúncios.</span></div></div>
+      </div>
+    </div>
+    <div class="phones rv">
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="s-bar"><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><span class="s-logo">ICARAWAI</span><span class="s-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7zM9 7a3 3 0 0 1 6 0"/></svg></span></div>
+        <div class="s-hero"><img src="/proposta-icarawai/img/foto-09.jpg" alt=""><div class="ov"><span>NOVA COLEÇÃO</span><b>Delas</b><span>Poliamida, secagem rápida, zero transparência.</span><span class="s-btn">Ver coleção →</span></div></div>
+        <div class="s-live"><i></i>AO VIVO AGORA · peças da live com 15% off</div>
+        <div class="s-chips"><span class="on">Delas</span><span>Brabos</span><span>Conjuntos</span><span>Macaquinhos</span></div>
+        <div class="s-grid">
+          <div class="s-card"><img src="/proposta-icarawai/img/foto-05.jpg" alt=""><p>Conjunto Naty</p><span class="pr"><s>109,90</s>R$ 89,90</span></div>
+          <div class="s-card"><img src="/proposta-icarawai/img/foto-08.jpg" alt=""><p>Conjunto Dual Color</p><span class="pr">R$ 119,90</span></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN LIVRE -->
+<section class="slide" id="design" data-title="Design sem limite">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">05</span>Design sem limite de tema</div>
+    <h2 class="rv">Uma vitrine que <span class="accent">conta história.</span></h2>
+    <p class="lead rv">Nada de escolher entre dois modelos prontos. Cada página é desenhada para a Icarawai: coleção com fotos grandes, lookbook, página da marca e o look completo a um clique.</p>
+    <div class="look rv">
+      <div class="ph"><img src="/proposta-icarawai/img/foto-09.jpg" alt=""><div class="cap"><span>Lookbook · Coleção Delas</span><b>Treino<br>que vira rolê</b></div></div>
+      <div class="info">
+        <h3>Compre o look</h3><span class="pill acc" style="width:max-content">Incluso na opção 3</span>
+        <p>A cliente vê a peça na foto e leva o conjunto inteiro, com desconto de look completo.</p>
+        <div class="look-items">
+          <div><img src="/proposta-icarawai/img/foto-09.jpg" alt=""><span><b>Conjunto Virginia</b><small>Grafite · Único</small></span><span class="pr">R$ 99,90</span></div>
+          <div><img src="/proposta-icarawai/img/foto-04.jpg" alt=""><span><b>Top Virginia</b><small>Pink · Único</small></span><span class="pr">R$ 39,90</span></div>
+        </div>
+        <div class="buy">Levar o look completo <span>R$ 125,82 · −10%</span></div>
+      </div>
+    </div>
+    <div class="design-grid">
+      <div class="dg rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/></svg></div><b>Página de coleção</b><p>Kauai, Delas, Brabos: cada uma com capa, texto e as peças certas.</p></div>
+      <div class="dg rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17 17 3l4 4L7 21z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/></svg></div><b>Guia de medidas</b><p>Tabela e dica de tamanho por peça. Menos dúvida, menos troca.</p></div>
+      <div class="dg rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></svg></div><b>Vídeo do caimento</b><p>Reels da peça direto na página do produto.</p></div>
+      <div class="dg rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg></div><b>Página da marca</b><p>Quem é a Icarawai, a loja física, os grupos e as lives.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · PRODUTO E CHECKOUT -->
+<section class="slide alt" id="pagamento" data-title="Produto e pagamento">
+  <div class="wrap duo">
+    <div class="phones rv">
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="p-img"><img src="/proposta-icarawai/img/foto-07.jpg" alt=""><div class="p-dots"><i></i><i></i><i></i><i></i></div></div>
+        <div class="p-body">
+          <h4>Conjunto Josi · Short duplo + blusa</h4>
+          <div class="p-price"><b>R$ 119,90</b><s>R$ 139,90</s></div>
+          <div class="p-pix">em até 3x sem juros</div>
+          <div class="p-lbl">Cor</div>
+          <div class="swatches"><i class="on" style="background:#B9A6E6"></i><i style="background:#1E2A4A"></i><i style="background:#E8E3DA"></i></div>
+          <div class="p-lbl">Frete</div>
+          <div class="p-cep"><span>60000-000</span><em>Calcular</em></div>
+          <div class="p-ship">Fortaleza · chega amanhã · R$ 9,90</div>
+        </div>
+        <div class="p-cta"><b>Comprar agora</b><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span></div>
+      </div></div>
+      <div class="phone lower"><div class="screen">
+        <div class="notch"></div>
+        <div class="c-head">Seu carrinho</div>
+        <div class="c-item"><img src="/proposta-icarawai/img/foto-07.jpg" alt=""><div><p>Conjunto Josi</p><small>Lilás · Único</small></div><b>R$ 119,90</b></div>
+        <div class="c-item"><img src="/proposta-icarawai/img/foto-04.jpg" alt=""><div><p>Top Virginia</p><small>Pink · Único</small></div><b>R$ 39,90</b></div>
+        <div class="c-sec"><h5>Pagamento</h5>
+          <div class="c-opt on">Pix <small>aprovado na hora</small></div>
+          <div class="c-opt">Cartão <small style="color:var(--muted)">até 3x sem juros</small></div>
+        </div>
+        <div class="c-sec" style="padding-top:0"><h5>Entrega</h5>
+          <div class="c-opt on">Expresso · amanhã <small style="color:var(--ink)">R$ 9,90</small></div>
+          <div class="c-opt">Retirar na loja <small>grátis</small></div>
+        </div>
+        <div class="c-tot"><span>Subtotal</span><span>R$ 159,80</span></div>
+        <div class="c-tot"><span>Cupom LIVE15</span><span style="color:#11633A;font-weight:700">− R$ 23,97</span></div>
+        <div class="c-tot"><span>Frete</span><span>R$ 9,90</span></div>
+        <div class="c-tot big"><span>Total</span><span>R$ 145,73</span></div>
+        <div class="p-cta" style="position:static;margin:10px 14px 0"><b>Pagar com Pix</b></div>
+      </div></div>
+    </div>
+    <div>
+      <div class="kicker rv"><span class="n">06</span>Produto e pagamento</div>
+      <h2 class="rv">Escolheu, <span class="accent">pagou.</span> Pronto.</h2>
+      <p class="lead rv">Tudo o que hoje acontece na conversa passa a acontecer na tela, sozinho.</p>
+      <div class="feat-list">
+        <div class="feat rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 9-9 9-9-9z"/><path d="m8 12 4-4 4 4-4 4z"/></svg></div><div><b>Pix e cartão no próprio site</b><span>Aprovação na hora, parcelamento e desconto no Pix configurável.</span></div></div>
+        <div class="feat rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div><div><b>Frete calculado pelo CEP</b><span>Correios e transportadoras com preço e prazo na hora, mais a opção de retirar na loja.</span></div></div>
+        <div class="feat rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div><div><b>WhatsApp continua do lado</b><span>Quem prefere conversar ainda tem o botão. Ninguém perde o atendimento que já conhece.</span></div></div>
+      </div>
+      <p class="note rv">Telas ilustrativas, com preços e prazos de exemplo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · DO JEITO DELES -->
+<section class="slide" id="vendas" data-title="Feito pro jeito de vocês">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">07</span>Feito pro jeito de vocês venderem</div>
+    <h2 class="rv">Lives, combos e <span class="accent">comunidade.</span></h2>
+    <p class="lead rv">O Combo dos Brabos, as lives e os grupos VIP viram recursos da loja, não improviso na conversa.</p>
+    <div class="bento">
+      <div class="tile t-live rv">
+        <h3>Modo Live</h3>
+        <p>Cada peça revelada na live ganha link direto, preço especial e contagem regressiva. Quem está assistindo compra sem sair do clima.</p>
+        <div class="live-ui">
+          <img src="/proposta-icarawai/img/foto-03.jpg" alt="">
+          <div><span class="badge"><i></i>REVELADO NA LIVE</span><b>Macaquinho com Manga</b><small>R$ 99,90 → R$ 84,90</small></div>
+          <div class="cd"><span id="cd">14:59</span><small>termina em</small></div>
+        </div>
+      </div>
+      <div class="tile t-combo rv">
+        <h3>Monte seu combo</h3>
+        <p>O cliente escolhe as 3 peças, cores e tamanhos, e o desconto aparece na hora. Sem planilha, sem conversa.</p>
+        <div class="combo-ui">
+          <div class="slot"><img src="/proposta-icarawai/img/foto-02.jpg" alt="" style="object-position:12% 50%"></div>
+          <div class="slot"><img src="/proposta-icarawai/img/foto-02.jpg" alt="" style="object-position:88% 50%"></div>
+          <div class="slot empty">+</div>
+          <div class="price"><s>falta 1 peça</s><b>3 por R$ 177,90</b><span class="pill acc">Combo dos Brabos</span></div>
+        </div>
+      </div>
+      <div class="tile t-cupom rv">
+        <h3>Cupom de criador</h3>
+        <p>Cada parceira com seu cupom e seu link. Vocês sabem quem vende de verdade.</p>
+        <div class="coupons"><div><code>PARCEIRA10</code><span>32 vendas</span></div><div><code>BRABO10</code><span>18 vendas</span></div></div>
+      </div>
+      <div class="tile t-vip rv">
+        <h3>Grupo VIP</h3>
+        <p>Ofertas e pré-venda exclusivas pros grupos “Delas” e “dos Brabos”, com link que só funciona pra quem está dentro.</p>
+      </div>
+      <div class="tile t-zap rv">
+        <h3>Pink Days, Black, Natal</h3>
+        <p>Campanhas com data para começar e acabar sozinhas: banner, preço e cupom entram e saem no horário certo.</p>
+      </div>
+    </div>
+    <p class="note rv">Nomes de cupons e números de exemplo.</p>
+  </div>
+</section>
+
+<!-- RELACIONAMENTO -->
+<section class="slide alt" id="relacionamento" data-title="Vender de novo">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">08</span>Quem comprou, volta</div>
+    <h2 class="rv">A venda continua <span class="accent">depois do pedido.</span></h2>
+    <p class="lead rv">O site trabalha sozinho para recuperar quem desistiu, mostrar quem aprovou e trazer o cliente de volta.</p>
+    <p class="rv" style="margin-top:14px"><span class="pill acc">Incluso na opção 3</span></p>
+    <div class="rel">
+      <div class="card rv">
+        <div class="card-h"><b>Carrinho esquecido</b><span class="pill">automático</span></div>
+        <div class="zap">
+          <div class="in">Oi, Ana! Seu <b>Conjunto Josi</b> ainda está te esperando 💜 Separamos ele até hoje às 22h.<br><span class="btn">Finalizar compra</span><small>enviado 1h depois · WhatsApp</small></div>
+        </div>
+        <p class="note">Mensagem enviada sozinha para quem colocou no carrinho e não pagou.</p>
+      </div>
+      <div class="card rv">
+        <div class="card-h"><b>Avaliações com foto</b><span class="pill">na página do produto</span></div>
+        <div class="review"><img src="/proposta-icarawai/img/foto-07.jpg" alt=""><div><span class="stars">★★★★★</span> <b>Carla</b><p>Zero transparência mesmo, usei no treino e no rolê. Já quero outra cor.</p></div></div>
+        <div class="review"><img src="/proposta-icarawai/img/foto-03.jpg" alt=""><div><span class="stars">★★★★★</span> <b>Júlia</b><p>Tecido muito bom, o tamanho único serviu certinho.</p></div></div>
+      </div>
+    </div>
+    <div class="clube">
+      <div class="card rv"><b class="big">5%</b><b>Clube dos Brabos e Delas</b><p class="note" style="margin-top:4px;font-size:14px;color:var(--ink-2)">Cashback em toda compra para usar na próxima. Motivo para voltar, sem dar desconto para todo mundo.</p></div>
+      <div class="card rv"><b>Lista de desejos</b><p class="note" style="font-size:14px;color:var(--ink-2)">A cliente salva a peça e recebe aviso quando voltar ao estoque ou entrar em promoção.</p></div>
+      <div class="card rv"><b>Aviso de chegada</b><p class="note" style="font-size:14px;color:var(--ink-2)">“Esgotou? Me avisa.” Lista pronta para a reposição vender no primeiro dia.</p></div>
+    </div>
+    <p class="note rv">Nomes, avaliações e percentuais de exemplo.</p>
+  </div>
+</section>
+
+<!-- 6 · PAINEL -->
+<section class="slide alt" id="painel" data-title="O painel">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">09</span>O painel</div>
+    <h2 class="rv">Vocês no <span class="accent">controle.</span></h2>
+    <p class="lead rv">Produto novo, banner, cupom, estoque: tudo pelo celular ou computador, sem depender de ninguém. E uma regra nossa: nada do que vocês usam hoje fica para trás.</p>
+    <div class="desk rv">
+      <div class="desk-bar"><i></i><i></i><i></i><span>painel.icarawai.com.br</span></div>
+      <div class="toast" id="toast">🔔<div>Novo pedido pago · R$ 145,73<small>Pix · Conjunto Josi + Top Virginia · agora</small></div></div>
+      <div class="desk-body">
+        <div class="side">
+          <div class="lg">ICARAWAI</div>
+          <a class="on" href="#painel">Visão geral</a>
+          <a href="#painel">Pedidos <span>12</span></a>
+          <a href="#painel">Produtos</a>
+          <a href="#painel">Estoque</a>
+          <a href="#painel">Cupons</a>
+          <a href="#painel">Campanhas</a>
+          <a href="#painel">Banners</a>
+          <a href="#gestao">Gestão <span class="plus">+ MÓDULO</span></a>
+        </div>
+        <div class="main">
+          <div class="main-h"><div><b>Bom dia, Neneto 👋</b><br><small>Resumo de hoje · dados ilustrativos · o pedido do carrinho de antes já caiu aqui</small></div><span class="pill ok">● Loja no ar</span></div>
+          <div class="kpis">
+            <div class="kpi"><small>Vendas hoje</small><b>R$ 1.430</b><em>▲ 18%</em></div>
+            <div class="kpi"><small>Pedidos</small><b>13</b><em>▲ 4</em></div>
+            <div class="kpi"><small>Ticket médio</small><b>R$ 110</b><em>▲ 6%</em></div>
+            <div class="kpi"><small>Estoque baixo</small><b>3</b><em style="color:#8A5A00">repor</em></div>
+          </div>
+          <div class="tbl">
+            <div class="r h"><span>Pedido</span><span>Cliente / item</span><span>Canal</span><span>Valor</span><span>Status</span></div>
+            <div class="r fresh"><span>#1043</span><span>Você · Josi + Top Virginia</span><span class="ch">Site</span><span>R$ 145,73</span><span class="st pg">Pago</span></div>
+            <div class="r"><span>#1042</span><span>Ana · Conjunto Josi</span><span class="ch">Site</span><span>R$ 119,90</span><span class="st pg">Pago</span></div>
+            <div class="r"><span>#1041</span><span>Carla · Combo Brabos</span><span class="ch">Live</span><span>R$ 177,90</span><span class="st sp">Enviado</span></div>
+            <div class="r"><span>#1040</span><span>Bruno · Polo Tecnológico</span><span class="ch">Instagram</span><span>R$ 69,90</span><span class="st pg">Pago</span></div>
+            <div class="r"><span>#1039</span><span>Júlia · Macaquinho</span><span class="ch">Site</span><span>R$ 99,90</span><span class="st ag">Separando</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="keep">
+      <div class="rv">
+        <h3>Continua tudo que vocês já têm</h3>
+        <ul>
+          <li>Produtos com cor, tamanho e foto por cor</li>
+          <li>Ofertas, destaques, lançamentos e banners</li>
+          <li>“Últimas unidades”, “Esgotado” e preço de/por</li>
+          <li>Estoque, pedidos e cupons</li>
+          <li>Pedido pelo WhatsApp e links dos grupos VIP</li>
+          <li>Pixel e tags de anúncio</li>
+        </ul>
+      </div>
+      <div class="new rv">
+        <h3>E ganha</h3>
+        <ul>
+          <li>Pagamento online e frete automático</li>
+          <li>Domínio e visual próprios</li>
+          <li>Modo Live e combos montáveis</li>
+          <li>Campanhas com início e fim automáticos</li>
+          <li>Cupom e link por parceira, com relatório</li>
+          <li>Status do pedido avisado ao cliente</li>
+          <li>Acesso por pessoa da equipe, com permissões (opção 3)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · GESTÃO + -->
+<section class="slide" id="gestao" data-title="Módulo Gestão">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">10</span>Módulo adicional · Gestão +</div>
+    <h2 class="rv">Todas as vendas. <span class="accent">Um lugar só.</span></h2>
+    <p class="lead rv">Site, WhatsApp, Instagram, live e loja física no mesmo painel, com o mesmo estoque. É um módulo à parte, que se liga ao painel quando fizer sentido para vocês.</p>
+    <div class="g-grid">
+      <div class="card rv">
+        <div class="card-h"><b>Vendas do mês por canal</b><span class="pill">outubro · ilustrativo</span></div>
+        <div class="bars" id="bars">
+          <div class="bar"><span>Site</span><div class="tr"><i class="a" data-w="78"></i></div><b>R$ 24.900</b></div>
+          <div class="bar"><span>WhatsApp</span><div class="tr"><i data-w="62"></i></div><b>R$ 19.800</b></div>
+          <div class="bar"><span>Loja física</span><div class="tr"><i class="s" data-w="48"></i></div><b>R$ 15.300</b></div>
+          <div class="bar"><span>Lives</span><div class="tr"><i class="a" data-w="40"></i></div><b>R$ 12.800</b></div>
+          <div class="bar"><span>Instagram</span><div class="tr"><i class="m" data-w="22"></i></div><b>R$ 7.000</b></div>
+        </div>
+      </div>
+      <div class="card rv">
+        <div class="card-h"><b>Quem mais vendeu</b><span class="pill">parcerias · ilustrativo</span></div>
+        <div class="rank">
+          <div><span class="pos">1</span><span>Parceira A<small>cupom + link próprio</small></span><b>R$ 8.700</b></div>
+          <div><span class="pos">2</span><span>Grupo VIP Delas<small>link exclusivo</small></span><b>R$ 6.900</b></div>
+          <div><span class="pos">3</span><span>Parceiro B<small>cupom + link próprio</small></span><b>R$ 4.500</b></div>
+          <div><span class="pos">4</span><span>Grupo VIP dos Brabos<small>link exclusivo</small></span><b>R$ 3.400</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="g-row">
+      <div class="card mini rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></div><h4>Venda no WhatsApp em poucos toques</h4><p>Escolhe a peça, gera o link de pagamento e cola na conversa. Pagou, registrou e o estoque baixou.</p><div class="linkbox">icarawai.com.br/p/8F2K <b>Copiar</b></div></div>
+      <div class="card mini rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v10h16V10M3 4h18l-1.5 6h-15z"/><path d="M9 20v-5h6v5"/></svg></div><h4>Caixa da loja física</h4><p>Venda de balcão no celular ou tablet, com o mesmo estoque do site e login por vendedor. Nada de vender a peça que já saiu.</p></div>
+      <div class="card mini rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M21 20H3"/></svg></div><h4>Fechamento do mês</h4><p>Produto campeão, ticket médio, o que está parado e de onde vêm os clientes. Num relatório só.</p></div>
+    </div>
+    <p class="note rv">Números e nomes de exemplo.</p>
+  </div>
+</section>
+
+<!-- É DE VOCÊS -->
+<section class="slide" id="dono" data-title="É de vocês">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">11</span>É de vocês</div>
+    <h2 class="rv">A loja é um <span class="accent">patrimônio</span> da marca.</h2>
+    <p class="lead rv">Tudo o que a Icarawai constrói online fica com a Icarawai: endereço, clientes, histórico e reputação no Google.</p>
+    <div class="own">
+      <div class="card rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div><div><b>Domínio e marca</b><p>Endereço próprio, sem o nome de outra empresa no link, na aba, na prévia ou no rodapé.</p></div></div>
+      <div class="card rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg></div><div><b>Conta de pagamento de vocês</b><p>Vocês escolhem o meio de pagamento e as taxas. O dinheiro cai direto na conta da empresa.</p></div></div>
+      <div class="card rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><div><b>Clientes e pedidos</b><p>A base de clientes é da Icarawai, exportável quando quiserem, para campanha, grupo VIP ou o que vier.</p></div></div>
+      <div class="card rv"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17 9 11l4 4 8-8"/><path d="M15 7h6v6"/></svg></div><div><b>Cresce no ritmo de vocês</b><p>Precisou de algo novo, como atacado, revendedoras ou um app? Entra na loja, sem esperar a plataforma lançar.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · COMO VAMOS TRABALHAR -->
+<section class="slide dark-ish" id="trabalho" data-title="Como vamos trabalhar">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">12</span>Como vamos trabalhar</div>
+    <h2 class="rv">Organizado do <span class="accent">primeiro dia</span> ao lançamento.</h2>
+    <p class="lead rv">Etapas claras, entregas toda semana e vocês vendo o projeto crescer, sem surpresa no final.</p>
+    <div class="timeline">
+      <div class="phase rv"><span class="wk">Semana 1</span><h3>Descoberta</h3><ul><li>Conversa sobre o negócio</li><li>Prioridades e escopo</li><li>Inventário do que já existe</li></ul><div class="out"><span>Entrega</span>Escopo fechado por escrito</div></div>
+      <div class="phase rv"><span class="wk">Semana 2</span><h3>Design</h3><ul><li>Identidade aplicada à loja</li><li>Telas no celular e no PC</li><li>Ajustes com vocês</li></ul><div class="out"><span>Entrega</span>Telas aprovadas</div></div>
+      <div class="phase rv"><span class="wk">Semanas 3 a 6</span><h3>Construção</h3><ul><li>Loja, painel e pagamento</li><li>Frete e domínio</li><li>Migração dos produtos</li></ul><div class="out"><span>Entrega</span>Versão de teste toda sexta</div></div>
+      <div class="phase rv"><span class="wk">Semana 7</span><h3>Testes</h3><ul><li>Compras de teste reais</li><li>Celular, PC, Pix e cartão</li><li>Treinamento do painel</li></ul><div class="out"><span>Entrega</span>Tudo validado por vocês</div></div>
+      <div class="phase go rv"><span class="wk">Lançamento</span><h3>No ar</h3><ul><li>Virada do link oficial</li><li>Acompanhamento de perto</li><li>Evolução contínua</li></ul><div class="out"><span>Entrega</span>Loja vendendo</div></div>
+    </div>
+    <p class="note rv">Prazos estimados para a opção completa. O site próprio (opção 2) fica pronto em 5 a 6 semanas.</p>
+    <div class="rituals">
+      <div class="ritual rv"><div class="big">Sexta</div><b>Entrega da semana</b><p>Um link para vocês testarem o que ficou pronto, direto no celular.</p></div>
+      <div class="ritual rv"><div class="big">1 lugar</div><b>Acompanhamento</b><p>Etapas, pendências e decisões registradas. Vocês sabem sempre onde o projeto está.</p></div>
+      <div class="ritual rv"><div class="big">0 perdas</div><b>Transição segura</b><p>A vitrine atual segue funcionando até a nova estar validada.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · PAPÉIS -->
+<section class="slide alt" id="combinados" data-title="Combinados">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">13</span>Combinados</div>
+    <h2 class="rv">Cada um no seu <span class="accent">papel.</span></h2>
+    <div class="split">
+      <div class="card rv">
+        <h3>Da nossa parte</h3>
+        <ul>
+          <li><i>◆</i>Design, construção e configuração de tudo</li>
+          <li><i>◆</i>Pagamento, frete, domínio e anúncios conectados</li>
+          <li><i>◆</i>Treinamento para vocês usarem o painel com autonomia</li>
+          <li><i>◆</i>Suporte técnico conforme a forma de hospedagem escolhida</li>
+        </ul>
+      </div>
+      <div class="card rv">
+        <h3>Da parte de vocês</h3>
+        <ul>
+          <li><i>◇</i>Fotos e informações das peças</li>
+          <li><i>◇</i>Contas de pagamento e domínio no nome da empresa</li>
+          <li><i>◇</i>Um responsável para aprovar cada etapa</li>
+          <li><i>◇</i>Cadastro e atualização dos produtos pelo painel</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rules rv"><span class="pill">Bom saber</span><p>Meios de pagamento online e plataformas de anúncio têm regras próprias, como nota fiscal e descrição correta dos produtos. Seguir essas regras mantém a loja e os anúncios sempre no ar.</p></div>
+  </div>
+</section>
+
+<!-- 10 · FINAL -->
+<section class="slide" id="caminhos" data-title="Os caminhos">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n">14</span>Os caminhos</div>
+    <h2 class="rv">Do ajuste rápido ao <span class="accent">site completo.</span></h2>
+    <p class="lead rv">Dá pra começar pequeno ou ir direto ao próximo nível. Cada caminho resolve a venda sem depender de vocês.</p>
+    <div class="paths">
+      <div class="path rv">
+        <span class="num">1</span>
+        <h3>Ajuste rápido</h3>
+        <p>Na plataforma que vocês já usam: pagamento online, frete e endereço próprio configurados. Sem trocar de sistema.</p>
+        <div class="meta"><span class="pill">em poucos dias</span></div>
+      </div>
+      <div class="path rec rv">
+        <span class="num">2</span>
+        <h3>Site próprio</h3>
+        <p>O site com o design e o endereço da Icarawai, vendendo sozinho, com painel completo, Modo Live, combos e cupom por parceira.</p>
+        <div class="meta"><span class="pill acc">recomendado</span><span class="pill">5 a 6 semanas</span></div>
+      </div>
+      <div class="path rv">
+        <span class="num">3</span>
+        <h3>Site próprio completo</h3>
+        <p>Tudo do site próprio, mais lookbook com “Compre o look”, carrinho esquecido no WhatsApp, avaliações e cashback.</p>
+        <div class="meta"><span class="pill">cerca de 7 semanas</span></div>
+      </div>
+    </div>
+    <div class="addon rv"><span class="pill">+ adicional</span><div><b>Módulo Gestão +</b><p>Todas as vendas e a loja física num lugar só. Pode entrar junto com o site próprio ou depois.</p></div></div>
+    <p class="note rv">Depois do lançamento, a hospedagem pode ficar totalmente comigo, acompanhada por mim ou por conta de vocês. Os detalhes vêm na proposta.</p>
+  </div>
+</section>
+
+<section class="slide final" id="final" data-title="Próximo passo">
+  <div class="wrap">
+    <div class="kicker rv"><span class="n" style="background:var(--accent)">15</span>Próximo passo</div>
+    <h2 class="rv">Bora levar a Icarawai pro <span class="accent">próximo nível?</span></h2>
+    <p class="lead rv">Isto é uma visão do que dá pra construir. Na conversa a gente escolhe juntos o caminho do tamanho certo para o momento de vocês.</p>
+    <div class="next">
+      <div class="rv"><b>1</b><h4>Conversa</h4><p>Entender como vocês vendem hoje e qual caminho faz mais sentido.</p></div>
+      <div class="rv"><b>2</b><h4>Proposta</h4><p>Escopo, prazo e investimento do caminho escolhido.</p></div>
+      <div class="rv"><b>3</b><h4>Mão na massa</h4><p>Entregas toda semana, com uma versão de teste para vocês.</p></div>
+    </div>
+    <div class="sign rv"><span class="who"><svg class="sym" viewBox="0 0 50 49" aria-hidden="true"><circle cx="3.5" cy="3.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="3.5" r="3.5" fill="#1E1A14"/><rect x="12" y="0" width="26" height="7" rx="3.5" fill="#E38D3D"/><circle cx="3.5" cy="17.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="17.5" r="3.5" fill="#1E1A14"/><rect x="21" y="14" width="17" height="7" rx="3.5" fill="#51B67A"/><circle cx="3.5" cy="31.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="31.5" r="3.5" fill="#1E1A14"/><rect x="12" y="28" width="17" height="7" rx="3.5" fill="#51B67A"/><circle cx="3.5" cy="45.5" r="3.5" fill="#1E1A14"/><circle cx="46.5" cy="45.5" r="3.5" fill="#1E1A14"/><rect x="12" y="42" width="26" height="7" rx="3.5" fill="#E38D3D"/></svg><b>Eduardo Genes</b><span>desenvolvedor web · Fortaleza, CE</span></span><span class="line"></span><span class="mono">edugenes.dev · WhatsApp 85 98109-7155</span></div>
+    <p class="colophon mono rv">// feito à mão, sem template · tipografia: Archivo, Newsreader &amp; JetBrains Mono · rev. 01, novembro de 2026</p>
+  </div>
+</section>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  slides.forEach((s,i)=>{const a=document.createElement('a');a.href='#'+s.id;a.title=s.dataset.title||'';a.setAttribute('aria-label',s.dataset.title||('Seção '+i));dots.appendChild(a);});
+  const dotEls=[...dots.children];
+
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+  document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*60)+'ms';io.observe(el);});
+
+  const so=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const i=slides.indexOf(e.target);dotEls.forEach((d,j)=>d.classList.toggle('on',j===i));}})},{threshold:.5});
+  slides.forEach(s=>so.observe(s));
+
+  const prog=document.getElementById('progress');
+  const onScroll=()=>{const h=document.documentElement.scrollHeight-innerHeight;prog.style.width=(h>0?scrollY/h*100:0)+'%';};
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  const toast=document.getElementById('toast');
+  new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){setTimeout(()=>toast.classList.add('show'),700);o.disconnect();}},{threshold:.4}).observe(toast.closest('.desk'));
+  const bars=document.getElementById('bars');
+  new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){bars.querySelectorAll('i').forEach(i=>i.style.width=i.dataset.w+'%');o.disconnect();}},{threshold:.3}).observe(bars);
+
+  let t=14*60+59;const cd=document.getElementById('cd');
+  setInterval(()=>{t=t>0?t-1:14*60+59;cd.textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');},1000);
+
+  addEventListener('keydown',e=>{
+    if(['ArrowDown','PageDown','ArrowRight',' '].includes(e.key)||['ArrowUp','PageUp','ArrowLeft'].includes(e.key)){
+      const cur=slides.findIndex(s=>s.getBoundingClientRect().top>-innerHeight/2 && s.getBoundingClientRect().top<innerHeight/2);
+      const dir=['ArrowUp','PageUp','ArrowLeft'].includes(e.key)?-1:1;
+      const n=slides[Math.max(0,Math.min(slides.length-1,(cur<0?0:cur)+dir))];
+      if(n){e.preventDefault();n.scrollIntoView({behavior:'smooth'});}
+    }
+  });
+})();
+</script>
+</body>
+</html>
