@@ -21,8 +21,26 @@
     try { return sessionStorage.getItem('eg2_boot') === '1'; } catch (e) { return false; }
   }
 
+  /* rede de segurança: o primeiro fold (.masthead + .toc) fica escondido por
+     body.intro até o loop de rAF remover a classe (~2.4s, ou ~4.5s com boot).
+     Se o rAF for estrangulado — aba carregada em segundo plano, renderizadores
+     headless/scrapers — a linha do tempo nunca chega lá e o fold fica em branco.
+     Este timer independe do loop; no caminho feliz a animação já revelou antes,
+     então vira no-op. Não dispara com a aba oculta (aí o rAF se recupera sozinho
+     ao voltar o foco). */
+  function failsafe() {
+    if (!document.hidden && document.body.classList.contains('intro')) revealAll();
+  }
+  function armFailsafe() {
+    setTimeout(failsafe, 6000);
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden && document.body.classList.contains('intro')) setTimeout(failsafe, 1500);
+    });
+  }
+
   function run() {
     if (reduce) { revealAll(); return; }
+    armFailsafe();
     try {
       if (document.body.hasAttribute('data-boot') && !bootSeen()) {
         try { sessionStorage.setItem('eg2_boot', '1'); } catch (e) {}

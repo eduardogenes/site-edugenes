@@ -342,13 +342,13 @@ body.intro .toc li{opacity:0;}
   @keyframes bblink{50%{opacity:0;}}
 }
 @media (max-width:760px){.boot-ov{padding:18px 20px;}}
-/* touch: sem "any key" — dica discreta de que um tap pula o boot */
-@media (pointer:coarse){
-  .boot-ov::after{
-    content:"[ tap to skip ]";position:absolute;right:20px;bottom:18px;
-    font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--ink-2);
-  }
+/* dica discreta de que dá pra pular o boot — varia por tipo de ponteiro */
+.boot-ov::after{
+  position:absolute;right:20px;bottom:18px;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--ink-2);
 }
+@media (pointer:coarse){ .boot-ov::after{ content:"[ toque para pular ]"; } }
+@media (pointer:fine){ .boot-ov::after{ content:"[ clique ou tecla \00b7 pular ]"; } }
 
 /* ---------------- touch: alvos pequenos ganham área de toque invisível ----------------
    (medidos no Lote 0: PT/EN 19×17, colofão 296×15, wlinks 76×24, to-top 149×37) */
